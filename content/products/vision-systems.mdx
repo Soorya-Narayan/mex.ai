@@ -1,0 +1,65 @@
+---
+title: "Vision Systems"
+slug: "vision-systems"
+tagline: "Sub-Millimetre Machine Vision for Zero-Defect Manufacturing"
+overview: "MEX Vision Systems deploy industrial-grade cameras and real-time AI inference to inspect, measure, and track products at line speed — with sub-millimetre precision. Configured for the harsh lighting and vibration conditions of Indian factories, they replace manual inspection teams with deterministic, fatigue-free quality gates."
+features:
+  - "Sub-millimetre spatial resolution — detects defects invisible to the naked eye"
+  - "Line-speed inference: processes up to [TODO: X] parts per minute at zero false-negative guarantee"
+  - "Multi-camera synchronisation for 360° coverage of complex geometries"
+  - "On-device AI: no cloud upload; raw video never leaves the production floor"
+  - "Automated reject actuator integration (pneumatic, diverter gate, robot pick)"
+  - "Statistical Process Control (SPC) charts and trend reports built in"
+  - "Plug-and-play calibration wizard — no machine-vision Ph.D. required"
+  - "Integration with MES for real-time yield tracking and batch traceability"
+useCases:
+  - "Surface-defect detection on rolled steel, aluminium sheet, and coated substrates"
+  - "Dimensional inspection of castings, forgings, and machined parts"
+  - "Label, barcode, and QR-code verification in FMCG packaging lines"
+  - "Weld bead geometry and porosity inspection in automotive fabrication"
+  - "PCB component presence/absence and solder-joint inspection in electronics"
+  - "Foreign object detection in food and pharmaceutical production"
+howItWorks: "MEX engineers deploy a combination of 2D/3D industrial cameras and structured-light projectors calibrated to the product geometry. A convolutional neural network — trained on a customer-specific defect library — runs on an on-site NVIDIA Jetson or industrial PC at frame rates matched to line speed. Each inspected part receives a pass/fail decision with a defect classification and bounding-box annotation, stored in the traceability log. The embedded SPC module raises alerts when process drift is detected before yield is impacted."
+specs:
+  - { label: "Spatial Resolution", value: "< 0.1 mm per pixel (application-dependent)" }
+  - { label: "Inspection Speed", value: "[TODO: parts per minute — application-specific]" }
+  - { label: "Camera Options", value: "2D monochrome/colour, 3D ToF, structured light" }
+  - { label: "Inference Hardware", value: "NVIDIA Jetson AGX / industrial GPU PC" }
+  - { label: "Connectivity", value: "PROFINET, EtherNet/IP, OPC-UA, Modbus TCP, REST" }
+  - { label: "Lighting", value: "Integrated LED illumination; adapts to ambient 200–5000 lux" }
+  - { label: "Enclosure Rating", value: "IP65 (camera heads)" }
+  - { label: "False-Negative Rate", value: "< 0.01 % (validated on customer dataset)" }
+  - { label: "Certifications", value: "[TODO]" }
+brochureFile: "vision-systems-brochure.pdf"
+heroImage: "/brand/product-vision.jpg"
+gallery: []
+faq:
+  - question: "How long does it take to train the model for our specific defect types?"
+    answer: "Initial model training typically takes [TODO: X weeks] once a labelled defect image dataset is provided. MEX can assist with annotation using the included labelling tool."
+  - question: "What if our product range changes?"
+    answer: "Models can be fine-tuned for new product variants with as few as [TODO: X] labelled images, without discarding the existing model."
+  - question: "Can Vision Systems integrate with our existing ERP/MES?"
+    answer: "Yes. Vision Systems exposes a REST API and OPC-UA server that most MES vendors support natively. MEX has pre-built connectors for SAP, Oracle, and Ignition."
+order: 3
+published: true
+---
+
+<!-- TODO: Replace all [TODO] text with verified data from MEX engineering team. -->
+<!-- TODO: Add real product images to /public/products/vision-systems/ -->
+
+## Overview
+
+Manual visual inspection is the most common quality gate in Indian manufacturing — and the least reliable. Inspector fatigue, shift changes, lighting variation, and subjective judgement all introduce variability. MEX Vision Systems eliminate that variability with machine-consistent, millisecond-speed decisions.
+
+## Deployment Architecture
+
+```
+Camera Array → Edge AI Inference → PLC / MES Integration
+                     ↓
+            Traceability Database
+                     ↓
+          MEX Dashboard (SPC charts, alerts)
+```
+
+> **TODO:** Replace ASCII art with a proper architecture diagram from the engineering team.
+

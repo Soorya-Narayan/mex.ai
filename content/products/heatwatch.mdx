@@ -1,0 +1,64 @@
+---
+title: "HeatWatch"
+slug: "heatwatch"
+tagline: "Continuous Thermal Intelligence for Mission-Critical Processes"
+overview: "HeatWatch is an edge-deployed thermal monitoring system that uses micro-bolometer arrays and AI inference to detect anomalies in real time — before they escalate into costly failures. It operates entirely offline with deterministic closed-loop response in under 12 ms, making it suitable for the most demanding industrial environments."
+features:
+  - "Sub-millimetre thermal resolution (0.05 °C sensitivity) across full machine surfaces"
+  - "Edge-AI anomaly detection with configurable alert thresholds — no cloud dependency"
+  - "Deterministic closed-loop response < 12 ms latency"
+  - "IP67-rated enclosure; operates at ambient 0–65 °C with no active cooling"
+  - "Multi-zone monitoring: simultaneous tracking of up to 32 regions of interest"
+  - "OPC-UA and Modbus TCP/RTU integration with existing SCADA/DCS systems"
+  - "Trend analysis and predictive maintenance dashboards (via MEX Dashboards)"
+  - "Alert routing: SMS, email, SCADA tags, relay outputs"
+useCases:
+  - "Motor and gearbox hot-spot detection in cement and steel plants"
+  - "Bearing and coupling early-warning in paper mills"
+  - "Transformer and switchgear thermal surveillance in power substations"
+  - "Kiln shell thermal mapping in rotary kilns and dryers"
+  - "Battery pack thermal monitoring in EV assembly lines"
+  - "Fire-risk pre-emption in petrochemical and chemical process areas"
+howItWorks: "HeatWatch combines a long-wave infrared (LWIR) micro-bolometer sensor array with an on-device AI inference engine running quantised thermal anomaly models. Raw frames are processed at the edge — no data leaves the site. When a temperature deviation crosses a configurable envelope, the system triggers multi-channel alerts and logs a time-stamped event record to the local historian. Integration with MEX Dashboards gives engineers a web-based live thermal map accessible from any browser on the plant network."
+specs:
+  - { label: "Thermal Resolution", value: "≤ 0.05 °C (NETD)" }
+  - { label: "Sensor Array", value: "LWIR micro-bolometer, 384 × 288 px" }
+  - { label: "Frame Rate", value: "9 Hz / 25 Hz (configurable)" }
+  - { label: "Inference Latency", value: "< 12 ms (edge)" }
+  - { label: "Zones of Interest", value: "Up to 32 simultaneous ROIs" }
+  - { label: "Connectivity", value: "OPC-UA, Modbus TCP/RTU, 4–20 mA, relay" }
+  - { label: "Enclosure Rating", value: "IP67" }
+  - { label: "Ambient Temperature", value: "0 °C – 65 °C operating" }
+  - { label: "Power Supply", value: "24 V DC (PoE option available)" }
+  - { label: "Certifications", value: "[TODO: add CE, BIS, ATEX if applicable]" }
+brochureFile: "heatwatch-brochure.pdf"
+heroImage: "/brand/product-heatwatch.jpg"
+gallery: []
+faq:
+  - question: "Does HeatWatch require an internet connection?"
+    answer: "No. The entire inference pipeline runs on the edge device. Internet connectivity is optional and only needed if you choose to push telemetry to a remote dashboard."
+  - question: "What SCADA systems is HeatWatch compatible with?"
+    answer: "HeatWatch exposes OPC-UA and Modbus TCP/RTU interfaces and has been tested with Siemens WinCC, ABB System 800xA, Honeywell Experion, and Ignition. Any SCADA that supports these protocols can connect."
+  - question: "How long does installation typically take?"
+    answer: "[TODO: Fill in commissioning time from field experience]"
+order: 1
+published: true
+---
+
+<!-- TODO: Replace all [PLACEHOLDER] text with verified data from MEX engineering team. -->
+<!-- TODO: Add real product images to /public/products/heatwatch/ -->
+
+## Overview
+
+HeatWatch brings professional-grade thermal surveillance to Indian manufacturing facilities at a fraction of the cost of traditional handheld thermal cameras or outsourced thermal inspection rounds. By converting reactive maintenance into continuous predictive intelligence, plants using HeatWatch have [PLACEHOLDER: reported X% reduction in unplanned downtime].
+
+## How It Works
+
+The system mounts in a fixed position overlooking the asset under watch. The edge computing unit processes every frame locally, running MEX's proprietary thermal anomaly models. No raw video or sensitive process data ever leaves the plant floor.
+
+> **TODO:** Insert a process-flow diagram here (request from engineering team).
+
+## Integration
+
+HeatWatch slots into your existing control infrastructure via standard industrial protocols — no PLC modifications required. It acts as a smart sensor, publishing temperature readings and alarm states as standard SCADA tags.
+

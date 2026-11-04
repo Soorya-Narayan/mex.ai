@@ -1,0 +1,60 @@
+---
+title: "Data Logger"
+slug: "data-logger"
+tagline: "Industrial-Grade Edge Data Acquisition — Rugged, Protocol-Agnostic"
+overview: "The MEX Data Logger is a hardened edge acquisition unit that connects to virtually any industrial sensor, controller, or communication bus and records high-fidelity time-series data to a local historian. It bridges legacy brown-field equipment with modern cloud or on-premises analytics platforms, without requiring PLC modifications."
+features:
+  - "Protocol-agnostic: Modbus RTU/TCP, OPC-UA, BACnet, DNP3, PROFIBUS, 4–20 mA, thermocouple, pulse"
+  - "On-board flash historian: stores up to [TODO: X GB] locally — survives network outages without data loss"
+  - "Store-and-forward with guaranteed delivery to upstream SCADA, cloud, or on-premises analytics"
+  - "Configurable scan rates: 10 ms to 60 min per tag"
+  - "Up to [TODO: X] simultaneous tags per unit"
+  - "Secure remote configuration and firmware updates over HTTPS"
+  - "IP65-rated DIN-rail form factor; operates at 0–60 °C ambient"
+  - "Redundant power input with UPS hold-up for graceful shutdown"
+useCases:
+  - "Brown-field SCADA integration: bring older PLCs with no Ethernet port into a modern historian"
+  - "Remote unmanned sites: substations, pump stations, weather stations"
+  - "Research and process trials: high-speed data capture for root-cause analysis"
+  - "Energy metering aggregation before passing to MEX EMS"
+  - "Condition monitoring data aggregation feeding MEX HeatWatch and Digital Twin"
+  - "Environmental compliance monitoring (emissions, effluent)"
+howItWorks: "The Data Logger ships pre-configured with MEX's edge firmware. A plant engineer uses the web-based configuration portal to map each field device to a tag, set the scan rate, and define the forwarding destination. The logger autonomously manages scan scheduling, data compression, and retry logic for forwarding. Configuration changes are non-disruptive and take effect without a restart."
+specs:
+  - { label: "Protocols (Serial)", value: "Modbus RTU, DNP3, PROFIBUS DP, IEC 60870-5-101/104" }
+  - { label: "Protocols (Ethernet)", value: "Modbus TCP, OPC-UA, BACnet IP, IEC 61850" }
+  - { label: "Analogue Inputs", value: "4–20 mA, 0–10 V, thermocouple (K, J, T, R, S, B)" }
+  - { label: "Digital I/O", value: "16 DI + 8 DO (24 V DC)" }
+  - { label: "Scan Rate", value: "10 ms – 60 min (per tag)" }
+  - { label: "On-board Storage", value: "[TODO: X GB] industrial-grade flash" }
+  - { label: "Enclosure", value: "IP65 DIN-rail, 35 mm TS35" }
+  - { label: "Power", value: "24 V DC, 9–36 V DC wide range" }
+  - { label: "Ambient Temp.", value: "0 °C – 60 °C operating, −20 °C – 70 °C storage" }
+  - { label: "Certifications", value: "[TODO]" }
+brochureFile: "data-logger-brochure.pdf"
+heroImage: "/brand/product-data-logger.jpg"
+gallery: []
+faq:
+  - question: "Can the Data Logger connect to equipment that is 20–30 years old?"
+    answer: "Yes. MEX Data Logger supports legacy serial protocols (Modbus RTU, DNP3, PROFIBUS) that most older PLCs and instruments use. As long as the device has a supported communication port, it can be integrated."
+  - question: "What happens to data if the network goes down?"
+    answer: "Data is written to the on-board flash historian first. When connectivity is restored, it forwards buffered records with timestamps intact. No data is lost during outages up to [TODO: X days] of storage capacity."
+  - question: "Is PLC programming required for integration?"
+    answer: "No. The Data Logger reads from existing communication ports on the PLC as a Modbus/OPC-UA master. No changes to the PLC program are required."
+order: 5
+published: true
+---
+
+<!-- TODO: Replace all [TODO] text with verified data from MEX engineering team. -->
+<!-- TODO: Add real product images to /public/products/data-logger/ -->
+
+## Overview
+
+Most industrial facilities are a patchwork of equipment from different eras — a 1990s PLC here, a modern servo drive there, an analogue instrument that only speaks 4–20 mA. MEX Data Logger is designed to bridge this heterogeneous reality into a single, coherent, time-synchronised data stream.
+
+## Deployment Topology
+
+The Data Logger can operate standalone or as part of a hierarchical MEX system where multiple field loggers feed into a site-level historian, which in turn feeds MEX Dashboards and the Digital Twin.
+
+> **TODO:** Add a topology diagram from the engineering team.
+

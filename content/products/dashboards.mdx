@@ -1,0 +1,59 @@
+---
+title: "Dashboards"
+slug: "dashboards"
+tagline: "Unified Operations Intelligence — From Sensor to Decision"
+overview: "MEX Dashboards is a browser-based operations intelligence platform that aggregates data from all MEX systems and third-party sources into a single pane of glass. Plant managers, process engineers, and energy teams get role-specific views, real-time KPIs, historical trends, and AI-generated recommendations — all without opening a PLC programming tool."
+features:
+  - "Role-based views: operator screens, engineer analysis, management KPI summaries"
+  - "Real-time data refresh at 1-second granularity"
+  - "Drag-and-drop dashboard builder — no coding required for custom layouts"
+  - "AI anomaly feed: surfaced alerts from HeatWatch, Vision Systems, EMS, and Digital Twin in one queue"
+  - "Historical trend comparison: overlay any tag across any date range"
+  - "Mobile-responsive: fully usable on tablets and phones on plant Wi-Fi"
+  - "Data export: CSV, Excel, PDF report generation on schedule or on-demand"
+  - "Single sign-on (SSO) via LDAP/Active Directory integration"
+useCases:
+  - "Plant operations centre: real-time line status, OEE, and alarm management"
+  - "Energy management room: shift-wise SEC, demand curves, and tariff simulation"
+  - "Quality manager view: Vision Systems yield trends and SPC charts"
+  - "Maintenance team: predictive alert queue ranked by criticality"
+  - "Executive dashboard: plant KPI summary with week-on-week comparison"
+  - "Remote operations centre: multi-site rollup view"
+howItWorks: "MEX Dashboards is deployed as a web server on-site (physical server or VM). It connects to MEX historians, OPC-UA servers, REST APIs, and SQL databases via built-in drivers. Widgets are composable from a library of [TODO: X+] chart types, gauges, tables, and AI insight cards. All configuration is stored as JSON, making dashboards version-controllable. Dashboards can be embedded as iframes into existing operator interfaces."
+specs:
+  - { label: "Interface", value: "Web browser (Chrome, Firefox, Edge, Safari)" }
+  - { label: "Data Refresh", value: "1 s (live), 15 min (trend history)" }
+  - { label: "Supported Sources", value: "MEX systems, OPC-UA, REST, SQL, CSV, MQTT" }
+  - { label: "Authentication", value: "Local, LDAP, Active Directory, SSO (SAML 2.0)" }
+  - { label: "Widget Library", value: "[TODO: X+] widget types" }
+  - { label: "Mobile Support", value: "Responsive web — iOS, Android, tablet" }
+  - { label: "Deployment", value: "On-premises (Linux/Windows server or Docker)" }
+  - { label: "Concurrent Users", value: "[TODO: X users per server tier]" }
+  - { label: "Certifications", value: "[TODO]" }
+brochureFile: "dashboards-brochure.pdf"
+heroImage: "/brand/product-dashboards.jpg"
+gallery: []
+faq:
+  - question: "Can Dashboards connect to non-MEX systems?"
+    answer: "Yes. MEX Dashboards has built-in drivers for OPC-UA, Modbus TCP, REST APIs, and SQL databases. If your existing historian or SCADA supports any of these, it can be connected."
+  - question: "Is programming knowledge needed to build dashboards?"
+    answer: "No. The drag-and-drop builder is designed for process engineers with no coding background. Advanced users can optionally write custom expressions for derived KPIs."
+  - question: "What is the licensing model?"
+    answer: "[TODO: Fill in licensing details from MEX sales team]"
+order: 6
+published: true
+---
+
+<!-- TODO: Replace all [TODO] text with verified data from MEX engineering team. -->
+<!-- TODO: Add real product screenshots to /public/products/dashboards/ -->
+
+## Overview
+
+MEX Dashboards brings together the outputs of every other MEX system — thermal alerts from HeatWatch, yield trends from Vision Systems, energy data from EMS, and predictions from Digital Twin — into a single, coherent interface that operators and managers actually want to use.
+
+## Design Philosophy
+
+We designed Dashboards with two constraints: it must be usable by a plant operator who has never seen a software dashboard before, and it must be powerful enough for a process engineer doing root-cause analysis. The result is a layered UI: simple overview screens for the control room, deep drill-downs for engineers.
+
+> **TODO:** Add dashboard screenshot gallery from MEX UX team before launch.
+
