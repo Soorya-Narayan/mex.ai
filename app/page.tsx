@@ -1,12 +1,24 @@
+import React from "react";
+import { Hero } from "@/components/home/Hero";
+import { ClientLogos } from "@/components/home/ClientLogos";
+import { ProductGrid } from "@/components/home/ProductGrid";
+import { IndustriesSection } from "@/components/home/IndustriesSection";
+import { WhyMexSection } from "@/components/home/WhyMexSection";
+import { CaseStudiesSection } from "@/components/home/CaseStudiesSection";
+import { InsightsTeaser } from "@/components/home/InsightsTeaser";
+import { CtaBand } from "@/components/home/CtaBand";
+
 export default function HomePage() {
   return (
-    <div className="py-24 text-center">
-      <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl text-brand-gradient">
-        Intelligent Industrial Automation
-      </h1>
-      <p className="mt-6 text-lg leading-8 text-muted-foreground max-w-2xl mx-auto">
-        Empowering Industry 4.0 with continuous thermal profiling, digital twins, and autonomous vision systems.
-      </p>
+    <div className="flex flex-col min-h-screen">
+      <Hero />
+      <ClientLogos />
+      <ProductGrid />
+      <IndustriesSection />
+      <WhyMexSection />
+      <CaseStudiesSection />
+      <InsightsTeaser />
+      <CtaBand />
     </div>
   );
 }

@@ -25,3 +25,4 @@ export function TypedImage({ alt, className, ...props }: TypedImageProps) {
     />
   );
 }
+
