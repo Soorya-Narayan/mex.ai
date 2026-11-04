@@ -1,0 +1,42 @@
+name: CI — Build, Typecheck, Security & Smoke Audit
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: TypeScript strict check
+        run: pnpm tsc --noEmit
+
+      - name: Production build
+        run: pnpm build
+        env:
+          NEXT_PUBLIC_APP_URL: https://mexautomation.in
+          NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY: 1x00000000000000000000AA
+          CLOUDFLARE_TURNSTILE_SECRET_KEY: 1x0000000000000000000000000000000AA
+          DATABASE_URL: postgresql://mex_user:mex_password@ep-sample.aws.neon.tech/mex_db?sslmode=require
+          RESEND_API_KEY: re_sample_key
+          SALES_EMAIL: sales@mexautomation.in
+          EMAIL_FROM: "MEX Automation <contact@mexautomation.in>"
