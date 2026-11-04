@@ -1,0 +1,47 @@
+---
+title: "Why Physics-Informed AI Beats Pure ML for Industrial Predictive Maintenance"
+slug: "physics-informed-ai-vs-ml"
+date: "2025-10-20"
+author: "MEX Engineering Team"
+authorRole: "R&D"
+excerpt: "Pure machine-learning models for industrial predictive maintenance fail catastrophically outside their training distribution — exactly when you need them most. Here's why physics-informed neural networks are the right architecture for safety-critical plant equipment."
+tags: ["AI", "Predictive Maintenance", "Digital Twin", "PINNs"]
+heroImage: "/brand/insight-pinns.jpg"
+published: true
+---
+
+<!-- TODO: Have this post reviewed and approved by the MEX engineering team before publishing. -->
+<!-- TODO: Add relevant diagrams and charts. -->
+
+# Why Physics-Informed AI Beats Pure ML for Industrial Predictive Maintenance
+
+Predictive maintenance sounds straightforward: collect sensor data, train a machine-learning model, predict failures before they happen. And it works — right up until it doesn't.
+
+The failure mode of pure ML in industrial settings is well-documented but rarely discussed in vendor literature: when operating conditions shift outside the training distribution, models extrapolate arbitrarily and catastrophically. A compressor running at a new duty point, a furnace operating on a different fuel blend, a motor driving a modified load — all of these scenarios can produce confident but wrong predictions from a purely statistical model.
+
+## The Distribution Shift Problem
+
+[TODO: Expand this section with a concrete example and illustrative chart.]
+
+## What Physics-Informed Neural Networks Do Differently
+
+Physics-Informed Neural Networks (PINNs) embed governing equations — heat transfer, fluid dynamics, mechanical vibration — directly into the loss function during training. The network is penalised for predictions that violate physics, not just predictions that differ from labelled training data.
+
+The result: extrapolation that respects physical law, even for operating regimes never seen during training.
+
+## Data Efficiency
+
+Because the model already "knows" thermodynamics and mechanics, it needs far less labelled failure data to reach production accuracy. For rare failure modes — where you may have only [TODO: X] historical examples — this is not a nice-to-have; it's a prerequisite.
+
+## Practical Implications for Indian Manufacturers
+
+[TODO: Add 2–3 India-specific points: data scarcity, legacy equipment, diverse operating conditions.]
+
+## Conclusion
+
+[TODO: Conclude with MEX's specific approach and an invitation to request a demo.]
+
+---
+
+*The MEX Engineering Team designs and deploys physics-informed AI systems for Indian industrial automation. [Contact us](/contact) to discuss your predictive maintenance challenge.*
+
