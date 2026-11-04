@@ -1,0 +1,37 @@
+[build]
+  command = "pnpm build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+  PNPM_FLAGS = "--frozen-lockfile"
+
+# Redirect www to non-www with HTTPS
+[[redirects]]
+  from = "https://www.mexautomation.in/*"
+  to = "https://mexautomation.in/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.mexautomation.in/*"
+  to = "https://mexautomation.in/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://mexautomation.in/*"
+  to = "https://mexautomation.in/:splat"
+  status = 301
+  force = true
+
+# Immutable caching for self-hosted fonts and brand SVGs/PNGs
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/brand/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
