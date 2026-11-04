@@ -10,3 +10,4 @@ export default defineConfig({
       "postgresql://mex_user:mex_password@ep-sample.aws.neon.tech/mex_db?sslmode=require",
   },
 });
+

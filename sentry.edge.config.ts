@@ -8,3 +8,4 @@ if (dsn) {
     tracesSampleRate: 0.1,
   });
 }
+

@@ -134,3 +134,4 @@ psql "postgresql://neondb_owner:PASSWORD@ep-xyz.ap-south-1.aws.neon.tech/neondb?
 4. Add all environment variables from `.env.example` under **Site configuration → Environment variables**.
 5. Under **Domain management**, add custom domain `mexautomation.in` (primary) and `www.mexautomation.in` (automatically redirected to `https://mexautomation.in` via `middleware.ts` and `netlify.toml`).
 6. Enable **HTTPS (Let's Encrypt)** and **Force HTTPS** in Netlify Domain Settings.
+

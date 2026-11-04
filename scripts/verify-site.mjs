@@ -93,3 +93,4 @@ if (failed) {
 console.log(
   "✅ All brand assets, MDX content files, DB migrations, and built HTML routes verified (1 H1 per page, zero missing routes)."
 );
+

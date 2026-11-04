@@ -73,3 +73,4 @@ test.describe("MEX Automation Marketing Website — Smoke & SEO Audit", () => {
     expect(gaScriptCount).toBe(0);
   });
 });
+

@@ -26,3 +26,4 @@ CREATE TABLE IF NOT EXISTS "leads" (
 -- GRANT INSERT ON TABLE public.leads TO mex_app_writer;
 -- GRANT USAGE, SELECT ON SEQUENCE public.leads_id_seq TO mex_app_writer;
 -- REVOKE SELECT, UPDATE, DELETE, TRUNCATE ON TABLE public.leads FROM mex_app_writer;
+

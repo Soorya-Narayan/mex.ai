@@ -50,3 +50,4 @@ Use this checklist to verify every content, legal, security, and infrastructure 
 - [ ] Test Open Graph preview cards for `/`, `/products/heatwatch`, `/case-studies/cement-plant-energy-reduction`, and `/insights/physics-informed-ai-vs-ml`.
 - [ ] Set `NEXT_PUBLIC_SENTRY_DSN` and verify Sentry receives a test event.
 - [ ] Configure UptimeRobot free monitor for `https://mexautomation.in`.
+

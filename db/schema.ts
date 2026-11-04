@@ -27,3 +27,4 @@ export const leads = pgTable("leads", {
 
 export type NewLead = typeof leads.$inferInsert;
 export type Lead = typeof leads.$inferSelect;
+

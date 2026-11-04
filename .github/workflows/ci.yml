@@ -40,3 +40,4 @@ jobs:
           RESEND_API_KEY: re_sample_key
           SALES_EMAIL: sales@mexautomation.in
           EMAIL_FROM: "MEX Automation <contact@mexautomation.in>"
+

@@ -9,3 +9,4 @@ if (typeof window !== "undefined") {
 
 const sql = neon(env.DATABASE_URL);
 export const db = drizzle(sql, { schema });
+
