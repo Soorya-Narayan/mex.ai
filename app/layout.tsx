@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
+import { CookieConsentBanner } from "@/components/analytics/CookieConsentBanner";
 import "./globals.css";
 
 const spaceGrotesk = localFont({
@@ -82,6 +83,7 @@ export default function RootLayout({
           </main>
           <Footer />
           <WhatsAppButton />
+          <CookieConsentBanner />
         </ThemeProvider>
       </body>
     </html>

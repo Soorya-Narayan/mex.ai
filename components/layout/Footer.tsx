@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { Linkedin, Mail, Phone, MapPin } from "lucide-react";
+import * as CookieConsent from "vanilla-cookieconsent";
 import { Logo } from "@/components/brand/Logo";
 
 export function Footer() {
@@ -10,9 +11,7 @@ export function Footer() {
 
   const handleOpenCookieSettings = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (typeof window !== "undefined" && (window as any).CookieConsent) {
-      (window as any).CookieConsent.showPreferences();
-    }
+    CookieConsent.showPreferences();
   };
 
   return (
