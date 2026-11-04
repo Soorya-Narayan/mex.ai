@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 236 84% 48%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222 47% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222 47% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 236 84% 48%;
+    --radius: 0.75rem;
+
+    --brand-surface: 210 40% 98%;
+    --brand-surface-hover: 210 40% 95%;
+
+    --brand-cyan-display: #00B8D9;
+  }
+
+  .dark {
+    --background: 240 33% 3%; /* #05050A */
+    --foreground: 210 40% 98%;
+    --card: 235 30% 6%;
+    --card-foreground: 210 40% 98%;
+    --popover: 235 30% 6%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 236 84% 48%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 235 25% 12%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 235 25% 12%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 235 25% 12%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 235 20% 16%;
+    --input: 235 20% 16%;
+    --ring: 182 92% 51%; /* #12EEF5 */
+
+    --brand-surface: 235 30% 6%;
+    --brand-surface-hover: 235 25% 10%;
+
+    --brand-cyan-display: #12EEF5;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased min-h-screen flex flex-col selection:bg-brand-blue selection:text-white;
+  }
+
+  /* Accessibility: Visible Focus Rings */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-brand-cyan ring-offset-2 ring-offset-background;
+  }
+
+  /* Accessibility: Prefers Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Custom Utilities for Gradient Text and Glows */
+.text-brand-gradient {
+  background: linear-gradient(90deg, #E81CE6 0%, #8A0CF0 25%, #1A2BDB 50%, #1FA9F0 75%, var(--brand-cyan-display) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.border-brand-gradient {
+  border-image: linear-gradient(90deg, #E81CE6, #8A0CF0, #1A2BDB, #1FA9F0, var(--brand-cyan-display)) 1;
+}
+
+.glow-card {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.glow-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(232, 28, 230, 0.4), rgba(26, 43, 219, 0.2), rgba(18, 238, 245, 0.4));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+.glow-card:hover::before {
+  opacity: 1;
+}
