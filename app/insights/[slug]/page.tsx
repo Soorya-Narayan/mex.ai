@@ -4,6 +4,11 @@ import { notFound } from "next/navigation";
 import { getInsight, getAllInsights, readingTime } from "@/lib/content";
 import { MdxContent } from "@/components/mdx/MdxContent";
 import {
+  JsonLd,
+  getArticleJsonLd,
+  getBreadcrumbJsonLd,
+} from "@/components/seo/JsonLd";
+import {
   ChevronRight,
   Clock,
   Calendar,
@@ -55,6 +60,22 @@ export default async function InsightPostPage({ params }: Props) {
 
   return (
     <main className="min-h-screen">
+      <JsonLd
+        data={getArticleJsonLd({
+          title: p.title,
+          slug: post.slug,
+          excerpt: p.excerpt,
+          date: p.date,
+          author: p.author,
+        })}
+      />
+      <JsonLd
+        data={getBreadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Insights", path: "/insights" },
+          { name: p.title, path: `/insights/${post.slug}` },
+        ])}
+      />
       {/* Hero */}
       <section className="relative pt-20 pb-14 border-b border-border/40 overflow-hidden">
         <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">

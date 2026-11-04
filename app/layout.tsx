@@ -5,6 +5,11 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { CookieConsentBanner } from "@/components/analytics/CookieConsentBanner";
+import {
+  JsonLd,
+  getOrganizationJsonLd,
+  getWebSiteJsonLd,
+} from "@/components/seo/JsonLd";
 import "./globals.css";
 
 const spaceGrotesk = localFont({
@@ -45,6 +50,24 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: "https://mexautomation.in",
+    siteName: "MEX Automation",
+    title: "MEX Automation | Intelligent Industrial AI & Automation",
+    description:
+      "Indian industrial automation & AI powerhouse. Next-gen digital twins, continuous thermal profiling (HeatWatch), vision inspection, and plant-wide EMS.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MEX Automation | Intelligent Industrial AI & Automation",
+    description:
+      "Indian industrial automation & AI powerhouse. Next-gen digital twins, continuous thermal profiling (HeatWatch), vision inspection, and plant-wide EMS.",
+  },
 };
 
 export const viewport: Viewport = {
@@ -84,6 +107,8 @@ export default function RootLayout({
           <Footer />
           <WhatsAppButton />
           <CookieConsentBanner />
+          <JsonLd data={getOrganizationJsonLd()} />
+          <JsonLd data={getWebSiteJsonLd()} />
         </ThemeProvider>
       </body>
     </html>

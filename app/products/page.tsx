@@ -1,13 +1,17 @@
 import React from "react";
 import Link from "next/link";
 import { getAllProducts } from "@/lib/content";
+import { JsonLd, getBreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Products | MEX Automation",
+  title: "Products",
   description:
     "Explore MEX Automation's industrial AI products: HeatWatch thermal monitoring, Digital Twin, Vision Systems, Energy Monitoring, Data Logger, and Dashboards.",
+  alternates: {
+    canonical: "/products",
+  },
 };
 
 const ICON_MAP: Record<string, string> = {
@@ -24,6 +28,12 @@ export default function ProductsPage() {
 
   return (
     <main className="min-h-screen">
+      <JsonLd
+        data={getBreadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Products", path: "/products" },
+        ])}
+      />
       {/* Hero */}
       <section className="relative pt-20 pb-16 overflow-hidden">
         <div className="absolute inset-0 -z-10 opacity-30 dark:opacity-20">

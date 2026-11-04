@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCaseStudy, getAllCaseStudies } from "@/lib/content";
 import { MdxContent } from "@/components/mdx/MdxContent";
+import { JsonLd, getBreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { ChevronRight, ArrowRight, CheckCircle2 } from "lucide-react";
 
 interface Props {
@@ -42,6 +43,13 @@ export default async function CaseStudyPage({ params }: Props) {
 
   return (
     <main className="min-h-screen">
+      <JsonLd
+        data={getBreadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Case Studies", path: "/case-studies" },
+          { name: frontmatter.title, path: `/case-studies/${cs.slug}` },
+        ])}
+      />
       {/* Hero */}
       <section className="relative pt-20 pb-16 border-b border-border/40 overflow-hidden">
         <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">

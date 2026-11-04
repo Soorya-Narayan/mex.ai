@@ -5,6 +5,11 @@ import { getAllProducts, getProduct } from "@/lib/content";
 import { MdxContent } from "@/components/mdx/MdxContent";
 import { BrochureGateModal } from "@/components/products/BrochureGateModal";
 import {
+  JsonLd,
+  getProductJsonLd,
+  getBreadcrumbJsonLd,
+} from "@/components/seo/JsonLd";
+import {
   ChevronRight,
   ArrowRight,
   CheckCircle2,
@@ -42,6 +47,21 @@ export default async function ProductPage({ params }: Props) {
 
   return (
     <main className="min-h-screen">
+      <JsonLd
+        data={getProductJsonLd({
+          title: p.title,
+          slug: p.slug,
+          overview: p.overview,
+          tagline: p.tagline,
+        })}
+      />
+      <JsonLd
+        data={getBreadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Products", path: "/products" },
+          { name: p.title, path: `/products/${p.slug}` },
+        ])}
+      />
       {/* Hero */}
       <section className="relative pt-20 pb-16 overflow-hidden border-b border-border/40">
         <div className="absolute inset-0 -z-10 opacity-20 dark:opacity-15">
