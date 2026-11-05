@@ -3,7 +3,40 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
+  /* Dark-First Default (:root and .dark both apply the #05050A obsidian dark theme) */
+  :root,
+  .dark {
+    --background: 240 33% 3%; /* #05050A */
+    --foreground: 210 40% 98%;
+    --card: 235 32% 6.5%; /* #0B0C16 */
+    --card-foreground: 210 40% 98%;
+    --popover: 235 32% 6.5%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 236 84% 48%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 235 25% 12%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 235 25% 12%;
+    --muted-foreground: 217.9 14% 68%;
+    --accent: 235 25% 12%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 235 22% 17%;
+    --input: 235 22% 17%;
+    --ring: 182 92% 51%; /* #12EEF5 */
+    --radius: 0.75rem;
+
+    --brand-surface: 235 32% 6.5%;
+    --brand-surface-hover: 235 26% 11%;
+
+    --brand-cyan-display: #12EEF5;
+    --brand-cyan-rgb: 18 238 245;
+    color-scheme: dark;
+  }
+
+  /* Light Mode (.light class applied by next-themes / ThemeToggle) */
+  .light {
     --background: 210 40% 98%;
     --foreground: 222 47% 11%;
     --card: 0 0% 100%;
@@ -14,48 +47,23 @@
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222 47% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 40% 94.5%;
+    --muted-foreground: 215.4 18% 40%;
     --accent: 210 40% 96.1%;
     --accent-foreground: 222 47% 11.2%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 236 84% 48%;
-    --radius: 0.75rem;
+    --border: 214.3 31.8% 88%;
+    --input: 214.3 31.8% 88%;
+    --ring: 189 100% 42.5%; /* #00B8D9 */
 
-    --brand-surface: 210 40% 98%;
-    --brand-surface-hover: 210 40% 95%;
+    --brand-surface: 0 0% 100%;
+    --brand-surface-hover: 210 40% 96%;
 
+    /* Deeper cyan (#00B8D9) in light mode for crisp contrast on white */
     --brand-cyan-display: #00B8D9;
-  }
-
-  .dark {
-    --background: 240 33% 3%; /* #05050A */
-    --foreground: 210 40% 98%;
-    --card: 235 30% 6%;
-    --card-foreground: 210 40% 98%;
-    --popover: 235 30% 6%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 236 84% 48%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 235 25% 12%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 235 25% 12%;
-    --muted-foreground: 217.9 10.6% 64.9%;
-    --accent: 235 25% 12%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 235 20% 16%;
-    --input: 235 20% 16%;
-    --ring: 182 92% 51%; /* #12EEF5 */
-
-    --brand-surface: 235 30% 6%;
-    --brand-surface-hover: 235 25% 10%;
-
-    --brand-cyan-display: #12EEF5;
+    --brand-cyan-rgb: 0 184 217;
+    color-scheme: light;
   }
 }
 
@@ -68,6 +76,16 @@
   }
   body {
     @apply bg-background text-foreground font-sans antialiased min-h-screen flex flex-col selection:bg-brand-blue selection:text-white;
+  }
+
+  /* Subtle dark-mode ambient background mesh */
+  html.dark body {
+    background-color: #05050A;
+    background-image:
+      radial-gradient(at 15% 0%, rgba(232, 28, 230, 0.07) 0px, transparent 45%),
+      radial-gradient(at 85% 5%, rgba(18, 238, 245, 0.07) 0px, transparent 45%),
+      radial-gradient(at 50% 50%, rgba(26, 43, 219, 0.05) 0px, transparent 60%);
+    background-attachment: fixed;
   }
 
   /* Accessibility: Visible Focus Rings */
@@ -90,13 +108,28 @@
 
 /* Custom Utilities for Gradient Text and Glows */
 .text-brand-gradient {
-  background: linear-gradient(90deg, #E81CE6 0%, #8A0CF0 25%, #1A2BDB 50%, #1FA9F0 75%, var(--brand-cyan-display) 100%);
+  background: linear-gradient(
+    90deg,
+    #E81CE6 0%,
+    #8A0CF0 25%,
+    #1A2BDB 50%,
+    #1FA9F0 75%,
+    var(--brand-cyan-display) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .border-brand-gradient {
-  border-image: linear-gradient(90deg, #E81CE6, #8A0CF0, #1A2BDB, #1FA9F0, var(--brand-cyan-display)) 1;
+  border-image: linear-gradient(
+      90deg,
+      #E81CE6,
+      #8A0CF0,
+      #1A2BDB,
+      #1FA9F0,
+      var(--brand-cyan-display)
+    )
+    1;
 }
 
 .glow-card {
@@ -110,12 +143,19 @@
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(232, 28, 230, 0.4), rgba(26, 43, 219, 0.2), rgba(18, 238, 245, 0.4));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  background: linear-gradient(
+    135deg,
+    rgba(232, 28, 230, 0.45),
+    rgba(26, 43, 219, 0.25),
+    rgba(18, 238, 245, 0.45)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
-  opacity: 0.4;
+  opacity: 0.45;
   transition: opacity 0.3s ease;
 }
 
@@ -123,10 +163,20 @@
   opacity: 1;
 }
 
+html.dark .glow-card:hover {
+  box-shadow:
+    0 12px 40px -12px rgba(26, 43, 219, 0.35),
+    0 0 24px -8px rgba(18, 238, 245, 0.2);
+}
+
 /* Skeleton shimmer animation */
 @keyframes shimmer {
-  0% { background-position: -400px 0; }
-  100% { background-position: 400px 0; }
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
 }
 
 .shimmer {
@@ -166,11 +216,25 @@
   z-index: 45;
 }
 
+html.light #cc-main {
+  --cc-bg: #ffffff;
+  --cc-primary-color: #0f172a;
+  --cc-secondary-color: #475569;
+  --cc-btn-primary-bg: #1a2bdb;
+  --cc-btn-primary-color: #ffffff;
+  --cc-btn-primary-border-color: #1a2bdb;
+  --cc-btn-primary-hover-bg: #00b8d9;
+  --cc-btn-primary-hover-color: #ffffff;
+  --cc-btn-secondary-bg: #f1f5f9;
+  --cc-btn-secondary-color: #0f172a;
+  --cc-btn-secondary-border-color: #cbd5e1;
+  --cc-btn-secondary-hover-bg: #e2e8f0;
+  --cc-btn-secondary-hover-color: #0f172a;
+}
+
 /* Ensure floating WhatsApp button sits above or clear of cookie banner on small screens */
 @media (max-width: 640px) {
   html.show--consent aside[aria-label="Quick contact"] {
     bottom: 16rem;
   }
 }
-
-

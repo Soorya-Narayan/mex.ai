@@ -86,7 +86,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${spaceGrotesk.variable} ${inter.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`dark ${spaceGrotesk.variable} ${inter.variable}`}
+    >
       <body className="min-h-screen flex flex-col font-sans bg-background text-foreground antialiased selection:bg-brand-blue selection:text-white">
         <a
           href="#main-content"
@@ -97,7 +101,7 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
-          enableSystem
+          enableSystem={false}
           disableTransitionOnChange
         >
           <Header />

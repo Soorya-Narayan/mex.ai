@@ -3,42 +3,89 @@
 import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { cn } from "@/lib/utils";
 
 export function ThemeToggle() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
     setMounted(true);
   }, []);
 
+  const applyTheme = (nextTheme: "dark" | "light") => {
+    setTheme(nextTheme);
+    if (typeof document !== "undefined") {
+      const root = document.documentElement;
+      if (nextTheme === "dark") {
+        root.classList.add("dark");
+        root.classList.remove("light");
+        root.style.colorScheme = "dark";
+      } else {
+        root.classList.remove("dark");
+        root.classList.add("light");
+        root.style.colorScheme = "light";
+      }
+    }
+  };
+
   if (!mounted) {
     return (
-      <button
-        type="button"
-        className="w-10 h-10 rounded-lg flex items-center justify-center border border-border bg-background/50 text-muted-foreground"
-        aria-label="Toggle theme placeholder"
+      <div
+        className="inline-flex items-center rounded-xl border border-border bg-card/60 p-1 h-10"
+        aria-label="Theme switcher"
       >
-        <span className="w-5 h-5" />
-      </button>
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-brand-blue/20 text-brand-cyan text-xs font-semibold">
+          <Moon className="w-3.5 h-3.5" />
+          <span className="hidden sm:inline">Dark</span>
+        </span>
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-muted-foreground text-xs font-medium">
+          <Sun className="w-3.5 h-3.5" />
+          <span className="hidden sm:inline">Light</span>
+        </span>
+      </div>
     );
   }
 
-  const isDark = resolvedTheme === "dark";
+  const isDark = resolvedTheme !== "light";
 
   return (
-    <button
-      type="button"
-      onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="w-10 h-10 rounded-lg flex items-center justify-center border border-border bg-background/60 hover:bg-muted text-foreground transition-colors focus-visible:ring-2 focus-visible:ring-brand-cyan"
-      aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
+    <div
+      role="group"
+      aria-label="Color theme switcher"
+      className="inline-flex items-center rounded-xl border border-border/80 bg-card/70 backdrop-blur-md p-1 h-10 shadow-sm"
     >
-      {isDark ? (
-        <Sun className="w-4 h-4 text-amber-400 transition-transform rotate-0 hover:rotate-45" />
-      ) : (
-        <Moon className="w-4 h-4 text-brand-blue transition-transform hover:-rotate-12" />
-      )}
-    </button>
+      <button
+        type="button"
+        onClick={() => applyTheme("dark")}
+        aria-pressed={isDark}
+        aria-label="Switch to Dark mode"
+        className={cn(
+          "inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all focus-visible:ring-2 focus-visible:ring-brand-cyan",
+          isDark
+            ? "bg-brand-blue text-white shadow-sm shadow-brand-blue/40"
+            : "text-muted-foreground hover:text-foreground"
+        )}
+      >
+        <Moon className="w-3.5 h-3.5" />
+        <span className="hidden sm:inline">Dark</span>
+      </button>
+
+      <button
+        type="button"
+        onClick={() => applyTheme("light")}
+        aria-pressed={!isDark}
+        aria-label="Switch to Light mode"
+        className={cn(
+          "inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all focus-visible:ring-2 focus-visible:ring-brand-cyan",
+          !isDark
+            ? "bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 shadow-sm"
+            : "text-muted-foreground hover:text-foreground"
+        )}
+      >
+        <Sun className="w-3.5 h-3.5" />
+        <span className="hidden sm:inline">Light</span>
+      </button>
+    </div>
   );
 }
-

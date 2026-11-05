@@ -27,12 +27,10 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // 2. Per-request cryptographic nonce for CSP
-  const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
-
+  // 2. Security headers & Content-Security-Policy
   const cspDirectives = [
     "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}' 'unsafe-inline' https://challenges.cloudflare.com https://www.googletagmanager.com https://browser.sentry-cdn.com`,
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com https://www.googletagmanager.com https://browser.sentry-cdn.com",
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://challenges.cloudflare.com",
     "font-src 'self' data:",
@@ -51,7 +49,6 @@ export function middleware(request: NextRequest) {
   const cspHeader = cspDirectives.join("; ");
 
   const requestHeaders = new Headers(request.headers);
-  requestHeaders.set("x-nonce", nonce);
   requestHeaders.set("Content-Security-Policy", cspHeader);
 
   const response = NextResponse.next({
