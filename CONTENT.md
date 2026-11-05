@@ -36,7 +36,7 @@ howItWorks: "Paragraph explaining the sensing, edge-AI, and integration workflow
 specs:
   - { label: "Thermal Resolution", value: "≤ 0.05 °C (NETD)" }
   - { label: "Enclosure Rating", value: "IP67" }
-brochureFile: "heatwatch-brochure.pdf" # Place corresponding PDF in /public/brochures/
+brochureFile: "heatwatch-brochure.pdf" # Place corresponding PDF in /private/brochures/ (served via /api/brochures with a short-lived signed token)
 heroImage: "/brand/product-heatwatch.jpg"
 gallery: []
 faq:
@@ -50,6 +50,15 @@ published: true
 
 Write standard Markdown below the frontmatter (`##` headings, lists, blockquotes, code blocks, and Markdown tables are all supported).
 ```
+
+### Private Brochure PDFs (`private/brochures/`) — TODO Before Launch
+Brochure PDFs are stored outside `/public` in `private/brochures/` and served exclusively through `/api/brochures` after a Turnstile-verified form submission using a short-lived HMAC-signed token:
+- [ ] **TODO:** `private/brochures/heatwatch-brochure.pdf` — Replace placeholder PDF with final HeatWatch datasheet
+- [ ] **TODO:** `private/brochures/digital-twin-brochure.pdf` — Replace placeholder PDF with final Digital Twin datasheet
+- [ ] **TODO:** `private/brochures/vision-systems-brochure.pdf` — Replace placeholder PDF with final Vision Systems datasheet
+- [ ] **TODO:** `private/brochures/ems-brochure.pdf` — Replace placeholder PDF with final Energy Monitoring Systems datasheet
+- [ ] **TODO:** `private/brochures/data-logger-brochure.pdf` — Replace placeholder PDF with final Data Logger datasheet
+- [ ] **TODO:** `private/brochures/dashboards-brochure.pdf` — Replace placeholder PDF with final Dashboards datasheet
 
 ---
 

@@ -10,6 +10,10 @@ import { db } from "@/db";
 import { leads } from "@/db/schema";
 import { LeadNotificationEmail } from "@/emails/LeadNotificationEmail";
 import { LeadAutoReplyEmail } from "@/emails/LeadAutoReplyEmail";
+import {
+  isValidBrochureFile,
+  createBrochureDownloadToken,
+} from "@/lib/brochure-token";
 
 // ─── Rate Limiter (5 submissions per IP per 10 minutes) ──────────────────────
 
@@ -245,7 +249,18 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    return NextResponse.json({ success: true }, { status: 200 });
+    let downloadUrl: string | undefined;
+    if (
+      parsed.data.brochureFile &&
+      isValidBrochureFile(parsed.data.brochureFile)
+    ) {
+      const token = createBrochureDownloadToken(parsed.data.brochureFile);
+      downloadUrl = `/api/brochures?file=${encodeURIComponent(
+        parsed.data.brochureFile
+      )}&token=${encodeURIComponent(token)}`;
+    }
+
+    return NextResponse.json({ success: true, downloadUrl }, { status: 200 });
   } catch (err) {
     Sentry.captureException(err);
     // Generic error message — never leak internal stack traces or DB details

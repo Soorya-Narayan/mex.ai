@@ -43,6 +43,7 @@ export const ContactFormSchema = z.object({
   // Honeypot field — must remain empty
   website: z.string().max(0).optional().or(z.literal("")),
   turnstileToken: z.string().optional(),
+  brochureFile: z.string().max(100).optional(),
 });
 
 export type ContactFormValues = z.infer<typeof ContactFormSchema>;

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Download, X, CheckCircle2, Loader2 } from "lucide-react";
 
 interface BrochureGateModalProps {
@@ -20,13 +20,67 @@ export function BrochureGateModal({
   const [email, setEmail] = useState("");
   const [consent, setConsent] = useState(false);
   const [website, setWebsite] = useState(""); // honeypot
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [turnstileToken, setTurnstileToken] = useState(
+    process.env.NODE_ENV === "development" ? "dev-turnstile-token" : ""
+  );
+  const [downloadUrl, setDownloadUrl] = useState("");
+  const [status, setStatus] = useState<
+    "idle" | "submitting" | "success" | "error"
+  >("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const turnstileRef = useRef<HTMLDivElement | null>(null);
+
+  const siteKey =
+    process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY ||
+    "1x00000000000000000000AA";
+
+  useEffect(() => {
+    if (!open || status === "success") return;
+
+    const renderWidget = () => {
+      if (
+        turnstileRef.current &&
+        window.turnstile &&
+        turnstileRef.current.childElementCount === 0
+      ) {
+        window.turnstile.render(turnstileRef.current, {
+          sitekey: siteKey,
+          callback: (token: string) => setTurnstileToken(token),
+        });
+      }
+    };
+
+    const existingScript = document.getElementById("cf-turnstile-script");
+    if (!existingScript) {
+      const script = document.createElement("script");
+      script.id = "cf-turnstile-script";
+      const nonce = document
+        .querySelector('meta[name="csp-nonce"]')
+        ?.getAttribute("content");
+      if (nonce) script.nonce = nonce;
+      script.src =
+        "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+      script.async = true;
+      script.defer = true;
+      script.onload = renderWidget;
+      document.body.appendChild(script);
+    } else {
+      renderWidget();
+    }
+  }, [open, status, siteKey]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!consent) {
-      setErrorMsg("Please agree to the privacy consent to download the brochure.");
+      setErrorMsg(
+        "Please agree to the privacy consent to download the brochure."
+      );
+      setStatus("error");
+      return;
+    }
+
+    if (!turnstileToken) {
+      setErrorMsg("Please complete the security verification.");
       setStatus("error");
       return;
     }
@@ -47,15 +101,23 @@ export function BrochureGateModal({
           message: `Requested product brochure (${brochureFile}) for ${productTitle}.`,
           consent: true,
           website,
-          turnstileToken: "brochure-gate",
+          turnstileToken,
+          brochureFile,
         }),
       });
 
-      if (!res.ok) {
-        const data = (await res.json().catch(() => ({}))) as { error?: string };
-        throw new Error(data.error || "Unable to process request right now.");
+      const data = (await res.json().catch(() => ({}))) as {
+        error?: string;
+        downloadUrl?: string;
+      };
+
+      if (!res.ok || !data.downloadUrl) {
+        throw new Error(
+          data.error || "Unable to process brochure request right now."
+        );
       }
 
+      setDownloadUrl(data.downloadUrl);
       setStatus("success");
     } catch (err) {
       setStatus("error");
@@ -102,13 +164,13 @@ export function BrochureGateModal({
                   Brochure Ready
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  Thank you! We&apos;ve also sent a copy of the{" "}
-                  <strong className="text-foreground">{productTitle}</strong> technical
-                  datasheet to <strong className="text-foreground">{email}</strong>.
+                  Thank you! Your verified download link for{" "}
+                  <strong className="text-foreground">{productTitle}</strong> is
+                  active for the next 15 minutes.
                 </p>
                 <div className="pt-2">
                   <a
-                    href={`/brochures/${brochureFile}`}
+                    href={downloadUrl}
                     download={brochureFile}
                     className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-brand-gradient text-white font-semibold text-sm shadow-lg"
                   >
@@ -130,8 +192,8 @@ export function BrochureGateModal({
                     Download {productTitle} Brochure
                   </h3>
                   <p className="text-xs text-muted-foreground mt-1">
-                    Enter your work email to unlock the specification sheet and
-                    architecture overview PDF.
+                    Enter your work email to unlock a signed download link for
+                    the specification sheet PDF.
                   </p>
                 </div>
 
@@ -171,11 +233,12 @@ export function BrochureGateModal({
                       htmlFor="brochure-company"
                       className="block text-xs font-semibold text-foreground mb-1.5"
                     >
-                      Company / Plant
+                      Company / Plant *
                     </label>
                     <input
                       id="brochure-company"
                       type="text"
+                      required
                       value={company}
                       onChange={(e) => setCompany(e.target.value)}
                       placeholder="Apex Manufacturing Ltd."
@@ -215,6 +278,9 @@ export function BrochureGateModal({
                     </span>
                   </label>
 
+                  {/* Cloudflare Turnstile Widget Container */}
+                  <div ref={turnstileRef} className="min-h-[2px]" />
+
                   {status === "error" && errorMsg && (
                     <p className="text-xs text-red-400 bg-red-500/10 border border-red-500/30 rounded-lg px-3 py-2">
                       {errorMsg}
@@ -229,7 +295,7 @@ export function BrochureGateModal({
                     {status === "submitting" ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin" />
-                        Preparing Download...
+                        Verifying &amp; Preparing Link...
                       </>
                     ) : (
                       <>
@@ -247,4 +313,3 @@ export function BrochureGateModal({
     </>
   );
 }
-
