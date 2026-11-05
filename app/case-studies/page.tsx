@@ -54,53 +54,73 @@ export default function CaseStudiesPage() {
       {/* Case Studies Grid */}
       <section className="py-20">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {caseStudies.map((cs) => (
-              <Link
-                key={cs.slug}
-                href={`/case-studies/${cs.slug}`}
-                className="group glow-card rounded-2xl border border-border/60 bg-card/40 p-8 flex flex-col justify-between transition-all hover:-translate-y-1"
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-4 mb-4">
-                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-brand-magenta/10 text-brand-magenta border border-brand-magenta/30">
-                      {cs.frontmatter.industry}
-                    </span>
-                    <span className="text-xs font-mono text-muted-foreground">
-                      {cs.frontmatter.client}
-                    </span>
-                  </div>
+          {caseStudies.length > 0 ? (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {caseStudies.map((cs) => (
+                <Link
+                  key={cs.slug}
+                  href={`/case-studies/${cs.slug}`}
+                  className="group glow-card rounded-2xl border border-border/60 bg-card/40 p-8 flex flex-col justify-between transition-all hover:-translate-y-1"
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-4 mb-4">
+                      <span className="px-3 py-1 rounded-full text-xs font-semibold bg-brand-magenta/10 text-brand-magenta border border-brand-magenta/30">
+                        {cs.frontmatter.industry}
+                      </span>
+                      <span className="text-xs font-mono text-muted-foreground">
+                        {cs.frontmatter.client}
+                      </span>
+                    </div>
 
-                  <h2 className="text-2xl font-bold text-foreground group-hover:text-brand-cyan transition-colors mb-3">
-                    {cs.frontmatter.title}
-                  </h2>
+                    <h2 className="text-2xl font-bold text-foreground group-hover:text-brand-cyan transition-colors mb-3">
+                      {cs.frontmatter.title}
+                    </h2>
 
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                    {cs.frontmatter.challenge}
-                  </p>
-
-                  <div className="space-y-2 mb-6 border-t border-border/40 pt-4">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
-                      Key Results
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                      {cs.frontmatter.challenge}
                     </p>
-                    {cs.frontmatter.results.slice(0, 3).map((res, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-start gap-2 text-sm text-foreground"
-                      >
-                        <CheckCircle2 className="w-4 h-4 text-brand-cyan flex-shrink-0 mt-0.5" />
-                        <span>{res}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
 
-                <div className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-cyan group-hover:gap-2.5 transition-all">
-                  Read full case study <ArrowRight className="w-4 h-4" />
-                </div>
+                    <div className="space-y-2 mb-6 border-t border-border/40 pt-4">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                        Key Results
+                      </p>
+                      {cs.frontmatter.results.slice(0, 3).map((res, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-start gap-2 text-sm text-foreground"
+                        >
+                          <CheckCircle2 className="w-4 h-4 text-brand-cyan flex-shrink-0 mt-0.5" />
+                          <span>{res}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-cyan group-hover:gap-2.5 transition-all">
+                    Read full case study <ArrowRight className="w-4 h-4" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-border/60 bg-card/40 p-10 text-center max-w-2xl mx-auto">
+              <h2 className="text-2xl font-bold text-foreground mb-3">
+                Customer Case Studies Coming Soon
+              </h2>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                We are currently finalizing client-approved deployment metrics
+                across cement, steel, and automotive manufacturing plants.
+                Contact our application engineering team to request a private
+                reference briefing or live demo.
+              </p>
+              <Link
+                href="/contact?interest=request-demo"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-gradient px-6 py-3 text-sm font-bold text-white shadow hover:opacity-90 transition-opacity"
+              >
+                Request a Reference Briefing <ArrowRight className="w-4 h-4" />
               </Link>
-            ))}
-          </div>
+            </div>
+          )}
         </div>
       </section>
     </main>

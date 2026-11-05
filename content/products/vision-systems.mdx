@@ -21,15 +21,15 @@ useCases:
   - "Foreign object detection in food and pharmaceutical production"
 howItWorks: "MEX engineers deploy a combination of 2D/3D industrial cameras and structured-light projectors calibrated to the product geometry. A convolutional neural network — trained on a customer-specific defect library — runs on an on-site NVIDIA Jetson or industrial PC at frame rates matched to line speed. Each inspected part receives a pass/fail decision with a defect classification and bounding-box annotation, stored in the traceability log. The embedded SPC module raises alerts when process drift is detected before yield is impacted."
 specs:
-  - { label: "Spatial Resolution", value: "< 0.1 mm per pixel (application-dependent)" }
-  - { label: "Inspection Speed", value: "[TODO: parts per minute — application-specific]" }
-  - { label: "Camera Options", value: "2D monochrome/colour, 3D ToF, structured light" }
-  - { label: "Inference Hardware", value: "NVIDIA Jetson AGX / industrial GPU PC" }
-  - { label: "Connectivity", value: "PROFINET, EtherNet/IP, OPC-UA, Modbus TCP, REST" }
-  - { label: "Lighting", value: "Integrated LED illumination; adapts to ambient 200–5000 lux" }
-  - { label: "Enclosure Rating", value: "IP65 (camera heads)" }
-  - { label: "False-Negative Rate", value: "< 0.01 % (validated on customer dataset)" }
-  - { label: "Certifications", value: "[TODO]" }
+  - { label: "Spatial Resolution", value: "< 0.1 mm per pixel (application-dependent) [TODO: confirm]" }
+  - { label: "Inspection Speed", value: "[TODO: confirm — parts per minute, application-specific]" }
+  - { label: "Camera Options", value: "2D monochrome/colour, 3D ToF, structured light [TODO: confirm]" }
+  - { label: "Inference Hardware", value: "NVIDIA Jetson AGX / industrial GPU PC [TODO: confirm]" }
+  - { label: "Connectivity", value: "PROFINET, EtherNet/IP, OPC-UA, Modbus TCP, REST [TODO: confirm]" }
+  - { label: "Lighting", value: "Integrated LED illumination; adapts to ambient 200–5000 lux [TODO: confirm]" }
+  - { label: "Enclosure Rating", value: "IP65 (camera heads) [TODO: confirm]" }
+  - { label: "False-Negative Rate", value: "< 0.01 % (validated on customer dataset) [TODO: confirm]" }
+  - { label: "Certifications", value: "[TODO: confirm]" }
 brochureFile: "vision-systems-brochure.pdf"
 heroImage: "/brand/product-vision.jpg"
 gallery: []

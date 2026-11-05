@@ -1,5 +1,6 @@
 import React from "react";
 import { Shield, Cpu, RefreshCw, Wrench } from "lucide-react";
+import { SITE_CONFIG } from "@/lib/site-config";
 
 const pillars = [
   {
@@ -45,15 +46,18 @@ export function WhyMexSection() {
               Generic IoT platforms fail on the heavy manufacturing floor. MEX combines hardened edge electronics, high-speed machine vision, and physics-driven digital twins into unified production safeguards.
             </p>
 
-            {/* Stat callout card */}
-            <div className="p-6 rounded-2xl border border-border/80 bg-card/60 backdrop-blur-md space-y-4">
-              <div className="text-3xl font-extrabold text-brand-gradient">
-                99.99% Field Uptime <span className="text-xs font-normal text-muted-foreground block">[PLACEHOLDER]</span>
+            {/* Stat callout card — gated behind SITE_CONFIG.showVerifiedCustomerData */}
+            {SITE_CONFIG.showVerifiedCustomerData && (
+              <div className="p-6 rounded-2xl border border-border/80 bg-card/60 backdrop-blur-md space-y-4">
+                <div className="text-3xl font-extrabold text-brand-gradient">
+                  99.99% Field Uptime
+                </div>
+                <p className="text-xs text-muted-foreground leading-normal">
+                  Validated across continuous operating hours on automotive
+                  stamping, steel casting, and thermal packaging lines.
+                </p>
               </div>
-              <p className="text-xs text-muted-foreground leading-normal">
-                Validated across 50,000+ continuous operating hours across automotive stamping, steel casting, and thermal packaging lines [PLACEHOLDER].
-              </p>
-            </div>
+            )}
           </div>
 
           {/* Right Column: 4 Pillars Grid */}

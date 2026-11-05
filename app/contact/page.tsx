@@ -156,9 +156,7 @@ export default async function ContactPage({
                   <span className="text-xs font-semibold text-foreground">
                     Location Map
                   </span>
-                  <span className="text-xs font-mono text-muted-foreground">
-                    [PLACEHOLDER: Update coordinates]
-                  </span>
+                  {/* TODO: Update map embed coordinates with exact office pin */}
                 </div>
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.2613173278896!2d73.8567437!3d18.5204303!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c07f4b3e9b39%3A0x6b8a90000!2sPune%2C+Maharashtra!5e0!3m2!1sen!2sin!4v1699999999999"

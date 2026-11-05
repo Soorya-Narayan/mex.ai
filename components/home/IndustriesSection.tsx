@@ -12,52 +12,52 @@ import {
 
 export const industries = [
   {
-    title: "Heavy Engineering & Metals",
-    slug: "heavy-engineering-metals",
+    title: "Steel & Metals",
+    slug: "steel",
     icon: Factory,
     summary:
-      "Blast furnace refractory lining monitoring, continuous billet casting inspection, and predictive ladle breakout prevention.",
-    keyBenefit: "-75% Ladle Breakout Incidents [PLACEHOLDER]",
+      "Blast furnace refractory lining monitoring, continuous billet casting inspection, and predictive ladle anomaly detection.",
+    keyBenefit: "Continuous Furnace & Slab Surveillance",
   },
   {
-    title: "Automotive & Electric Vehicles",
-    slug: "automotive-ev",
+    title: "Automotive & Auto Components",
+    slug: "automotive",
     icon: Car,
     summary:
-      "Battery pack thermal runaway prevention during cell assembly, robotic welding bead verification, and precision stamping inspection.",
-    keyBenefit: "100% Thermal Weld Traceability [PLACEHOLDER]",
+      "Battery pack thermal monitoring during cell assembly, robotic welding bead verification, and precision stamping inspection.",
+    keyBenefit: "Inline Surface & Weld Verification",
   },
   {
-    title: "Pharmaceuticals & Cleanrooms",
-    slug: "pharmaceuticals-cleanrooms",
+    title: "Pharmaceuticals & Life Sciences",
+    slug: "pharma",
     icon: Pill,
     summary:
-      "21 CFR Part 11 compliant audit logging, sterile blister packaging leak detection, and lyophilization temperature uniformity.",
-    keyBenefit: "Zero Defect Release Audit Trail [PLACEHOLDER]",
+      "Audit-ready environmental data logging, sterile blister packaging inspection, and lyophilization temperature tracking.",
+    keyBenefit: "End-to-End Batch Traceability",
   },
   {
-    title: "FMCG, Food & Packaging",
-    slug: "fmcg-packaging",
+    title: "Food & Beverage",
+    slug: "food-beverage",
     icon: Package,
     summary:
-      "High-speed bottle cap alignment, OCR label expiry verification, and specific energy reduction across high-tonnage chiller loops.",
-    keyBenefit: "1,200 PPM Line Speed Inspection [PLACEHOLDER]",
+      "High-speed bottle cap alignment, OCR label expiry verification, and specific energy monitoring across refrigeration loops.",
+    keyBenefit: "Cold-Chain & Packaging Integrity",
   },
   {
-    title: "Power Generation & Utilities",
-    slug: "power-generation-utilities",
+    title: "Oil, Gas & Petrochemicals",
+    slug: "oil-gas",
     icon: Zap,
     summary:
-      "High-voltage switchgear hot-spot detection, transformer oil thermal gradient tracking, and peak-demand penalty avoidance.",
-    keyBenefit: "Avoided \$350K In Unscheduled Outages [PLACEHOLDER]",
+      "High-voltage switchgear hot-spot detection, rotating asset health modelling, and continuous thermal safety surveillance.",
+    keyBenefit: "Early Thermal & Asset Anomaly Detection",
   },
   {
-    title: "Electronics & Semiconductor",
-    slug: "electronics-semiconductor",
+    title: "Cement & Building Materials",
+    slug: "cement",
     icon: Cpu,
     summary:
-      "Surface mount technology (SMT) solder joint defect verification, reflow oven thermal profiling, and component placement checks.",
-    keyBenefit: "99.99% First-Pass Yield [PLACEHOLDER]",
+      "Rotary kiln shell thermal profiling, cooler hot-spot detection, and plant-wide specific energy consumption (SEC) analytics.",
+    keyBenefit: "Kiln Thermal & Energy Optimization",
   },
 ];
 

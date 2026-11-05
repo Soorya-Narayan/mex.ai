@@ -62,88 +62,99 @@ export default function CareersPage() {
             Open Roles ({roles.length})
           </h2>
 
-          <div className="space-y-8">
-            {roles.map((role) => {
-              const r = role.frontmatter;
-              return (
-                <article
-                  key={role.slug}
-                  className="glow-card rounded-2xl border border-border/60 bg-card/40 p-6 sm:p-8"
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                    <div>
-                      <span className="text-xs font-semibold uppercase tracking-wider text-brand-cyan">
-                        {r.department}
+          {roles.length === 0 ? (
+            <div className="rounded-2xl border border-border/60 bg-card/30 p-8 text-center">
+              <p className="text-sm text-muted-foreground">
+                There are no specific role listings published right now, but we
+                are always interested in meeting exceptional industrial
+                automation, embedded systems, and machine-learning engineers.
+                Submit a general application below.
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-8">
+              {roles.map((role) => {
+                const r = role.frontmatter;
+                return (
+                  <article
+                    key={role.slug}
+                    className="glow-card rounded-2xl border border-border/60 bg-card/40 p-6 sm:p-8"
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                      <div>
+                        <span className="text-xs font-semibold uppercase tracking-wider text-brand-cyan">
+                          {r.department}
+                        </span>
+                        <h3 className="text-2xl font-bold text-foreground mt-1">
+                          {r.title}
+                        </h3>
+                      </div>
+                      <a
+                        href="#apply-form"
+                        className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-bold text-white shadow hover:opacity-90 transition-opacity"
+                      >
+                        Apply for Role <ArrowRight className="w-4 h-4" />
+                      </a>
+                    </div>
+
+                    <div className="flex flex-wrap gap-4 text-xs text-muted-foreground mb-6">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border/60 bg-background">
+                        <MapPin className="w-3.5 h-3.5 text-brand-cyan" />
+                        {r.location}
                       </span>
-                      <h3 className="text-2xl font-bold text-foreground mt-1">
-                        {r.title}
-                      </h3>
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border/60 bg-background">
+                        <Briefcase className="w-3.5 h-3.5 text-brand-magenta" />
+                        {r.type}
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border/60 bg-background">
+                        <Clock className="w-3.5 h-3.5 text-brand-cyan" />
+                        {r.experience}
+                      </span>
                     </div>
-                    <a
-                      href="#apply-form"
-                      className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-bold text-white shadow hover:opacity-90 transition-opacity"
-                    >
-                      Apply for Role <ArrowRight className="w-4 h-4" />
-                    </a>
-                  </div>
 
-                  <div className="flex flex-wrap gap-4 text-xs text-muted-foreground mb-6">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border/60 bg-background">
-                      <MapPin className="w-3.5 h-3.5 text-brand-cyan" />
-                      {r.location}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border/60 bg-background">
-                      <Briefcase className="w-3.5 h-3.5 text-brand-magenta" />
-                      {r.type}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border/60 bg-background">
-                      <Clock className="w-3.5 h-3.5 text-brand-cyan" />
-                      {r.experience}
-                    </span>
-                  </div>
+                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6">
+                      {r.description}
+                    </p>
 
-                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6">
-                    {r.description}
-                  </p>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-border/40">
-                    <div>
-                      <h4 className="text-sm font-bold text-foreground mb-3">
-                        Responsibilities
-                      </h4>
-                      <ul className="space-y-2">
-                        {r.responsibilities.map((item, idx) => (
-                          <li
-                            key={idx}
-                            className="flex items-start gap-2 text-xs sm:text-sm text-muted-foreground"
-                          >
-                            <CheckCircle2 className="w-4 h-4 text-brand-cyan flex-shrink-0 mt-0.5" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-border/40">
+                      <div>
+                        <h4 className="text-sm font-bold text-foreground mb-3">
+                          Responsibilities
+                        </h4>
+                        <ul className="space-y-2">
+                          {r.responsibilities.map((item, idx) => (
+                            <li
+                              key={idx}
+                              className="flex items-start gap-2 text-xs sm:text-sm text-muted-foreground"
+                            >
+                              <CheckCircle2 className="w-4 h-4 text-brand-cyan flex-shrink-0 mt-0.5" />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-bold text-foreground mb-3">
+                          Requirements
+                        </h4>
+                        <ul className="space-y-2">
+                          {r.requirements.map((item, idx) => (
+                            <li
+                              key={idx}
+                              className="flex items-start gap-2 text-xs sm:text-sm text-muted-foreground"
+                            >
+                              <CheckCircle2 className="w-4 h-4 text-brand-magenta flex-shrink-0 mt-0.5" />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-sm font-bold text-foreground mb-3">
-                        Requirements
-                      </h4>
-                      <ul className="space-y-2">
-                        {r.requirements.map((item, idx) => (
-                          <li
-                            key={idx}
-                            className="flex items-start gap-2 text-xs sm:text-sm text-muted-foreground"
-                          >
-                            <CheckCircle2 className="w-4 h-4 text-brand-magenta flex-shrink-0 mt-0.5" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
+                  </article>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 

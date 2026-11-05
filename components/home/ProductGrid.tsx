@@ -27,7 +27,7 @@ export const homeProducts = [
       "Automated alarm trigger with PLC cut-off",
       "High-ambient rugged housing (up to 75°C ambient)",
     ],
-    metric: "99.4% Hotspot Prevention [PLACEHOLDER]",
+    categoryBadge: "Thermal Intelligence",
   },
   {
     slug: "digital-twin",
@@ -44,24 +44,24 @@ export const homeProducts = [
       "Stress & wear simulation under varying load",
       "Synthetic sensor prediction for inaccessible zones",
     ],
-    metric: "40% Faster Root-Cause Analysis [PLACEHOLDER]",
+    categoryBadge: "Physics-Informed AI",
   },
   {
     slug: "vision-systems",
     name: "Vision Systems",
     tagline: "Sub-Millimeter Automated Quality Inspection",
     description:
-      "High-speed line-scan and area-scan computer vision deployed on edge NPUs to detect micro-cracks, dimensional deviations, and surface blemishes at up to 1,200 parts/min.",
+      "High-speed line-scan and area-scan computer vision deployed on edge NPUs to detect micro-cracks, dimensional deviations, and surface blemishes at line speed.",
     icon: Eye,
     color: "text-brand-cyan",
     gradient: "from-brand-cyan/20 to-brand-blue/20",
     borderHover: "group-hover:border-brand-cyan/50",
     features: [
       "Sub-millimeter dimensional verification",
-      "1,200+ parts per minute throughput capacity",
+      "High-speed inline throughput capacity",
       "Pneumatic reject arm synchronization",
     ],
-    metric: "99.98% Defect Capture Accuracy [PLACEHOLDER]",
+    categoryBadge: "Machine Vision",
   },
   {
     slug: "energy-monitoring-systems",
@@ -78,7 +78,7 @@ export const homeProducts = [
       "Automated peak-shaving and tariff alerts",
       "Comprehensive carbon footprint & ESG reporting",
     ],
-    metric: "22-30% Reduction in Idle Energy [PLACEHOLDER]",
+    categoryBadge: "ISO 50001 EMS",
   },
   {
     slug: "data-logger",
@@ -95,7 +95,7 @@ export const homeProducts = [
       "Multi-bus support: Modbus RTU/TCP, CANopen, MQTT",
       "DIN-rail mountable with IP65/67 options",
     ],
-    metric: "100% Data Integrity Guaranteed [PLACEHOLDER]",
+    categoryBadge: "Edge Acquisition",
   },
   {
     slug: "dashboards",
@@ -112,7 +112,7 @@ export const homeProducts = [
       "Role-based views: C-suite, maintenance, operations",
       "Configurable WhatsApp & SMS alarm routing",
     ],
-    metric: "15% Improvement in Line OEE [PLACEHOLDER]",
+    categoryBadge: "Unified Operations",
   },
 ];
 
@@ -149,7 +149,7 @@ export function ProductGrid() {
                       <Icon className={`w-6 h-6 ${product.color}`} />
                     </div>
                     <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground bg-muted/60 px-2.5 py-1 rounded-md">
-                      {product.metric}
+                      {product.categoryBadge}
                     </span>
                   </div>
 

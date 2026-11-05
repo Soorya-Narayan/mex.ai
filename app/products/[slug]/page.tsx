@@ -216,48 +216,43 @@ export default async function ProductPage({ params }: Props) {
         </div>
       </section>
 
-      {/* Gallery */}
-      <section className="py-20 border-b border-border/40">
-        <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
-            <div>
-              <h2 className="text-3xl font-bold text-foreground mb-2">
-                Product Gallery & Architecture
-              </h2>
-              <p className="text-sm text-muted-foreground">
-                Hardware enclosures, deployment topologies, and operator UI
-                views.
-              </p>
-            </div>
-            <span className="text-xs font-mono text-muted-foreground px-3 py-1 rounded-full border border-border/60 bg-card/40">
-              [PLACEHOLDER: Field imagery to be supplied]
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              `${p.title} — Field Hardware Unit [PLACEHOLDER]`,
-              `${p.title} — System Topology & SCADA Integration [PLACEHOLDER]`,
-              `${p.title} — Operator Live Telemetry View [PLACEHOLDER]`,
-            ].map((caption, idx) => (
-              <div
-                key={idx}
-                className="group rounded-2xl border border-border/60 bg-card/30 overflow-hidden flex flex-col"
-              >
-                <div className="aspect-video bg-gradient-to-br from-brand-magenta/10 via-brand-blue/10 to-brand-cyan/10 flex flex-col items-center justify-center p-6 text-center border-b border-border/40">
-                  <ImageIcon className="w-8 h-8 text-brand-cyan/60 mb-2" />
-                  <span className="text-xs font-mono text-muted-foreground">
-                    {caption}
-                  </span>
-                </div>
-                <div className="p-4 text-xs text-muted-foreground">
-                  {caption}
-                </div>
+      {/* Gallery — shown when product gallery images are configured */}
+      {p.gallery.length > 0 && (
+        <section className="py-20 border-b border-border/40">
+          <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+              <div>
+                <h2 className="text-3xl font-bold text-foreground mb-2">
+                  Product Gallery &amp; Architecture
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                  Hardware enclosures, deployment topologies, and operator UI
+                  views.
+                </p>
               </div>
-            ))}
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {p.gallery.map((caption, idx) => (
+                <div
+                  key={idx}
+                  className="group rounded-2xl border border-border/60 bg-card/30 overflow-hidden flex flex-col"
+                >
+                  <div className="aspect-video bg-gradient-to-br from-brand-magenta/10 via-brand-blue/10 to-brand-cyan/10 flex flex-col items-center justify-center p-6 text-center border-b border-border/40">
+                    <ImageIcon className="w-8 h-8 text-brand-cyan/60 mb-2" />
+                    <span className="text-xs font-mono text-muted-foreground">
+                      {caption}
+                    </span>
+                  </div>
+                  <div className="p-4 text-xs text-muted-foreground">
+                    {caption}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* FAQ */}
       {p.faq.length > 0 && (

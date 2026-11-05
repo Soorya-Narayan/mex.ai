@@ -1,27 +1,33 @@
 import React from "react";
 import { Factory, Shield, Cpu, Gauge, Zap, Boxes } from "lucide-react";
+import { SITE_CONFIG } from "@/lib/site-config";
 
-const clientPlaceholders = [
-  { name: "Apex Heavy Auto", tag: "Automotive OEM [PLACEHOLDER]", icon: Factory },
-  { name: "Kavach Steel & Alloy", tag: "Continuous Casting [PLACEHOLDER]", icon: Shield },
-  { name: "Zenith Pharma Tech", tag: "Cleanroom Packaging [PLACEHOLDER]", icon: Boxes },
-  { name: "Vanguard Precision Gear", tag: "High-Tolerance Machining [PLACEHOLDER]", icon: Gauge },
-  { name: "Surya Electric Grid", tag: "Substation Monitoring [PLACEHOLDER]", icon: Zap },
-  { name: "Bharat Sensor Dynamics", tag: "Tier-1 Tier Electronics [PLACEHOLDER]", icon: Cpu },
+// TODO: Populate with verified customer logos and written consent before setting SITE_CONFIG.showVerifiedCustomerData = true
+const verifiedClients = [
+  { name: "Automotive OEM Partner", tag: "Automotive Stamping", icon: Factory },
+  { name: "Steel & Alloy Partner", tag: "Continuous Casting", icon: Shield },
+  { name: "Pharma Manufacturing Partner", tag: "Cleanroom Packaging", icon: Boxes },
+  { name: "Precision Engineering Partner", tag: "High-Tolerance Machining", icon: Gauge },
+  { name: "Power Utility Partner", tag: "Substation Monitoring", icon: Zap },
+  { name: "Electronics Manufacturing Partner", tag: "SMT & Assembly", icon: Cpu },
 ];
 
 export function ClientLogos() {
+  if (!SITE_CONFIG.showVerifiedCustomerData) {
+    return null;
+  }
+
   return (
     <section className="py-12 border-y border-border/40 bg-card/20">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-            Trusted by Industrial Manufacturing Leaders Across India [PLACEHOLDERS]
+            Trusted by Industrial Manufacturing Leaders Across India
           </p>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 items-center">
-          {clientPlaceholders.map((client, idx) => {
+          {verifiedClients.map((client, idx) => {
             const Icon = client.icon;
             return (
               <div
@@ -43,4 +49,3 @@ export function ClientLogos() {
     </section>
   );
 }
-

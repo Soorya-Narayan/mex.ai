@@ -159,7 +159,9 @@ export function getAllProducts(): ContentItem<ProductFrontmatter>[] {
 }
 
 export function getProduct(slug: string): ContentItem<ProductFrontmatter> | null {
-  return readMDXFile("content/products", slug, ProductFrontmatterSchema);
+  const item = readMDXFile("content/products", slug, ProductFrontmatterSchema);
+  if (!item || !item.frontmatter.published) return null;
+  return item;
 }
 
 export function getAllCaseStudies(): ContentItem<CaseStudyFrontmatter>[] {
@@ -175,7 +177,9 @@ export function getAllCaseStudies(): ContentItem<CaseStudyFrontmatter>[] {
 export function getCaseStudy(
   slug: string
 ): ContentItem<CaseStudyFrontmatter> | null {
-  return readMDXFile("content/case-studies", slug, CaseStudyFrontmatterSchema);
+  const item = readMDXFile("content/case-studies", slug, CaseStudyFrontmatterSchema);
+  if (!item || !item.frontmatter.published) return null;
+  return item;
 }
 
 export function getAllInsights(): ContentItem<InsightFrontmatter>[] {
@@ -191,7 +195,9 @@ export function getAllInsights(): ContentItem<InsightFrontmatter>[] {
 export function getInsight(
   slug: string
 ): ContentItem<InsightFrontmatter> | null {
-  return readMDXFile("content/insights", slug, InsightFrontmatterSchema);
+  const item = readMDXFile("content/insights", slug, InsightFrontmatterSchema);
+  if (!item || !item.frontmatter.published) return null;
+  return item;
 }
 
 export function getAllCareers(): ContentItem<CareerFrontmatter>[] {

@@ -164,9 +164,8 @@ export default function PrivacyPolicyPage() {
               We retain personal data only as long as necessary to fulfil the
               purpose for which it was collected, or as required by applicable
               Indian law. Inquiry leads are retained for up to{" "}
-              <span className="font-mono text-foreground">
-                [PLACEHOLDER: e.g., 24 months]
-              </span>{" "}
+              <span className="font-mono text-foreground">[RETENTION PERIOD]</span>{" "}
+              {/* TODO: Confirm retention period, e.g. 24 months */}
               from the last interaction unless erasure is requested earlier.
             </p>
           </section>

@@ -21,15 +21,15 @@ useCases:
   - "Any facility seeking ISO 50001 or BEE Star Label certification"
 howItWorks: "Class 0.5 accuracy smart meters are installed at the incoming HV/LV panel and at key sub-distribution boards. Data is collected via Modbus TCP or RS-485 at 1-second intervals by an on-site edge gateway running MEX EMS software. The AI engine correlates energy signatures with production data from the MES to compute per-unit energy cost in real time. Anomalies — such as a motor drawing 15 % more current than its baseline — trigger alerts before they become tariff penalties."
 specs:
-  - { label: "Meter Accuracy", value: "Class 0.5 (IEC 62053-22)" }
-  - { label: "Measurement Interval", value: "1 s (configurable to 15 min)" }
-  - { label: "Parameters", value: "kW, kVA, kVAR, kWh, PF, V, A, THD per phase" }
-  - { label: "Connectivity", value: "Modbus RTU/TCP, BACnet, OPC-UA, Ethernet" }
-  - { label: "Channels", value: "Up to 256 metering points per gateway" }
-  - { label: "Reporting", value: "Daily, weekly, monthly energy reports (PDF/CSV export)" }
-  - { label: "Integration", value: "SAP, Oracle, Tally, MES REST API" }
-  - { label: "Standards", value: "ISO 50001, BEE, ECBC compliance aids" }
-  - { label: "Certifications", value: "[TODO]" }
+  - { label: "Meter Accuracy", value: "Class 0.5 (IEC 62053-22) [TODO: confirm]" }
+  - { label: "Measurement Interval", value: "1 s (configurable to 15 min) [TODO: confirm]" }
+  - { label: "Parameters", value: "kW, kVA, kVAR, kWh, PF, V, A, THD per phase [TODO: confirm]" }
+  - { label: "Connectivity", value: "Modbus RTU/TCP, BACnet, OPC-UA, Ethernet [TODO: confirm]" }
+  - { label: "Channels", value: "Up to 256 metering points per gateway [TODO: confirm]" }
+  - { label: "Reporting", value: "Daily, weekly, monthly energy reports (PDF/CSV export) [TODO: confirm]" }
+  - { label: "Integration", value: "SAP, Oracle, Tally, MES REST API [TODO: confirm]" }
+  - { label: "Standards", value: "ISO 50001, BEE, ECBC compliance aids [TODO: confirm]" }
+  - { label: "Certifications", value: "[TODO: confirm]" }
 brochureFile: "ems-brochure.pdf"
 heroImage: "/brand/product-ems.jpg"
 gallery: []
@@ -53,7 +53,9 @@ Energy is typically the second-largest cost in Indian manufacturing after raw ma
 
 ## Typical Savings Opportunity
 
-> **[PLACEHOLDER]:** Insert customer-validated savings ranges from MEX case studies once available. Do not publish invented numbers.
+<!-- TODO: Insert customer-validated savings ranges from MEX case studies once available. Do not publish invented numbers. -->
+
+MEX EMS identifies idle loads, compressed-air leakage, and power-factor drift across sub-distribution feeders to uncover actionable energy savings tailored to your facility's baseline.
 
 ## ISO 50001 Accelerator
 

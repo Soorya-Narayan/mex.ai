@@ -139,8 +139,9 @@ export default function TermsPage() {
               arising out of or relating to the use of this Website shall be
               subject to the exclusive jurisdiction of the competent courts in{" "}
               <span className="font-mono text-foreground">
-                [PLACEHOLDER: City, State, India]
+                [JURISDICTION CITY, STATE, INDIA]
               </span>
+              {/* TODO: Confirm exclusive court jurisdiction city and state */}
               .
             </p>
           </section>

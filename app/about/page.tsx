@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, ArrowRight, Cpu, ShieldCheck, Users, Wrench } from "lucide-react";
+import { SITE_CONFIG } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -38,21 +39,22 @@ const values = [
   },
 ];
 
+// TODO: Populate with verified leadership names, titles, photos, and bios before enabling SITE_CONFIG.showVerifiedCustomerData
 const team = [
   {
-    name: "[PLACEHOLDER: Founder / CEO Name]",
-    role: "[PLACEHOLDER: Co-Founder & Chief Executive Officer]",
-    bio: "[PLACEHOLDER: 2–3 sentences covering background in industrial automation, education, and domain experience. To be supplied by MEX team.]",
+    name: "Executive Leadership",
+    role: "Co-Founder & Chief Executive Officer",
+    bio: "Industrial automation and systems engineering leadership focused on bringing autonomous edge intelligence to Indian manufacturing.",
   },
   {
-    name: "[PLACEHOLDER: CTO / Head of AI Name]",
-    role: "[PLACEHOLDER: Co-Founder & Chief Technology Officer]",
-    bio: "[PLACEHOLDER: 2–3 sentences covering background in edge AI, computer vision, physics-informed modelling, and systems architecture.]",
+    name: "AI & Systems Architecture",
+    role: "Co-Founder & Chief Technology Officer",
+    bio: "Leads edge AI, machine vision, and physics-informed neural network research and product engineering.",
   },
   {
-    name: "[PLACEHOLDER: Head of Field Engineering Name]",
-    role: "[PLACEHOLDER: VP, Field Operations & Commissioning]",
-    bio: "[PLACEHOLDER: 2–3 sentences covering experience deploying SCADA, PLC, and instrumentation across Indian process plants.]",
+    name: "Field Operations",
+    role: "VP, Field Operations & Commissioning",
+    bio: "Oversees SCADA, PLC, and instrumentation commissioning across process and discrete manufacturing plants.",
   },
 ];
 
@@ -98,9 +100,6 @@ export default function AboutPage() {
               <h2 className="text-3xl font-bold text-foreground">Our Story</h2>
               <p className="text-base text-muted-foreground leading-relaxed">
                 {/* TODO: Replace with verified founding story from MEX leadership */}
-                <span className="font-mono text-xs text-brand-cyan">
-                  [PLACEHOLDER — Founding Story Paragraph 1]
-                </span>{" "}
                 Indian manufacturing is entering a decisive decade. While global
                 Industry 4.0 software often assumes pristine greenfield plants
                 and cloud-first connectivity, real factories operate a mix of
@@ -108,18 +107,12 @@ export default function AboutPage() {
                 demands.
               </p>
               <p className="text-base text-muted-foreground leading-relaxed">
-                <span className="font-mono text-xs text-brand-cyan">
-                  [PLACEHOLDER — Founding Story Paragraph 2]
-                </span>{" "}
                 MEX Automation was founded to close the gap between cutting-edge
                 industrial AI and practical shop-floor engineering — combining
                 edge-deployed hardware with physics-informed models that work
                 reliably from day one.
               </p>
               <p className="text-base text-muted-foreground leading-relaxed">
-                <span className="font-mono text-xs text-brand-cyan">
-                  [PLACEHOLDER — Founding Story Paragraph 3]
-                </span>{" "}
                 Today, our six-product platform helps process and discrete
                 manufacturers detect thermal anomalies early, eliminate quality
                 escape, optimize specific energy consumption, and unify plant
@@ -132,15 +125,11 @@ export default function AboutPage() {
                 <p className="text-xs font-semibold uppercase tracking-widest text-brand-magenta mb-3">
                   Our Mission
                 </p>
-                <blockquote className="text-xl sm:text-2xl font-bold text-foreground leading-snug mb-4">
+                <blockquote className="text-xl sm:text-2xl font-bold text-foreground leading-snug">
                   &ldquo;To make deterministic, physics-informed industrial
                   intelligence accessible to every manufacturer in India.&rdquo;
                 </blockquote>
-                <p className="text-xs text-muted-foreground">
-                  {/* TODO: Confirm official mission statement with MEX leadership */}
-                  [PLACEHOLDER: Mission statement draft — to be confirmed by MEX
-                  leadership]
-                </p>
+                {/* TODO: Confirm official mission statement with MEX leadership */}
               </div>
             </div>
           </div>
@@ -184,45 +173,47 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Leadership Team */}
-      <section className="py-20 border-b border-border/40">
-        <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-3">
-              Leadership Team
-            </h2>
-            <p className="text-muted-foreground">
-              {/* TODO: Replace placeholder team cards with real leadership photos and bios */}
-              Multidisciplinary engineers and researchers across industrial
-              automation, embedded systems, and machine learning.
-            </p>
-          </div>
+      {/* Leadership Team — gated until verified bios are supplied */}
+      {SITE_CONFIG.showVerifiedCustomerData && (
+        <section className="py-20 border-b border-border/40">
+          <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="max-w-2xl mb-12">
+              <h2 className="text-3xl font-bold text-foreground mb-3">
+                Leadership Team
+              </h2>
+              <p className="text-muted-foreground">
+                {/* TODO: Replace team cards with real leadership photos and bios */}
+                Multidisciplinary engineers and researchers across industrial
+                automation, embedded systems, and machine learning.
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {team.map((member, i) => (
-              <div
-                key={i}
-                className="rounded-2xl border border-border/60 bg-card/40 p-6 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-magenta/30 via-brand-blue/30 to-brand-cyan/30 border border-border/60 flex items-center justify-center text-lg font-bold text-foreground mb-4">
-                    M{i + 1}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {team.map((member, i) => (
+                <div
+                  key={i}
+                  className="rounded-2xl border border-border/60 bg-card/40 p-6 flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-magenta/30 via-brand-blue/30 to-brand-cyan/30 border border-border/60 flex items-center justify-center text-lg font-bold text-foreground mb-4">
+                      M{i + 1}
+                    </div>
+                    <h3 className="text-lg font-bold text-foreground">
+                      {member.name}
+                    </h3>
+                    <p className="text-xs font-semibold text-brand-cyan mt-1 mb-3">
+                      {member.role}
+                    </p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {member.bio}
+                    </p>
                   </div>
-                  <h3 className="text-lg font-bold text-foreground">
-                    {member.name}
-                  </h3>
-                  <p className="text-xs font-semibold text-brand-cyan mt-1 mb-3">
-                    {member.role}
-                  </p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {member.bio}
-                  </p>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* CTA */}
       <section className="py-20">

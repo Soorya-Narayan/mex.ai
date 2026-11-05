@@ -1,13 +1,10 @@
 import { ImageResponse } from "next/og";
-import { getInsight, getAllInsights } from "@/lib/content";
+import { getInsight } from "@/lib/content";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-
-export async function generateStaticParams() {
-  return getAllInsights().map((post) => ({ slug: post.slug }));
-}
 
 export default async function InsightOgImage({
   params,

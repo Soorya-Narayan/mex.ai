@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowRight, ShieldCheck, Cpu, Zap, Activity } from "lucide-react";
+import { SITE_CONFIG } from "@/lib/site-config";
 
 export function Hero() {
   return (
@@ -69,52 +70,60 @@ export function Hero() {
             </Link>
           </div>
 
-          {/* Key Stats Bar / Trust Indicators */}
-          <div className="mt-16 pt-10 border-t border-border/60 grid grid-cols-2 md:grid-cols-4 gap-6 text-left">
-            <div className="p-4 rounded-xl bg-card/40 border border-border/40 backdrop-blur-sm">
-              <div className="flex items-center gap-2 text-xs font-semibold text-brand-cyan mb-1 uppercase tracking-wider">
-                <Cpu className="w-3.5 h-3.5" />
-                Edge Latency
+          {/* Key Stats Bar / Trust Indicators — gated behind SITE_CONFIG.showVerifiedCustomerData */}
+          {SITE_CONFIG.showVerifiedCustomerData && (
+            <div className="mt-16 pt-10 border-t border-border/60 grid grid-cols-2 md:grid-cols-4 gap-6 text-left">
+              <div className="p-4 rounded-xl bg-card/40 border border-border/40 backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-xs font-semibold text-brand-cyan mb-1 uppercase tracking-wider">
+                  <Cpu className="w-3.5 h-3.5" />
+                  Edge Latency
+                </div>
+                <div className="text-2xl font-bold text-foreground">
+                  &lt; 12ms
+                </div>
+                <div className="text-xs text-muted-foreground mt-1">
+                  Local deterministic closed-loop inference
+                </div>
               </div>
-              <div className="text-2xl font-bold text-foreground">
-                &lt; 12ms <span className="text-xs font-normal text-muted-foreground block">[PLACEHOLDER]</span>
-              </div>
-              <div className="text-xs text-muted-foreground mt-1">Local deterministic closed-loop inference</div>
-            </div>
 
-            <div className="p-4 rounded-xl bg-card/40 border border-border/40 backdrop-blur-sm">
-              <div className="flex items-center gap-2 text-xs font-semibold text-brand-magenta mb-1 uppercase tracking-wider">
-                <Activity className="w-3.5 h-3.5" />
-                Thermal Sensitivity
+              <div className="p-4 rounded-xl bg-card/40 border border-border/40 backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-xs font-semibold text-brand-magenta mb-1 uppercase tracking-wider">
+                  <Activity className="w-3.5 h-3.5" />
+                  Thermal Sensitivity
+                </div>
+                <div className="text-2xl font-bold text-foreground">0.05°C</div>
+                <div className="text-xs text-muted-foreground mt-1">
+                  Micro-bolometer continuous monitoring
+                </div>
               </div>
-              <div className="text-2xl font-bold text-foreground">
-                0.05°C <span className="text-xs font-normal text-muted-foreground block">[PLACEHOLDER]</span>
-              </div>
-              <div className="text-xs text-muted-foreground mt-1">Micro-bolometer continuous monitoring</div>
-            </div>
 
-            <div className="p-4 rounded-xl bg-card/40 border border-border/40 backdrop-blur-sm">
-              <div className="flex items-center gap-2 text-xs font-semibold text-emerald-400 mb-1 uppercase tracking-wider">
-                <Zap className="w-3.5 h-3.5" />
-                Energy Reduction
+              <div className="p-4 rounded-xl bg-card/40 border border-border/40 backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-xs font-semibold text-emerald-400 mb-1 uppercase tracking-wider">
+                  <Zap className="w-3.5 h-3.5" />
+                  Energy Reduction
+                </div>
+                <div className="text-2xl font-bold text-foreground">
+                  Up to 28%
+                </div>
+                <div className="text-xs text-muted-foreground mt-1">
+                  Specific energy consumption optimization
+                </div>
               </div>
-              <div className="text-2xl font-bold text-foreground">
-                Up to 28% <span className="text-xs font-normal text-muted-foreground block">[PLACEHOLDER]</span>
-              </div>
-              <div className="text-xs text-muted-foreground mt-1">Specific energy consumption optimization</div>
-            </div>
 
-            <div className="p-4 rounded-xl bg-card/40 border border-border/40 backdrop-blur-sm">
-              <div className="flex items-center gap-2 text-xs font-semibold text-brand-blue mb-1 uppercase tracking-wider">
-                <ShieldCheck className="w-3.5 h-3.5" />
-                Rugged Architecture
+              <div className="p-4 rounded-xl bg-card/40 border border-border/40 backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-xs font-semibold text-brand-blue mb-1 uppercase tracking-wider">
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  Rugged Architecture
+                </div>
+                <div className="text-2xl font-bold text-foreground">
+                  IP67 Edge
+                </div>
+                <div className="text-xs text-muted-foreground mt-1">
+                  Built for high ambient heat &amp; dust
+                </div>
               </div>
-              <div className="text-2xl font-bold text-foreground">
-                IP67 Edge <span className="text-xs font-normal text-muted-foreground block">[PLACEHOLDER]</span>
-              </div>
-              <div className="text-xs text-muted-foreground mt-1">Built for high ambient heat & dust</div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </section>

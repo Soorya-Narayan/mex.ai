@@ -1,13 +1,10 @@
 import { ImageResponse } from "next/og";
-import { getCaseStudy, getAllCaseStudies } from "@/lib/content";
+import { getCaseStudy } from "@/lib/content";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-
-export async function generateStaticParams() {
-  return getAllCaseStudies().map((cs) => ({ slug: cs.slug }));
-}
 
 export default async function CaseStudyOgImage({
   params,
