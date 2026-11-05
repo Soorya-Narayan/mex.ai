@@ -63,7 +63,7 @@ export function middleware(request: NextRequest) {
   response.headers.set("Content-Security-Policy", cspHeader);
   response.headers.set(
     "Strict-Transport-Security",
-    "max-age=63072000; includeSubDomains; preload"
+    "max-age=63072000; includeSubDomains"
   );
   response.headers.set("X-Frame-Options", "DENY");
   response.headers.set("X-Content-Type-Options", "nosniff");
