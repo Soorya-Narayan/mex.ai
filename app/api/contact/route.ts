@@ -30,32 +30,71 @@ const upstashLimiter =
       })
     : null;
 
-const memoryBuckets = new Map<string, number[]>();
+function getClientIp(req: NextRequest): string {
+  const netlifyIp = req.headers.get("x-nf-client-connection-ip")?.trim();
+  if (netlifyIp) return netlifyIp;
 
-async function checkRateLimit(ip: string): Promise<boolean> {
+  const realIp = req.headers.get("x-real-ip")?.trim();
+  if (realIp) return realIp;
+
+  const forwardedFor = req.headers.get("x-forwarded-for");
+  if (forwardedFor) {
+    const parts = forwardedFor
+      .split(",")
+      .map((part) => part.trim())
+      .filter(Boolean);
+    if (parts.length > 0) {
+      // Take the last entry appended by the trusted proxy, never the spoofable first entry
+      return parts[parts.length - 1];
+    }
+  }
+
+  return "127.0.0.1";
+}
+
+type RateLimitStatus = "allowed" | "rate_limited" | "unavailable";
+
+const devMemoryBuckets = new Map<string, number[]>();
+
+async function checkRateLimit(ip: string): Promise<RateLimitStatus> {
+  if (env.NODE_ENV === "production") {
+    if (!upstashLimiter) {
+      return "unavailable";
+    }
+    try {
+      const { success } = await upstashLimiter.limit(ip);
+      return success ? "allowed" : "rate_limited";
+    } catch (err) {
+      Sentry.captureException(err);
+      return "unavailable";
+    }
+  }
+
+  // Non-production local development/testing fallback
   if (upstashLimiter) {
     try {
       const { success } = await upstashLimiter.limit(ip);
-      return success;
+      return success ? "allowed" : "rate_limited";
     } catch (err) {
       Sentry.captureException(err);
+      return "unavailable";
     }
   }
 
   const now = Date.now();
   const windowMs = 10 * 60 * 1000;
-  const timestamps = (memoryBuckets.get(ip) ?? []).filter(
+  const timestamps = (devMemoryBuckets.get(ip) ?? []).filter(
     (t) => now - t < windowMs
   );
 
   if (timestamps.length >= 5) {
-    memoryBuckets.set(ip, timestamps);
-    return false;
+    devMemoryBuckets.set(ip, timestamps);
+    return "rate_limited";
   }
 
   timestamps.push(now);
-  memoryBuckets.set(ip, timestamps);
-  return true;
+  devMemoryBuckets.set(ip, timestamps);
+  return "allowed";
 }
 
 // ─── Turnstile Server Verification ───────────────────────────────────────────
@@ -115,12 +154,20 @@ function cleanText(input: string): string {
 
 export async function POST(req: NextRequest) {
   try {
-    const forwardedFor = req.headers.get("x-forwarded-for");
-    const ip = forwardedFor?.split(",")[0]?.trim() || "127.0.0.1";
+    const ip = getClientIp(req);
 
     // 1. Rate limit check (5 per IP per 10 minutes)
-    const allowed = await checkRateLimit(ip);
-    if (!allowed) {
+    const rateLimitStatus = await checkRateLimit(ip);
+    if (rateLimitStatus === "unavailable") {
+      return NextResponse.json(
+        {
+          error:
+            "We could not process your request right now. Please try again in a few moments.",
+        },
+        { status: 503 }
+      );
+    }
+    if (rateLimitStatus === "rate_limited") {
       return NextResponse.json(
         {
           error:
