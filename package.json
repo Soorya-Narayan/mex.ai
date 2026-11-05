@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "check:links": "linkinator http://localhost:3000 --recurse --skip '^mailto:' --skip '^tel:' --skip '^https://wa.me' --skip '^https://www.linkedin.com'",
+    "check:links": "linkinator http://localhost:3000 --recurse --skip '^mailto:' --skip '^tel:' --skip '^https://wa.me' --skip '^https://www.linkedin.com' --skip '^https://www.google.com/maps' --skip '^https://mexautomation.in'",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate"
   },

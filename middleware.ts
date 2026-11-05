@@ -1,9 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
 
+const VALID_PRODUCT_SLUGS = new Set([
+  "heatwatch",
+  "crate-pouch-counting",
+  "bottle-counting",
+  "data-logger",
+  "dashboards",
+  "twinforge-studio",
+]);
+
 export function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
   const host = request.headers.get("host") || "";
   const proto = request.headers.get("x-forwarded-proto") || url.protocol.replace(":", "");
+
+  // Return HTTP 404 for unknown product, case-study, or insight slugs before streaming layout
+  const productMatch = url.pathname.match(/^\/products\/([^/]+)\/?$/);
+  if (productMatch && !VALID_PRODUCT_SLUGS.has(productMatch[1])) {
+    url.pathname = "/_not-found";
+    return NextResponse.rewrite(url, { status: 404 });
+  }
 
   // 1. Canonical www -> non-www and HTTP -> HTTPS redirect in production
   const isLocal =

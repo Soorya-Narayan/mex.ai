@@ -1,0 +1,33 @@
+---
+title: "1-Second Pasteuriser Process Data Logging at Anik Dairy"
+slug: "anik-dairy-data-logger"
+client: "Anik Dairy (Bhopal)"
+industry: "Dairy & Food Processing"
+challenge: "[TODO: Describe the pasteuriser visibility, manual logging, and audit record challenge at Anik Dairy, Bhopal.]"
+solution: "Implemented the MEX Data Logger on a Raspberry Pi edge computer connected over EtherNet/IP to an Allen-Bradley Micro800 PLC, logging around 30 instruments on a 10 KL pasteuriser at 1-second intervals with a browser-based live dashboard and automatic shift and daily reports."
+results:
+  - "[TODO: Business result / audit preparation and operator time saved]"
+  - "[TODO: Quality and compliance outcome]"
+  - "Logs ~30 instruments on a 10 KL pasteuriser at 1-second sampling (86,400 records per instrument per day)"
+  - "Automatic 8-hour shift and daily reports in PDF, Excel (with charts), and CSV"
+date: "2026-03-05"
+published: false
+---
+
+<!-- TODO: Get written permission from Anik Dairy before setting published: true. -->
+<!-- TODO: Fill in the business results below. -->
+
+## Overview
+
+Implemented at **Anik Dairy, Bhopal**, logging around 30 instruments on a 10 KL pasteuriser, including temperature, pressure and flow transmitters, flow diversion valves, and CIP status.
+
+## System Setup
+
+- **PLC Connection:** Allen-Bradley Micro800 series over EtherNet/IP, configured through a tag map with no PLC code changes
+- **Sampling & Storage:** 1-second sampling written in flash-safe batches to a local SQLite database (WAL mode) on a Raspberry Pi edge computer
+- **Dashboard & Reports:** Browser-based supervisory dashboard (3-second live refresh) with multi-axis trend charts, plus automatic shift (8 h) and daily reports in PDF, Excel, and CSV
+
+## Business Results
+
+- [TODO: Add verified business outcomes from Anik Dairy]
+

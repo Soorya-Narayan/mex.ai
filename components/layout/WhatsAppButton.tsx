@@ -11,7 +11,7 @@ export function WhatsAppButton() {
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative flex items-center gap-2.5 px-4 py-3 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full shadow-xl shadow-[#25D366]/25 transition-all duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#25D366]"
+        className="group relative flex items-center gap-2.5 px-4 py-3 bg-[#0B7A3B] hover:bg-[#08612E] text-white rounded-full shadow-xl shadow-[#0B7A3B]/25 transition-all duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0B7A3B]"
         aria-label="Chat with MEX Automation on WhatsApp [WHATSAPP NUMBER: +91 98765 43210]"
       >
         <span className="relative flex items-center justify-center">

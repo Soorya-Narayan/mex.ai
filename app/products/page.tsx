@@ -1,16 +1,12 @@
 import React from "react";
 import Link from "next/link";
-import { getAllProducts } from "@/lib/content";
+import { getProductGroups, type ProductCategory } from "@/lib/content";
 import { JsonLd, getBreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import {
   ArrowRight,
   ChevronRight,
-  Flame,
-  Layers,
   Eye,
-  Zap,
-  HardDrive,
-  LayoutDashboard,
+  Activity,
   Cpu,
 } from "lucide-react";
 import type { Metadata } from "next";
@@ -18,23 +14,23 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Products",
   description:
-    "Explore MEX Automation's industrial AI products: HeatWatch thermal monitoring, Digital Twin, Vision Systems, Energy Monitoring, Data Logger, and Dashboards.",
+    "Explore MEX Automation products across Vision AI, Monitoring & Data, and Simulation — built for dairy, food processing, and industrial plants.",
   alternates: {
     canonical: "/products",
   },
 };
 
-const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
-  heatwatch: Flame,
-  "digital-twin": Layers,
-  "vision-systems": Eye,
-  "energy-monitoring-systems": Zap,
-  "data-logger": HardDrive,
-  dashboards: LayoutDashboard,
+const GROUP_ICON_MAP: Record<
+  ProductCategory,
+  React.ComponentType<{ className?: string }>
+> = {
+  "Vision AI": Eye,
+  "Monitoring & Data": Activity,
+  Simulation: Cpu,
 };
 
 export default function ProductsPage() {
-  const products = getAllProducts();
+  const groups = getProductGroups();
 
   return (
     <main className="min-h-screen">
@@ -61,75 +57,79 @@ export default function ProductsPage() {
 
           <div className="max-w-3xl">
             <p className="text-xs font-semibold uppercase tracking-widest text-brand-cyan mb-4">
-              Industrial AI Platform
+              Products &amp; Solutions
             </p>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.1] mb-6">
               Purpose-Built for{" "}
               <span className="text-brand-gradient">Indian Industry</span>
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Six tightly integrated products covering thermal intelligence,
-              physics-informed simulation, computer vision, energy management,
-              data acquisition, and operations dashboards — engineered for the
-              conditions and constraints of Indian manufacturing.
+              Vision AI counting systems, temperature and PLC data logging,
+              real-time energy dashboards, and virtual commissioning software —
+              engineered for dairy, food processing, and industrial plants.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Product Grid */}
+      {/* Grouped Product Sections */}
       <section className="pb-24">
-        <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {products.map((product) => {
-              const Icon = ICON_MAP[product.slug] ?? Cpu;
-              return (
-                <Link
-                  key={product.slug}
-                  href={`/products/${product.slug}`}
-                  className="group glow-card rounded-2xl border border-border/60 bg-card/40 p-6 flex flex-col gap-4 transition-all hover:border-border/80 hover:-translate-y-1 duration-300 focus-visible:ring-2 focus-visible:ring-brand-cyan outline-none"
-                >
-                  {/* Icon */}
-                  <div className="w-11 h-11 rounded-xl border border-brand-cyan/30 bg-brand-cyan/10 flex items-center justify-center text-brand-cyan">
-                    <Icon className="w-5 h-5" />
+        <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-16">
+          {groups.map((group) => {
+            const GroupIcon = GROUP_ICON_MAP[group.category] ?? Cpu;
+            return (
+              <div key={group.category} className="space-y-6">
+                <div className="flex items-center gap-3 border-b border-border/60 pb-4">
+                  <div className="w-9 h-9 rounded-lg border border-brand-cyan/30 bg-brand-cyan/10 flex items-center justify-center text-brand-cyan">
+                    <GroupIcon className="w-4 h-4" />
                   </div>
+                  <h2 className="text-2xl font-bold text-foreground">
+                    {group.category}
+                  </h2>
+                </div>
 
-                  {/* Title + tagline */}
-                  <div>
-                    <h2 className="text-xl font-bold text-foreground group-hover:text-brand-cyan transition-colors mb-1.5">
-                      {product.frontmatter.title}
-                    </h2>
-                    <p className="text-sm text-muted-foreground leading-snug">
-                      {product.frontmatter.tagline}
-                    </p>
-                  </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {group.products.map((product) => (
+                    <Link
+                      key={product.slug}
+                      href={`/products/${product.slug}`}
+                      className="group glow-card rounded-2xl border border-border/60 bg-card/40 p-6 flex flex-col gap-4 transition-all hover:border-border/80 hover:-translate-y-1 duration-300 focus-visible:ring-2 focus-visible:ring-brand-cyan outline-none"
+                    >
+                      <div>
+                        <h3 className="text-xl font-bold text-foreground group-hover:text-brand-cyan transition-colors mb-1.5">
+                          {product.frontmatter.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground leading-snug">
+                          {product.frontmatter.tagline}
+                        </p>
+                      </div>
 
-                  {/* Top 3 features */}
-                  <ul className="space-y-1.5 flex-1">
-                    {product.frontmatter.features.slice(0, 3).map((f, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start gap-2 text-xs text-muted-foreground"
-                      >
-                        <span className="w-1 h-1 rounded-full bg-brand-cyan mt-1.5 flex-shrink-0" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
+                      <ul className="space-y-1.5 flex-1">
+                        {product.frontmatter.features.slice(0, 3).map((f, i) => (
+                          <li
+                            key={i}
+                            className="flex items-start gap-2 text-xs text-muted-foreground"
+                          >
+                            <span className="w-1 h-1 rounded-full bg-brand-cyan mt-1.5 flex-shrink-0" />
+                            {f}
+                          </li>
+                        ))}
+                      </ul>
 
-                  {/* CTA */}
-                  <div className="flex items-center gap-1.5 text-sm font-semibold text-brand-cyan group-hover:gap-2.5 transition-all">
-                    Learn more <ArrowRight className="w-4 h-4" />
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
+                      <div className="flex items-center gap-1.5 text-sm font-semibold text-brand-cyan group-hover:gap-2.5 transition-all">
+                        Learn more <ArrowRight className="w-4 h-4" />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
 
           {/* Demo CTA */}
           <div className="mt-16 text-center">
             <p className="text-muted-foreground mb-6">
-              Not sure which product is right for your process?
+              Not sure which product is right for your process line?
             </p>
             <Link
               href="/contact?interest=request-demo"

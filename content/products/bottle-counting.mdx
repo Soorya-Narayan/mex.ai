@@ -1,0 +1,37 @@
+---
+title: "Bottle Detection & Counting"
+slug: "bottle-counting"
+tagline: "Real-time AI counting of bottles on the production conveyor"
+overview: "Bottle Detection & Counting watches your conveyor through a camera and detects and counts every bottle in real time. The model is trained on images captured at the customer's own plant, so it's tuned to the real line, lighting and bottle type rather than generic sample images."
+features:
+  - "Real-time bottle detection and counting on a live camera feed"
+  - "On-screen count overlay and live count trend graph"
+  - "Model trained on images captured on-site at the customer's plant"
+  - "Lightweight model that runs on standard edge hardware"
+  - "Exported in the portable ONNX format, so it runs on a wide range of hardware"
+useCases:
+  - "Counting bottled milk output on the filling or packing line"
+  - "Production reconciliation against dispatch"
+  - "Can be retrained for other bottle and container types"
+howItWorks: "A camera positioned over the conveyor streams video to an edge computer. A YOLOv8 detection model, trained on annotated images from the customer's own line, finds each bottle in every frame and keeps a running count, shown live on screen with a trend graph."
+specs:
+  - { label: "Detection Model", value: "YOLOv8n (3M parameters)" }
+  - { label: "Detection Accuracy", value: "98.4% mAP@50, 64.1% mAP@50–95 on held-out test data" }
+  - { label: "Precision / Recall", value: "93.9% / 97.0%" }
+  - { label: "Inference", value: "35.9 ms per image (on test hardware)" }
+  - { label: "Model Formats", value: "ONNX (11.8 MB), PyTorch" }
+  - { label: "Training Data", value: "On-site images, annotated in-house" }
+gallery: []
+faq:
+  - question: "Do you use a generic model?"
+    answer: "No. Each model is trained on images from the customer's own production line, which is why accuracy stays high under real plant conditions."
+order: 3
+published: true
+---
+
+<!-- TODO: Get written permission from Muralya Dairy before naming them and using their logo. -->
+<!-- TODO: Add camera/hardware details used at site, and photos, to /public/products/bottle-counting/ -->
+
+## Where it's running
+
+Implemented at **Muralya Dairy, Thiruvananthapuram**, for detecting and counting milk bottles on the conveyor.

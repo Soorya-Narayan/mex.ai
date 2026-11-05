@@ -1,23 +1,20 @@
 import React from "react";
-import { headers } from "next/headers";
+import { getAllProducts } from "@/lib/content";
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_APP_URL || "https://mexautomation.in";
 
-export async function JsonLd({
+export function JsonLd({
   data,
   nonce,
 }: {
   data: Record<string, unknown>;
   nonce?: string;
 }) {
-  const resolvedNonce =
-    nonce ?? (await headers()).get("x-nonce") ?? undefined;
-
   return (
     <script
       type="application/ld+json"
-      nonce={resolvedNonce}
+      nonce={nonce}
       suppressHydrationWarning
       // Trusted server-constructed JSON-LD only
       dangerouslySetInnerHTML={{
@@ -28,14 +25,19 @@ export async function JsonLd({
 }
 
 export function getOrganizationJsonLd() {
+  const productTitles = getAllProducts().map((p) => p.frontmatter.title);
+  const productListText =
+    productTitles.length > 0
+      ? productTitles.join(", ")
+      : "HeatWatch, Crate & Pouch Counting, Bottle Detection & Counting, Data Logger, Dashboards, TwinForge Studio";
+
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "MEX Automation",
     url: BASE_URL,
     logo: `${BASE_URL}/brand/mex-logo-dark-512.png`,
-    description:
-      "Indian industrial automation and AI company delivering HeatWatch thermal monitoring, physics-informed Digital Twins, Vision Systems, Energy Monitoring Systems (EMS), Data Loggers, and Dashboards.",
+    description: `Indian industrial automation and AI company delivering ${productListText}.`,
     sameAs: ["https://www.linkedin.com/company/mexai"],
     contactPoint: {
       "@type": "ContactPoint",

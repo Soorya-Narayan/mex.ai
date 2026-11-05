@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { getAllProducts } from "@/lib/content";
 import {
   ChevronRight,
   MapPin,
@@ -26,6 +27,16 @@ export default async function ContactPage({
 }) {
   const resolvedParams = await searchParams;
   const defaultInterest = resolvedParams.interest || "request-demo";
+  const products = getAllProducts();
+  const productTitles = products.map((p) => p.frontmatter.title).join(", ");
+  const interestOptions = [
+    ...products.map((p) => ({
+      value: p.slug,
+      label: p.frontmatter.title,
+    })),
+    { value: "request-demo", label: "Request a Demo" },
+    { value: "general-inquiry", label: "General Inquiry" },
+  ];
 
   return (
     <main className="min-h-screen">
@@ -52,9 +63,8 @@ export default async function ContactPage({
               <span className="text-brand-gradient">Application Engineer</span>
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Request a live demonstration of HeatWatch, Digital Twin, Vision
-              Systems, EMS, Data Logger, or Dashboards — or schedule an on-site
-              scoping assessment.
+              Request a live demonstration of {productTitles} — or schedule an
+              on-site scoping assessment.
             </p>
           </div>
         </div>
@@ -73,7 +83,10 @@ export default async function ContactPage({
                 Complete the form below and our engineering team will respond
                 within one business day.
               </p>
-              <ContactForm defaultInterest={defaultInterest} />
+              <ContactForm
+                defaultInterest={defaultInterest}
+                options={interestOptions}
+              />
             </div>
 
             {/* Info & Map Column */}

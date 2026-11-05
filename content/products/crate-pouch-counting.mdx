@@ -1,0 +1,51 @@
+---
+title: "Crate & Pouch Counting"
+slug: "crate-pouch-counting"
+tagline: "Vision-based counting that checks every crate before it leaves the packing line"
+overview: "Crate & Pouch Counting uses an industrial camera and a custom-trained AI model to count the milk pouches in every crate on the conveyor, identify the milk variant from the pack colour, and instantly flag any crate that is underfilled or overfilled. Every incident is logged with a snapshot, and shift totals are ready to export when the shift ends."
+features:
+  - "Counts the pouches in every crate and checks the total against the target count (for example, 20 pouches per crate)"
+  - "Handles overlapping pouches packed in two lanes, using instance segmentation"
+  - "Identifies the milk variant from the packaging colour"
+  - "Flags underfilled and overfilled crates in under 31 ms per crate"
+  - "Operator dashboard with live video, total pouches, crates audited, pass rate and line speed"
+  - "Incident log with a timestamped snapshot of every rejected crate"
+  - "One-click shift report export (CSV)"
+  - "Industrial global-shutter camera and diffuse LED lighting for sharp, glare-free images at line speed"
+useCases:
+  - "End-of-line crate verification in milk pouch packing"
+  - "Shift-wise production reconciliation"
+  - "Reducing short-supply complaints and manual recounts at dispatch"
+howItWorks: "A global-shutter industrial camera mounted above the conveyor captures each crate as it passes, lit by a diffuse LED bar to remove glare from the pouch film. An edge computer runs a custom-trained detection and segmentation model that finds each pouch, even where pouches overlap, and identifies its variant from the packaging colour. The count is checked against the target, and any mismatch is flagged on the operator screen and written to the audit log with a snapshot."
+specs:
+  - { label: "Detection Model", value: "Custom-trained YOLOv8s" }
+  - { label: "Detection Accuracy", value: "98.25% mAP@50 on held-out test data (236 images, 2,871 objects)" }
+  - { label: "Model Inference", value: "3.0 ms per image (on test hardware)" }
+  - { label: "Crate Decision Time", value: "Under 31 ms per crate" }
+  - { label: "Design Throughput", value: "24 crates/min (~1.5 lakh pouches/day)" }
+  - { label: "Camera", value: "Baumer VCXG.2-32C, 3.2 MP global shutter, GigE Vision" }
+  - { label: "Lens", value: "4–13 mm, F/1.5, C-mount" }
+  - { label: "Lighting", value: "300 × 50 mm diffuse white LED bar, 24 V DC" }
+  - { label: "Detected Classes", value: "Crate, empty tray, 3 pouch variants" }
+  - { label: "Reports", value: "Shift CSV export, incident audit log with snapshots" }
+gallery: []
+faq:
+  - question: "Can it tell different milk variants apart?"
+    answer: "Yes. It identifies the variant from the packaging colour, and checks every pouch in the crate against that variant before confirming it."
+  - question: "What happens when a crate is underfilled?"
+    answer: "The crate is flagged on the operator screen immediately and recorded in the incident log with a timestamp and snapshot for review."
+order: 2
+published: true
+---
+
+<!-- TODO: Get written permission from Milma before naming them and using their logo. -->
+<!-- TODO: Confirm whether the system can trigger a reject mechanism or line stop, and add it as a feature if so. -->
+<!-- TODO: Add photos of the camera gantry and operator screen to /public/products/crate-pouch-counting/ -->
+
+## Where it's running
+
+Implemented at the **Milma Kottayam Dairy** for counting 500 ml milk pouches across multiple variants.
+
+## Accuracy you can verify
+
+The model was trained and tested on images captured on the actual packing line, and its accuracy is measured on test images the model never saw during training.

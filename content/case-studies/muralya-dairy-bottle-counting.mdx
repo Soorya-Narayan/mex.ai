@@ -1,0 +1,33 @@
+---
+title: "Real-Time Bottle Detection & Counting at Muralya Dairy"
+slug: "muralya-dairy-bottle-counting"
+client: "Muralya Dairy (Thiruvananthapuram)"
+industry: "Dairy & Food Processing"
+challenge: "[TODO: Describe the milk bottle counting and production reconciliation challenge on the conveyor line at Muralya Dairy, Thiruvananthapuram.]"
+solution: "Deployed MEX Bottle Detection & Counting with a camera positioned over the conveyor and an edge computer running a YOLOv8n detection model trained on annotated images captured on-site at Muralya Dairy's own line, providing a live on-screen count overlay and count trend graph."
+results:
+  - "[TODO: Business result / production reconciliation improvement]"
+  - "[TODO: Daily or shift throughput verified]"
+  - "98.4% mAP@50 (64.1% mAP@50–95) with 93.9% precision and 97.0% recall on held-out test data"
+  - "35.9 ms inference per image using a lightweight ONNX (11.8 MB) YOLOv8n model"
+date: "2026-02-10"
+published: false
+---
+
+<!-- TODO: Get written permission from Muralya Dairy before setting published: true. -->
+<!-- TODO: Fill in the business results and site hardware details below. -->
+
+## Overview
+
+Implemented at **Muralya Dairy, Thiruvananthapuram**, for detecting and counting milk bottles in real time on the production conveyor.
+
+## System Setup
+
+- **Detection Model:** YOLOv8n (3M parameters), exported to ONNX (11.8 MB) and PyTorch
+- **Site-Specific Training:** Trained on on-site images captured at Muralya Dairy's line and annotated in-house
+- **Operator View:** Real-time bottle detection on the live camera feed with on-screen count overlay and live count trend graph
+
+## Business Results
+
+- [TODO: Add verified business outcomes from Muralya Dairy]
+

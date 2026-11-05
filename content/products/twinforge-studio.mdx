@@ -1,0 +1,49 @@
+---
+title: "TwinForge Studio"
+slug: "twinforge-studio"
+tagline: "Virtual commissioning and automated FAT: test your PLC logic before you reach site"
+overview: "TwinForge Studio is a digital simulation platform for virtual commissioning. It simulates process equipment, such as a pasteuriser skid, so control engineers can test PLC logic and safety interlocks, inject equipment faults, and run automated Factory Acceptance Tests against a real PLC before anything is installed on site. Problems get found at the desk, not during commissioning."
+features:
+  - "Deterministic process simulation on a fixed 100 ms scan cycle, so every test run is repeatable"
+  - "Ready-made models: plate heat exchanger pasteuriser skid and three-solution batch mixing skid"
+  - "Custom skid builder for your own vessels, pumps, valves and transmitters"
+  - "Connects to real PLCs over OPC UA, with a built-in test OPC UA server for hardware-free testing"
+  - "Hardware-in-the-loop testing with scan-by-scan synchronisation to the PLC"
+  - "Fault injection at runtime: stuck valves, pump trips, sensor drift and signal delays"
+  - "Automated FAT scenarios mapped to Functional Design Specification clauses"
+  - "FAT report export (PDF) with an interlock verification matrix, timestamps and a tamper-evident run fingerprint"
+  - "Multi-channel trend recorder with CSV export"
+  - "Live tag watch and force table for commissioning checks"
+  - "Animated process mimics in high-performance (ISA-101 style) HMI design"
+useCases:
+  - "Virtual commissioning of dairy and food process skids"
+  - "Factory Acceptance Testing (FAT) for process OEMs and system integrators"
+  - "Testing safety interlocks and failure responses without risking equipment"
+  - "Operator and engineer training on a realistic simulated plant"
+howItWorks: "TwinForge Studio runs a physics model of the process skid, covering flows, levels, temperatures and valve travel, on a fixed scan cycle. It sends simulated sensor values to the PLC and reads back the PLC's commands, either from a built-in software PLC for offline testing or from your real PLC over OPC UA. Test scenarios apply inputs and faults step by step, check the PLC's response against the specification, and produce a signed-off FAT report."
+specs:
+  - { label: "Simulation Cycle", value: "Fixed 100 ms scan, deterministic" }
+  - { label: "PLC Connectivity", value: "OPC UA (opc.tcp), built-in test server" }
+  - { label: "Test Modes", value: "Offline (software PLC) or hardware-in-the-loop" }
+  - { label: "Process Models", value: "PHE pasteuriser, batch mixing skid, custom skids" }
+  - { label: "Fault Injection", value: "Valve seizure, pump trip, sensor drift, signal delay" }
+  - { label: "Reports", value: "PDF FAT report; CSV trend export" }
+  - { label: "Platforms", value: "Windows, macOS, Linux desktop app" }
+gallery: []
+faq:
+  - question: "Do we need a physical PLC to use it?"
+    answer: "No. TwinForge Studio includes software PLC drivers and a built-in test OPC UA server, so you can test without any hardware. Connect a real PLC when you're ready for hardware-in-the-loop testing."
+  - question: "Are test results repeatable?"
+    answer: "Yes. In nominal mode the simulation is fully deterministic, so the same test produces the same result every time."
+order: 6
+published: true
+---
+
+<!-- TODO: Add a client or project reference if TwinForge Studio has been used on a customer project. -->
+<!-- TODO: Add screenshots of the mimic, fault deck and FAT report to /public/products/twinforge-studio/ -->
+
+## On the roadmap
+
+- Modbus TCP, Siemens S7 and EtherNet/IP PLC drivers
+- Drag-and-drop visual skid designer
+- Export of verified control sequences to IEC 61131-3 Structured Text

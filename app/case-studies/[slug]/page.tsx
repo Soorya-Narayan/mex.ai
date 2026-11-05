@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCaseStudy } from "@/lib/content";
+import { getCaseStudy, getAllCaseStudies } from "@/lib/content";
 import { MdxContent } from "@/components/mdx/MdxContent";
 import { JsonLd, getBreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { ChevronRight, ArrowRight, CheckCircle2 } from "lucide-react";
@@ -10,7 +10,11 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export const dynamic = "force-dynamic";
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  return getAllCaseStudies().map((cs) => ({ slug: cs.slug }));
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -21,6 +25,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: cs.frontmatter.challenge.slice(0, 150),
     alternates: {
       canonical: `/case-studies/${cs.slug}`,
+    },
+    openGraph: {
+      images: [`/api/og?type=case-study&slug=${encodeURIComponent(cs.slug)}`],
+    },
+    twitter: {
+      card: "summary_large_image",
+      images: [`/api/og?type=case-study&slug=${encodeURIComponent(cs.slug)}`],
     },
   };
 }

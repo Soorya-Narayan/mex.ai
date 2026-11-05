@@ -46,7 +46,7 @@ export function Hero() {
 
           {/* Subtext */}
           <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-10 font-normal">
-            MEX Automation delivers mission-critical thermal intelligence, physics-informed digital twins, and sub-millimeter vision systems engineered specifically for Indian manufacturing.
+            MEX Automation builds edge-deployed vision AI counting systems, wireless temperature and PLC data loggers, industrial energy dashboards, and virtual commissioning tools for Indian dairy, food processing, and energy plants.
           </p>
 
           {/* Action CTAs */}

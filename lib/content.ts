@@ -20,6 +20,9 @@ export const ProductFrontmatterSchema = z.object({
   slug: z.string(),
   tagline: z.string(),
   overview: z.string(),
+  category: z
+    .enum(["Vision AI", "Monitoring & Data", "Simulation"])
+    .optional(),
   features: z.array(z.string()),
   useCases: z.array(z.string()),
   howItWorks: z.string(),
@@ -152,10 +155,76 @@ function readMDXFile<S extends z.ZodTypeAny>(
 
 // ─── Public API ──────────────────────────────────────────────────────────────
 
+export type ProductCategory = "Vision AI" | "Monitoring & Data" | "Simulation";
+
+export type ProductNavItem = {
+  slug: string;
+  title: string;
+  tagline: string;
+  order: number;
+  category: ProductCategory;
+};
+
+export type ProductGroup = {
+  category: ProductCategory;
+  products: ContentItem<ProductFrontmatter>[];
+};
+
+const SLUG_CATEGORY_MAP: Record<string, ProductCategory> = {
+  "crate-pouch-counting": "Vision AI",
+  "bottle-counting": "Vision AI",
+  heatwatch: "Monitoring & Data",
+  "data-logger": "Monitoring & Data",
+  dashboards: "Monitoring & Data",
+  "twinforge-studio": "Simulation",
+};
+
+const GROUP_ORDER: ProductCategory[] = [
+  "Vision AI",
+  "Monitoring & Data",
+  "Simulation",
+];
+
+export function resolveProductCategory(
+  frontmatter: ProductFrontmatter
+): ProductCategory {
+  return (
+    frontmatter.category ??
+    SLUG_CATEGORY_MAP[frontmatter.slug] ??
+    "Monitoring & Data"
+  );
+}
+
 export function getAllProducts(): ContentItem<ProductFrontmatter>[] {
   return readMDXDir("content/products", ProductFrontmatterSchema)
     .filter((p) => p.frontmatter.published)
     .sort((a, b) => a.frontmatter.order - b.frontmatter.order);
+}
+
+export function getProductGroups(): ProductGroup[] {
+  const all = getAllProducts();
+  return GROUP_ORDER.map((category) => ({
+    category,
+    products: all.filter(
+      (p) => resolveProductCategory(p.frontmatter) === category
+    ),
+  })).filter((g) => g.products.length > 0);
+}
+
+export function getProductNavGroups(): {
+  category: ProductCategory;
+  products: ProductNavItem[];
+}[] {
+  return getProductGroups().map((group) => ({
+    category: group.category,
+    products: group.products.map((p) => ({
+      slug: p.slug,
+      title: p.frontmatter.title,
+      tagline: p.frontmatter.tagline,
+      order: p.frontmatter.order,
+      category: group.category,
+    })),
+  }));
 }
 
 export function getProduct(slug: string): ContentItem<ProductFrontmatter> | null {

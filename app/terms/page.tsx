@@ -93,11 +93,11 @@ export default function TermsPage() {
             </h2>
             <p>
               All content on this Website — including the MEX Automation name,
-              3D ribbon logo mark, product names (HeatWatch, MEX Digital Twin,
-              MEX Vision Systems, MEX EMS, MEX Data Logger, MEX Dashboards),
-              visual designs, schematics, and text — is the intellectual
-              property of MEX Automation and is protected under applicable
-              Indian copyright and trademark laws.
+              3D ribbon logo mark, product names (HeatWatch, Crate &amp; Pouch
+              Counting, Bottle Detection &amp; Counting, Data Logger,
+              Dashboards, TwinForge Studio), visual designs, schematics, and
+              text — is the intellectual property of MEX Automation and is
+              protected under applicable Indian copyright and trademark laws.
             </p>
           </section>
 

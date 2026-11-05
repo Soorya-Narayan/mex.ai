@@ -10,9 +10,10 @@ Use this checklist to verify every content, legal, security, and infrastructure 
 - [x] Removed all `[PLACEHOLDER]` text from public pages and marked every unverified technical specification in `content/products/*.mdx` with `[TODO: confirm]`.
 - [x] Deleted `public/brand-preview.html` and updated `LICENSE` to `"Copyright (c) 2026 MEX Automation. All rights reserved."`
 - [ ] Replace `[TODO: confirm]` values in `content/products/*.mdx` with engineering-verified specifications.
-- [ ] Replace the 6 placeholder PDF datasheets in `private/brochures/` (`heatwatch-brochure.pdf`, `digital-twin-brochure.pdf`, `vision-systems-brochure.pdf`, `ems-brochure.pdf`, `data-logger-brochure.pdf`, `dashboards-brochure.pdf`) with final engineering datasheets.
-- [ ] Populate verified customer case studies (`content/case-studies/*.mdx`), engineering articles (`content/insights/*.mdx`), and open roles (`content/careers/*.mdx`) before setting `published: true`.
-- [ ] Populate verified client logos and homepage stats, then set `SITE_CONFIG.showVerifiedCustomerData = true` in `lib/site-config.ts`.
+- [x] Deleted old placeholder PDF datasheets from `private/brochures/` and hid the brochure download button on any product without a `brochureFile`.
+- [ ] Add final engineering PDF datasheets to `private/brochures/` and set `brochureFile` in `content/products/*.mdx` when ready.
+- [ ] Fill in `[TODO]` business results and obtain client approval for the 4 draft case studies (`milma-kottayam-crate-pouch-counting`, `muralya-dairy-bottle-counting`, `anik-dairy-data-logger`, `zoladyne-energy-dashboard`), engineering articles (`content/insights/*.mdx`), and open roles (`content/careers/*.mdx`) before setting `published: true`.
+- [ ] Confirm client permissions for `Milma (Kottayam)`, `Muralya Dairy (Thiruvananthapuram)`, `Anik Dairy (Bhopal)`, `Zoladyne (Coimbatore)`, and `Lactalis (Navi Mumbai)` in `components/home/ClientLogos.tsx`, then set `SITE_CONFIG.showVerifiedCustomerData = true` in `lib/site-config.ts`.
 - [ ] Replace `[ADDRESS]`, `[PHONE]`, `[EMAIL]`, and `[WHATSAPP NUMBER]` in:
   - [ ] `app/contact/page.tsx` (including the Google Maps iframe coordinates and `wa.me` number)
   - [ ] `components/layout/Footer.tsx`

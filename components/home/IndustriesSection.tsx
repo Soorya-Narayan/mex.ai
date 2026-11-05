@@ -1,63 +1,34 @@
 import React from "react";
 import Link from "next/link";
-import {
-  Factory,
-  Car,
-  Pill,
-  Package,
-  Zap,
-  Cpu,
-  ArrowRight,
-} from "lucide-react";
+import { Utensils, Zap, Cpu, ArrowRight } from "lucide-react";
 
 export const industries = [
   {
-    title: "Steel & Metals",
-    slug: "steel",
-    icon: Factory,
+    title: "Dairy & Food Processing",
+    slug: "dairy-food",
+    badge: "Primary Sector",
+    icon: Utensils,
     summary:
-      "Blast furnace refractory lining monitoring, continuous billet casting inspection, and predictive ladle anomaly detection.",
-    keyBenefit: "Continuous Furnace & Slab Surveillance",
+      "Vision-based crate & pouch counting and bottle counting on packing lines, round-the-clock RTD temperature monitoring for pasteurisers and cold rooms, and 1-second PLC process data logging.",
+    keyBenefit: "Packing Line Vision AI & Process Telemetry",
   },
   {
-    title: "Automotive & Auto Components",
-    slug: "automotive",
-    icon: Car,
-    summary:
-      "Battery pack thermal monitoring during cell assembly, robotic welding bead verification, and precision stamping inspection.",
-    keyBenefit: "Inline Surface & Weld Verification",
-  },
-  {
-    title: "Pharmaceuticals & Life Sciences",
-    slug: "pharma",
-    icon: Pill,
-    summary:
-      "Audit-ready environmental data logging, sterile blister packaging inspection, and lyophilization temperature tracking.",
-    keyBenefit: "End-to-End Batch Traceability",
-  },
-  {
-    title: "Food & Beverage",
-    slug: "food-beverage",
-    icon: Package,
-    summary:
-      "High-speed bottle cap alignment, OCR label expiry verification, and specific energy monitoring across refrigeration loops.",
-    keyBenefit: "Cold-Chain & Packaging Integrity",
-  },
-  {
-    title: "Oil, Gas & Petrochemicals",
-    slug: "oil-gas",
+    title: "Energy & Solar Monitoring",
+    slug: "energy",
+    badge: "Primary Sector",
     icon: Zap,
     summary:
-      "High-voltage switchgear hot-spot detection, rotating asset health modelling, and continuous thermal safety surveillance.",
-    keyBenefit: "Early Thermal & Asset Anomaly Detection",
+      "Real-time energy dashboards tracking solar generation, inverter MPPT status, grid quality, battery state of charge, and load consumption with one-click reports.",
+    keyBenefit: "Solar, Grid, Battery & Load Visibility",
   },
   {
-    title: "Cement & Building Materials",
-    slug: "cement",
+    title: "Process Skids & Virtual Commissioning",
+    slug: "capabilities",
+    badge: "Capabilities",
     icon: Cpu,
     summary:
-      "Rotary kiln shell thermal profiling, cooler hot-spot detection, and plant-wide specific energy consumption (SEC) analytics.",
-    keyBenefit: "Kiln Thermal & Energy Optimization",
+      "Deterministic 100 ms process skid simulation over OPC UA for testing PLC logic, safety interlocks, fault injection, and automated Factory Acceptance Tests before reaching site.",
+    keyBenefit: "Offline & Hardware-in-the-Loop FAT",
   },
 ];
 
@@ -68,21 +39,21 @@ export function IndustriesSection() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-brand-cyan mb-3">
-              Sector Specializations
+              Sectors &amp; Capabilities
             </div>
             <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-foreground">
-              Built for India&apos;s Most Demanding Production Floors
+              Focused on Dairy, Food Processing &amp; Energy
             </h2>
           </div>
           <Link
             href="/industries"
             className="inline-flex items-center gap-2 text-sm font-semibold text-brand-cyan hover:underline"
           >
-            Explore All Industry Use Cases <ArrowRight className="w-4 h-4" />
+            Explore Sectors &amp; Capabilities <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {industries.map((ind) => {
             const Icon = ind.icon;
             return (
@@ -91,8 +62,13 @@ export function IndustriesSection() {
                 className="p-7 rounded-2xl border border-border/60 bg-background/60 hover:bg-background hover:border-brand-blue/50 transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
-                  <div className="w-12 h-12 rounded-xl bg-card border border-border flex items-center justify-center mb-6 group-hover:scale-105 transition-transform">
-                    <Icon className="w-6 h-6 text-brand-cyan" />
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-card border border-border flex items-center justify-center group-hover:scale-105 transition-transform">
+                      <Icon className="w-6 h-6 text-brand-cyan" />
+                    </div>
+                    <span className="text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-md bg-muted/60 text-muted-foreground">
+                      {ind.badge}
+                    </span>
                   </div>
                   <h3 className="text-lg font-bold text-foreground mb-2">
                     {ind.title}
@@ -120,4 +96,3 @@ export function IndustriesSection() {
     </section>
   );
 }
-

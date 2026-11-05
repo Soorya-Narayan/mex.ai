@@ -1,60 +1,49 @@
 ---
 title: "Data Logger"
 slug: "data-logger"
-tagline: "Industrial-Grade Edge Data Acquisition — Rugged, Protocol-Agnostic"
-overview: "The MEX Data Logger is a hardened edge acquisition unit that connects to virtually any industrial sensor, controller, or communication bus and records high-fidelity time-series data to a local historian. It bridges legacy brown-field equipment with modern cloud or on-premises analytics platforms, without requiring PLC modifications."
+tagline: "Second-by-second process data logging, live dashboards and automatic shift reports"
+overview: "The MEX Data Logger reads process data directly from your PLC every second, stores it reliably on a compact edge computer, and turns it into a live supervisory dashboard and automatic shift and daily reports. It's a fast, low-cost way to get full visibility of a process line without a full SCADA project."
 features:
-  - "Protocol-agnostic: Modbus RTU/TCP, OPC-UA, BACnet, DNP3, PROFIBUS, 4–20 mA, thermocouple, pulse"
-  - "On-board flash historian: stores up to [TODO: X GB] locally — survives network outages without data loss"
-  - "Store-and-forward with guaranteed delivery to upstream SCADA, cloud, or on-premises analytics"
-  - "Configurable scan rates: 10 ms to 60 min per tag"
-  - "Up to [TODO: X] simultaneous tags per unit"
-  - "Secure remote configuration and firmware updates over HTTPS"
-  - "IP65-rated DIN-rail form factor; operates at 0–60 °C ambient"
-  - "Redundant power input with UPS hold-up for graceful shutdown"
+  - "1-second sampling (86,400 records per instrument per day)"
+  - "Reads tags directly from the PLC, configured through a tag map with no code changes"
+  - "Logs temperatures, pressures, flow, totalisers, valve positions, levels, diversion valve states and CIP status"
+  - "Flash-safe storage that batches writes to protect the edge computer's memory card"
+  - "Live dashboard in any browser on the plant network, with nothing to install"
+  - "Multi-axis trend charts with live min, max and average"
+  - "Automatic shift and daily reports in PDF, Excel (with charts) and CSV"
+  - "Excel report layout can match your existing SCADA report format"
+  - "Optional automatic email delivery of reports"
+  - "Self-healing background services that restart automatically and reconnect after network drops"
 useCases:
-  - "Brown-field SCADA integration: bring older PLCs with no Ethernet port into a modern historian"
-  - "Remote unmanned sites: substations, pump stations, weather stations"
-  - "Research and process trials: high-speed data capture for root-cause analysis"
-  - "Energy metering aggregation before passing to MEX EMS"
-  - "Condition monitoring data aggregation feeding MEX HeatWatch and Digital Twin"
-  - "Environmental compliance monitoring (emissions, effluent)"
-howItWorks: "The Data Logger ships pre-configured with MEX's edge firmware. A plant engineer uses the web-based configuration portal to map each field device to a tag, set the scan rate, and define the forwarding destination. The logger autonomously manages scan scheduling, data compression, and retry logic for forwarding. Configuration changes are non-disruptive and take effect without a restart."
+  - "Pasteuriser monitoring and pasteurisation records"
+  - "Interim monitoring before a permanent SCADA or control upgrade"
+  - "Audit-ready process records for quality and compliance"
+  - "Adding visibility to existing PLC-controlled lines"
+howItWorks: "The logger connects to the PLC over the plant network and reads the configured tags every second. Readings are buffered in memory and written to a local database in safe batches. A built-in web server provides the live supervisory dashboard, and a scheduler generates shift and daily reports automatically, optionally emailing them to your team."
 specs:
-  - { label: "Protocols (Serial)", value: "Modbus RTU, DNP3, PROFIBUS DP, IEC 60870-5-101/104 [TODO: confirm]" }
-  - { label: "Protocols (Ethernet)", value: "Modbus TCP, OPC-UA, BACnet IP, IEC 61850 [TODO: confirm]" }
-  - { label: "Analogue Inputs", value: "4–20 mA, 0–10 V, thermocouple (K, J, T, R, S, B) [TODO: confirm]" }
-  - { label: "Digital I/O", value: "16 DI + 8 DO (24 V DC) [TODO: confirm]" }
-  - { label: "Scan Rate", value: "10 ms – 60 min (per tag) [TODO: confirm]" }
-  - { label: "On-board Storage", value: "[TODO: confirm — X GB] industrial-grade flash" }
-  - { label: "Enclosure", value: "IP65 DIN-rail, 35 mm TS35 [TODO: confirm]" }
-  - { label: "Power", value: "24 V DC, 9–36 V DC wide range [TODO: confirm]" }
-  - { label: "Ambient Temp.", value: "0 °C – 60 °C operating, −20 °C – 70 °C storage [TODO: confirm]" }
-  - { label: "Certifications", value: "[TODO: confirm]" }
-brochureFile: "data-logger-brochure.pdf"
-heroImage: "/brand/product-data-logger.jpg"
+  - { label: "Sampling Interval", value: "1 second" }
+  - { label: "PLC Support", value: "Allen-Bradley Micro800 series (EtherNet/IP)" }
+  - { label: "Edge Computer", value: "Raspberry Pi" }
+  - { label: "Storage", value: "Local SQLite database (WAL mode, batched writes)" }
+  - { label: "Dashboard", value: "Browser-based, 3-second live refresh" }
+  - { label: "Reports", value: "Shift (8 h) and daily; PDF, Excel, CSV" }
+  - { label: "Report Delivery", value: "Download or automatic email" }
 gallery: []
 faq:
-  - question: "Can the Data Logger connect to equipment that is 20–30 years old?"
-    answer: "Yes. MEX Data Logger supports legacy serial protocols (Modbus RTU, DNP3, PROFIBUS) that most older PLCs and instruments use. As long as the device has a supported communication port, it can be integrated."
-  - question: "What happens to data if the network goes down?"
-    answer: "Data is written to the on-board flash historian first. When connectivity is restored, it forwards buffered records with timestamps intact. No data is lost during outages up to [TODO: X days] of storage capacity."
-  - question: "Is PLC programming required for integration?"
-    answer: "No. The Data Logger reads from existing communication ports on the PLC as a Modbus/OPC-UA master. No changes to the PLC program are required."
-order: 5
+  - question: "Do we need to install software on our PCs?"
+    answer: "No. Any PC or laptop on the same network can open the dashboard in a web browser."
+  - question: "What happens if the network connection to the PLC drops?"
+    answer: "The logger keeps retrying with increasing intervals and resumes logging automatically when the connection returns."
+  - question: "Which PLCs are supported?"
+    answer: "Allen-Bradley Micro800 series PLCs are supported today. The logger is built on a modular PLC interface, so other PLCs can be added."
+order: 4
 published: true
 ---
 
-<!-- TODO: Replace all [TODO] text with verified data from MEX engineering team. -->
-<!-- TODO: Add real product images to /public/products/data-logger/ -->
+<!-- TODO: Get written permission from Anik Dairy before naming them and using their logo. -->
+<!-- TODO: List any other PLC brands you can support, and update the PLC Support spec. -->
+<!-- TODO: Add dashboard screenshots to /public/products/data-logger/ -->
 
-## Overview
+## Where it's running
 
-Most industrial facilities are a patchwork of equipment from different eras — a 1990s PLC here, a modern servo drive there, an analogue instrument that only speaks 4–20 mA. MEX Data Logger is designed to bridge this heterogeneous reality into a single, coherent, time-synchronised data stream.
-
-## Deployment Topology
-
-The Data Logger can operate standalone or as part of a hierarchical MEX system where multiple field loggers feed into a site-level historian, which in turn feeds MEX Dashboards and the Digital Twin.
-
-> **TODO:** Add a topology diagram from the engineering team.
-
+Implemented at **Anik Dairy, Bhopal**, logging around 30 instruments on a 10 KL pasteuriser, including temperature, pressure and flow transmitters, flow diversion valves and CIP status.

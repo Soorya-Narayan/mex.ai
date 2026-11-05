@@ -1,17 +1,14 @@
 import { z } from "zod";
 
 export const PRODUCT_INTEREST_OPTIONS = [
-  { value: "heatwatch", label: "HeatWatch (Thermal Intelligence)" },
-  { value: "digital-twin", label: "Digital Twin (Physics-Informed Simulation)" },
-  { value: "vision-systems", label: "Vision Systems (Machine Vision QC)" },
-  {
-    value: "energy-monitoring-systems",
-    label: "Energy Monitoring Systems (EMS)",
-  },
-  { value: "data-logger", label: "Data Logger (Edge Acquisition)" },
-  { value: "dashboards", label: "Dashboards (Operations Intelligence)" },
-  { value: "request-demo", label: "Full Platform Live Demo" },
-  { value: "general-inquiry", label: "General Inquiry / Partnership" },
+  { value: "heatwatch", label: "HeatWatch" },
+  { value: "crate-pouch-counting", label: "Crate & Pouch Counting" },
+  { value: "bottle-counting", label: "Bottle Detection & Counting" },
+  { value: "data-logger", label: "Data Logger" },
+  { value: "dashboards", label: "Dashboards" },
+  { value: "twinforge-studio", label: "TwinForge Studio" },
+  { value: "request-demo", label: "Request a Demo" },
+  { value: "general-inquiry", label: "General Inquiry" },
 ] as const;
 
 export const ContactFormSchema = z.object({
@@ -47,4 +44,3 @@ export const ContactFormSchema = z.object({
 });
 
 export type ContactFormValues = z.infer<typeof ContactFormSchema>;
-

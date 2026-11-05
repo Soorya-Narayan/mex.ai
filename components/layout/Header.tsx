@@ -7,62 +7,24 @@ import {
   ChevronDown,
   Menu,
   X,
-  Flame,
-  Layers,
   Eye,
-  Zap,
-  HardDrive,
-  LayoutDashboard,
+  Activity,
+  Cpu,
   ArrowRight,
 } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { cn } from "@/lib/utils";
+import type { ProductCategory, ProductNavItem } from "@/lib/content";
 
-const products = [
-  {
-    name: "HeatWatch",
-    slug: "heatwatch",
-    description: "Continuous industrial thermal profiling and hot-spot detection.",
-    icon: Flame,
-    color: "text-amber-500",
-  },
-  {
-    name: "Digital Twin",
-    slug: "digital-twin",
-    description: "Real-time virtual simulation and predictive asset modeling.",
-    icon: Layers,
-    color: "text-brand-blue",
-  },
-  {
-    name: "Vision Systems",
-    slug: "vision-systems",
-    description: "Sub-millimeter automated optical inspection and defect sorting.",
-    icon: Eye,
-    color: "text-brand-cyan",
-  },
-  {
-    name: "Energy Monitoring (EMS)",
-    slug: "energy-monitoring-systems",
-    description: "Plant-wide specific energy consumption and peak-load optimization.",
-    icon: Zap,
-    color: "text-emerald-400",
-  },
-  {
-    name: "Data Logger",
-    slug: "data-logger",
-    description: "Rugged high-frequency edge telemetry with zero packet drop.",
-    icon: HardDrive,
-    color: "text-indigo-400",
-  },
-  {
-    name: "Dashboards",
-    slug: "dashboards",
-    description: "Unified operational analytics for executives and plant managers.",
-    icon: LayoutDashboard,
-    color: "text-brand-magenta",
-  },
-];
+const CATEGORY_ICON_MAP: Record<
+  ProductCategory,
+  React.ComponentType<{ className?: string }>
+> = {
+  "Vision AI": Eye,
+  "Monitoring & Data": Activity,
+  Simulation: Cpu,
+};
 
 const navLinks = [
   { name: "Industries", href: "/industries" },
@@ -72,7 +34,14 @@ const navLinks = [
   { name: "Contact", href: "/contact" },
 ];
 
-export function Header() {
+export interface HeaderProps {
+  productGroups: {
+    category: ProductCategory;
+    products: ProductNavItem[];
+  }[];
+}
+
+export function Header({ productGroups }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [productsDropdownOpen, setProductsDropdownOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -86,7 +55,6 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close menus on route change
   useEffect(() => {
     setMobileMenuOpen(false);
     setProductsDropdownOpen(false);
@@ -106,7 +74,10 @@ export function Header() {
         <Logo variant="lockup" height={38} priority />
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-1 xl:gap-2" aria-label="Main navigation">
+        <nav
+          className="hidden lg:flex items-center gap-1 xl:gap-2"
+          aria-label="Main navigation"
+        >
           {/* Products Dropdown */}
           <div
             className="relative"
@@ -134,12 +105,12 @@ export function Header() {
               />
             </button>
 
-            {/* Dropdown Menu Panel */}
+            {/* Dropdown Menu Panel — grouped by category from MDX */}
             {productsDropdownOpen && (
-              <div className="absolute top-full left-0 w-[580px] p-4 bg-card/95 backdrop-blur-xl border border-border/80 rounded-2xl shadow-2xl shadow-black/20 grid grid-cols-2 gap-2 animate-in fade-in slide-in-from-top-2 duration-200">
-                <div className="col-span-2 pb-2 mb-1 border-b border-border/50 flex items-center justify-between">
+              <div className="absolute top-full left-0 w-[640px] p-5 bg-card/95 backdrop-blur-xl border border-border/80 rounded-2xl shadow-2xl shadow-black/20 space-y-4 animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="pb-2 border-b border-border/50 flex items-center justify-between">
                   <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    Industrial AI & Automation Suite
+                    Products by Category
                   </span>
                   <Link
                     href="/products"
@@ -148,28 +119,36 @@ export function Header() {
                     View All Products <ArrowRight className="w-3 h-3" />
                   </Link>
                 </div>
-                {products.map((product) => {
-                  const Icon = product.icon;
-                  return (
-                    <Link
-                      key={product.slug}
-                      href={`/products/${product.slug}`}
-                      className="group p-2.5 rounded-xl hover:bg-muted/60 transition-all flex items-start gap-3"
-                    >
-                      <div className="p-2 rounded-lg bg-background border border-border group-hover:border-brand-cyan/40 transition-colors">
-                        <Icon className={cn("w-5 h-5", product.color)} />
-                      </div>
-                      <div>
-                        <div className="text-sm font-semibold text-foreground group-hover:text-brand-cyan transition-colors">
-                          {product.name}
+
+                <div className="space-y-4">
+                  {productGroups.map((group) => {
+                    const GroupIcon = CATEGORY_ICON_MAP[group.category] ?? Cpu;
+                    return (
+                      <div key={group.category}>
+                        <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-brand-cyan mb-2 px-1">
+                          <GroupIcon className="w-3.5 h-3.5" />
+                          <span>{group.category}</span>
                         </div>
-                        <div className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
-                          {product.description}
+                        <div className="grid grid-cols-2 gap-2">
+                          {group.products.map((product) => (
+                            <Link
+                              key={product.slug}
+                              href={`/products/${product.slug}`}
+                              className="group p-2.5 rounded-xl hover:bg-muted/60 transition-all flex flex-col justify-between border border-transparent hover:border-border/60"
+                            >
+                              <div className="text-sm font-semibold text-foreground group-hover:text-brand-cyan transition-colors">
+                                {product.title}
+                              </div>
+                              <div className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
+                                {product.tagline}
+                              </div>
+                            </Link>
+                          ))}
                         </div>
                       </div>
-                    </Link>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
             )}
           </div>
@@ -218,7 +197,11 @@ export function Header() {
             className="p-2.5 rounded-xl border border-border bg-background/80 text-foreground focus-visible:ring-2 focus-visible:ring-brand-cyan"
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
       </div>
@@ -227,27 +210,30 @@ export function Header() {
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-x-0 top-20 bottom-0 bg-background/98 backdrop-blur-2xl z-40 p-6 overflow-y-auto border-t border-border flex flex-col justify-between">
           <div className="space-y-6">
-            <div>
-              <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                Products
-              </div>
-              <div className="grid grid-cols-1 gap-2">
-                {products.map((p) => {
-                  const Icon = p.icon;
-                  return (
+            {productGroups.map((group) => (
+              <div key={group.category}>
+                <div className="text-xs font-semibold uppercase tracking-wider text-brand-cyan mb-2">
+                  {group.category}
+                </div>
+                <div className="grid grid-cols-1 gap-2">
+                  {group.products.map((p) => (
                     <Link
                       key={p.slug}
                       href={`/products/${p.slug}`}
-                      className="flex items-center gap-3 p-3 rounded-xl bg-card/60 border border-border/60 hover:border-brand-cyan/50"
+                      className="flex flex-col p-3 rounded-xl bg-card/60 border border-border/60 hover:border-brand-cyan/50"
                       onClick={() => setMobileMenuOpen(false)}
                     >
-                      <Icon className={cn("w-5 h-5", p.color)} />
-                      <div className="font-semibold text-sm">{p.name}</div>
+                      <span className="font-semibold text-sm text-foreground">
+                        {p.title}
+                      </span>
+                      <span className="text-xs text-muted-foreground mt-0.5">
+                        {p.tagline}
+                      </span>
                     </Link>
-                  );
-                })}
+                  ))}
+                </div>
               </div>
-            </div>
+            ))}
 
             <div className="pt-4 border-t border-border/60">
               <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
@@ -283,4 +269,3 @@ export function Header() {
     </header>
   );
 }
-

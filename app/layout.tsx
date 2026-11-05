@@ -7,6 +7,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { CookieConsentBanner } from "@/components/analytics/CookieConsentBanner";
+import { getAllProducts, getProductNavGroups } from "@/lib/content";
 import {
   JsonLd,
   getOrganizationJsonLd,
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
     template: "%s | MEX Automation",
   },
   description:
-    "Indian industrial automation & AI powerhouse. Next-gen digital twins, continuous thermal profiling (HeatWatch), vision inspection, and plant-wide EMS.",
+    "Indian industrial automation & AI company delivering vision AI counting, wireless temperature monitoring (HeatWatch), PLC data logging, energy dashboards, and virtual commissioning.",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -62,13 +63,13 @@ export const metadata: Metadata = {
     siteName: "MEX Automation",
     title: "MEX Automation | Intelligent Industrial AI & Automation",
     description:
-      "Indian industrial automation & AI powerhouse. Next-gen digital twins, continuous thermal profiling (HeatWatch), vision inspection, and plant-wide EMS.",
+      "Indian industrial automation & AI company delivering vision AI counting, wireless temperature monitoring (HeatWatch), PLC data logging, energy dashboards, and virtual commissioning.",
   },
   twitter: {
     card: "summary_large_image",
     title: "MEX Automation | Intelligent Industrial AI & Automation",
     description:
-      "Indian industrial automation & AI powerhouse. Next-gen digital twins, continuous thermal profiling (HeatWatch), vision inspection, and plant-wide EMS.",
+      "Indian industrial automation & AI company delivering vision AI counting, wireless temperature monitoring (HeatWatch), PLC data logging, energy dashboards, and virtual commissioning.",
   },
 };
 
@@ -82,14 +83,17 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
-export const dynamic = "force-dynamic";
-
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const nonce = (await headers()).get("x-nonce") ?? undefined;
+  const productGroups = getProductNavGroups();
+  const footerProducts = getAllProducts().map((p) => ({
+    slug: p.slug,
+    title: p.frontmatter.title,
+  }));
 
   return (
     <html
@@ -114,11 +118,11 @@ export default async function RootLayout({
           disableTransitionOnChange
           nonce={nonce}
         >
-          <Header />
+          <Header productGroups={productGroups} />
           <main id="main-content" className="flex-1">
             {children}
           </main>
-          <Footer />
+          <Footer products={footerProducts} />
           <WhatsAppButton />
           <CookieConsentBanner nonce={nonce} />
           <JsonLd data={getOrganizationJsonLd()} nonce={nonce} />

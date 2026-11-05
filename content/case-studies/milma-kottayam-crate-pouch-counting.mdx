@@ -1,0 +1,34 @@
+---
+title: "Automated Crate & Pouch Counting at Milma Kottayam Dairy"
+slug: "milma-kottayam-crate-pouch-counting"
+client: "Milma (Kottayam Dairy)"
+industry: "Dairy & Food Processing"
+challenge: "[TODO: Describe the crate verification and pouch counting challenge on the 500 ml milk pouch packing line at Milma Kottayam Dairy.]"
+solution: "Implemented MEX Crate & Pouch Counting above the conveyor using a Baumer VCXG.2-32C 3.2 MP global-shutter GigE Vision camera, diffuse 300 × 50 mm LED lighting, and a custom-trained YOLOv8s model to count 500 ml milk pouches across multiple variants, handle overlapping pouches in two lanes via instance segmentation, and flag underfilled or overfilled crates in under 31 ms per crate."
+results:
+  - "[TODO: Business result / reduction in short-supply complaints]"
+  - "[TODO: Shift reconciliation time saved]"
+  - "98.25% mAP@50 detection accuracy on held-out test data (236 images, 2,871 objects)"
+  - "Under 31 ms decision time per crate at a design throughput of 24 crates/min (~1.5 lakh pouches/day)"
+date: "2026-01-15"
+published: false
+---
+
+<!-- TODO: Get written permission from Milma before setting published: true. -->
+<!-- TODO: Fill in the business results and client-approved operational metrics below. -->
+
+## Overview
+
+Implemented at the **Milma Kottayam Dairy** for counting 500 ml milk pouches across multiple variants on the packing line conveyor.
+
+## System Setup
+
+- **Camera:** Baumer VCXG.2-32C, 3.2 MP global shutter, GigE Vision with 4–13 mm F/1.5 C-mount lens
+- **Lighting:** 300 × 50 mm diffuse white LED bar (24 V DC) for glare-free images on pouch film
+- **AI Model:** Custom-trained YOLOv8s detecting crates, empty trays, and 3 milk pouch variants (3.0 ms model inference per image; under 31 ms decision time per crate)
+- **Operator Interface & Reporting:** Live video feed showing total pouches, crates audited, pass rate, and line speed, plus timestamped incident snapshots and one-click shift CSV export
+
+## Business Results
+
+- [TODO: Add verified business outcomes from Milma Kottayam Dairy]
+

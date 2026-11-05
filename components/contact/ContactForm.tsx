@@ -30,8 +30,10 @@ declare global {
 
 export function ContactForm({
   defaultInterest = "request-demo",
+  options = PRODUCT_INTEREST_OPTIONS,
 }: {
   defaultInterest?: string;
+  options?: readonly { value: string; label: string }[];
 }) {
   const [status, setStatus] = useState<
     "idle" | "submitting" | "success" | "error"
@@ -295,7 +297,7 @@ export function ContactForm({
           {...register("productInterest")}
           className="w-full rounded-xl border border-border/80 bg-background px-4 py-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-brand-cyan"
         >
-          {PRODUCT_INTEREST_OPTIONS.map((opt) => (
+          {options.map((opt) => (
             <option key={opt.value} value={opt.value}>
               {opt.label}
             </option>

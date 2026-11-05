@@ -105,8 +105,8 @@ export default function OpenGraphImage() {
               color: "#94A3B8",
             }}
           >
-            Thermal Intelligence · Physics-Informed Digital Twins · Vision
-            Systems · Energy Monitoring
+            Vision AI Counting · Temperature &amp; PLC Data Logging · Energy
+            Dashboards · Virtual Commissioning
           </div>
         </div>
 

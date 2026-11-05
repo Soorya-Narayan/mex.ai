@@ -5,11 +5,11 @@ const PUBLIC_ROUTES = [
   "/",
   "/products",
   "/products/heatwatch",
-  "/products/digital-twin",
-  "/products/vision-systems",
-  "/products/energy-monitoring-systems",
+  "/products/crate-pouch-counting",
+  "/products/bottle-counting",
   "/products/data-logger",
   "/products/dashboards",
+  "/products/twinforge-studio",
   "/industries",
   "/case-studies",
   "/about",
@@ -21,8 +21,13 @@ const PUBLIC_ROUTES = [
 ];
 
 const UNPUBLISHED_ROUTES = [
-  "/case-studies/cement-plant-energy-reduction",
-  "/case-studies/automotive-vision-inspection",
+  "/products/digital-twin",
+  "/products/vision-systems",
+  "/products/energy-monitoring-systems",
+  "/case-studies/milma-kottayam-crate-pouch-counting",
+  "/case-studies/muralya-dairy-bottle-counting",
+  "/case-studies/anik-dairy-data-logger",
+  "/case-studies/zoladyne-energy-dashboard",
   "/insights/physics-informed-ai-vs-ml",
   "/insights/iso-50001-roadmap",
 ];
@@ -35,8 +40,7 @@ test.describe("MEX Automation Marketing Website — Smoke, Content & A11y Audit"
       const response = await page.goto(route);
       expect(response?.status()).toBe(200);
 
-      const h1Count = await page.locator("h1").count();
-      expect(h1Count).toBe(1);
+      await expect(page.locator("h1")).toHaveCount(1);
 
       const bodyText = await page.locator("body").innerText();
       expect(bodyText).not.toContain("[PLACEHOLDER");
@@ -50,15 +54,25 @@ test.describe("MEX Automation Marketing Website — Smoke, Content & A11y Audit"
     });
   }
 
-  test("Sitemap excludes unpublished case studies and insights", async ({
+  test("Sitemap includes all six products and excludes unpublished case studies and insights", async ({
     request,
   }) => {
     const res = await request.get("/sitemap.xml");
     expect(res.status()).toBe(200);
     const xml = await res.text();
     expect(xml).toContain("/products/heatwatch");
-    expect(xml).not.toContain("cement-plant-energy-reduction");
-    expect(xml).not.toContain("automotive-vision-inspection");
+    expect(xml).toContain("/products/crate-pouch-counting");
+    expect(xml).toContain("/products/bottle-counting");
+    expect(xml).toContain("/products/data-logger");
+    expect(xml).toContain("/products/dashboards");
+    expect(xml).toContain("/products/twinforge-studio");
+    expect(xml).not.toContain("/products/digital-twin");
+    expect(xml).not.toContain("/products/vision-systems");
+    expect(xml).not.toContain("/products/energy-monitoring-systems");
+    expect(xml).not.toContain("milma-kottayam-crate-pouch-counting");
+    expect(xml).not.toContain("muralya-dairy-bottle-counting");
+    expect(xml).not.toContain("anik-dairy-data-logger");
+    expect(xml).not.toContain("zoladyne-energy-dashboard");
     expect(xml).not.toContain("physics-informed-ai-vs-ml");
     expect(xml).not.toContain("iso-50001-roadmap");
   });

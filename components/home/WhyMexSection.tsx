@@ -43,7 +43,7 @@ export function WhyMexSection() {
               Industrial Intelligence Without the Cloud Vulnerability.
             </h2>
             <p className="text-base text-muted-foreground leading-relaxed mb-8">
-              Generic IoT platforms fail on the heavy manufacturing floor. MEX combines hardened edge electronics, high-speed machine vision, and physics-driven digital twins into unified production safeguards.
+              Generic IoT platforms fail on the shop floor. MEX combines rugged edge vision systems, multi-protocol PLC and wireless temperature data logging, operational dashboards, and browser-based virtual commissioning into practical industrial automation.
             </p>
 
             {/* Stat callout card — gated behind SITE_CONFIG.showVerifiedCustomerData */}

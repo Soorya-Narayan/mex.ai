@@ -1,20 +1,50 @@
 import { ImageResponse } from "next/og";
-import { getInsight } from "@/lib/content";
+import { NextRequest } from "next/server";
+import { getProduct, getCaseStudy, getInsight } from "@/lib/content";
 
 export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
 
-export default async function InsightOgImage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const post = getInsight(slug);
-  const title = post?.frontmatter.title || "MEX Engineering Insights";
-  const author = post?.frontmatter.author || "MEX Engineering Team";
+export async function GET(request: NextRequest) {
+  const { searchParams } = request.nextUrl;
+  const type = searchParams.get("type") || "product";
+  const slug = searchParams.get("slug") || "";
+
+  let badge = "PRODUCT OVERVIEW";
+  let badgeColor = "#12EEF5";
+  let title = "MEX Automation";
+  let subtitle = "Autonomous Precision. Zero Downtime.";
+  let pathLabel = "mexautomation.in";
+
+  if (type === "product") {
+    const product = getProduct(slug);
+    if (!product) {
+      return new Response("Not Found", { status: 404 });
+    }
+    title = product.frontmatter.title;
+    subtitle = product.frontmatter.tagline;
+    pathLabel = `mexautomation.in/products/${product.slug}`;
+  } else if (type === "case-study") {
+    const cs = getCaseStudy(slug);
+    if (!cs) {
+      return new Response("Not Found", { status: 404 });
+    }
+    badge = `CASE STUDY · ${cs.frontmatter.industry.toUpperCase()}`;
+    badgeColor = "#E81CE6";
+    title = cs.frontmatter.title;
+    subtitle = cs.frontmatter.client;
+    pathLabel = `mexautomation.in/case-studies/${cs.slug}`;
+  } else if (type === "insight") {
+    const post = getInsight(slug);
+    if (!post) {
+      return new Response("Not Found", { status: 404 });
+    }
+    badge = "ENGINEERING INSIGHTS";
+    title = post.frontmatter.title;
+    subtitle = `By ${post.frontmatter.author}`;
+    pathLabel = `mexautomation.in/insights/${post.slug}`;
+  } else {
+    return new Response("Not Found", { status: 404 });
+  }
 
   return new ImageResponse(
     (
@@ -65,13 +95,13 @@ export default async function InsightOgImage({
             style={{
               fontSize: "16px",
               fontWeight: 700,
-              color: "#12EEF5",
+              color: badgeColor,
               padding: "8px 18px",
               borderRadius: "999px",
-              border: "1px solid #12EEF5",
+              border: `1px solid ${badgeColor}`,
             }}
           >
-            ENGINEERING INSIGHTS
+            {badge}
           </span>
         </div>
 
@@ -85,7 +115,7 @@ export default async function InsightOgImage({
         >
           <div
             style={{
-              fontSize: "52px",
+              fontSize: "58px",
               fontWeight: 800,
               lineHeight: 1.15,
               color: "#FFFFFF",
@@ -93,8 +123,14 @@ export default async function InsightOgImage({
           >
             {title}
           </div>
-          <div style={{ fontSize: "24px", color: "#94A3B8" }}>
-            {`By ${author}`}
+          <div
+            style={{
+              fontSize: "28px",
+              lineHeight: 1.35,
+              color: "#94A3B8",
+            }}
+          >
+            {subtitle}
           </div>
         </div>
 
@@ -109,11 +145,12 @@ export default async function InsightOgImage({
             color: "#12EEF5",
           }}
         >
-          <span>{`mexautomation.in/insights/${slug}`}</span>
-          <span style={{ color: "#94A3B8" }}>Industrial AI Blog</span>
+          <span>{pathLabel}</span>
+          <span style={{ color: "#94A3B8" }}>Autonomous Precision</span>
         </div>
       </div>
     ),
-    { ...size }
+    { width: 1200, height: 630 }
   );
 }
+

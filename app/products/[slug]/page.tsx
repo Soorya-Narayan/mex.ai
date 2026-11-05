@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProduct } from "@/lib/content";
+import { getProduct, getAllProducts } from "@/lib/content";
 import { MdxContent } from "@/components/mdx/MdxContent";
 import { BrochureGateModal } from "@/components/products/BrochureGateModal";
 import {
@@ -20,7 +20,11 @@ import type { Metadata } from "next";
 
 type Props = { params: Promise<{ slug: string }> };
 
-export const dynamic = "force-dynamic";
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  return getAllProducts().map((p) => ({ slug: p.slug }));
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -31,6 +35,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: product.frontmatter.tagline,
     alternates: {
       canonical: `/products/${product.slug}`,
+    },
+    openGraph: {
+      images: [`/api/og?type=product&slug=${encodeURIComponent(product.slug)}`],
+    },
+    twitter: {
+      card: "summary_large_image",
+      images: [`/api/og?type=product&slug=${encodeURIComponent(product.slug)}`],
     },
   };
 }

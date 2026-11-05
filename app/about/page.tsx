@@ -84,9 +84,10 @@ export default function AboutPage() {
               <span className="text-brand-gradient">Industrial Future</span>
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              MEX Automation builds mission-critical thermal intelligence,
-              physics-informed digital twins, computer vision systems, and
-              energy management platforms for Indian industry.
+              MEX Automation builds vision AI counting systems, wireless
+              temperature and PLC data loggers, energy and production
+              dashboards, and virtual commissioning software for Indian dairy,
+              food processing, and industrial facilities.
             </p>
           </div>
         </div>

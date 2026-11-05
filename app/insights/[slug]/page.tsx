@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getInsight, readingTime } from "@/lib/content";
+import { getInsight, getAllInsights, readingTime } from "@/lib/content";
 import { MdxContent } from "@/components/mdx/MdxContent";
 import {
   JsonLd,
@@ -21,7 +21,11 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export const dynamic = "force-dynamic";
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  return getAllInsights().map((post) => ({ slug: post.slug }));
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -32,6 +36,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: post.frontmatter.excerpt,
     alternates: {
       canonical: `/insights/${post.slug}`,
+    },
+    openGraph: {
+      images: [`/api/og?type=insight&slug=${encodeURIComponent(post.slug)}`],
+    },
+    twitter: {
+      card: "summary_large_image",
+      images: [`/api/og?type=insight&slug=${encodeURIComponent(post.slug)}`],
     },
   };
 }

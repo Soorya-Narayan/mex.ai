@@ -51,14 +51,9 @@ published: true
 Write standard Markdown below the frontmatter (`##` headings, lists, blockquotes, code blocks, and Markdown tables are all supported).
 ```
 
-### Private Brochure PDFs (`private/brochures/`) — TODO Before Launch
-Brochure PDFs are stored outside `/public` in `private/brochures/` and served exclusively through `/api/brochures` after a Turnstile-verified form submission using a short-lived HMAC-signed token:
-- [ ] **TODO:** `private/brochures/heatwatch-brochure.pdf` — Replace placeholder PDF with final HeatWatch datasheet
-- [ ] **TODO:** `private/brochures/digital-twin-brochure.pdf` — Replace placeholder PDF with final Digital Twin datasheet
-- [ ] **TODO:** `private/brochures/vision-systems-brochure.pdf` — Replace placeholder PDF with final Vision Systems datasheet
-- [ ] **TODO:** `private/brochures/ems-brochure.pdf` — Replace placeholder PDF with final Energy Monitoring Systems datasheet
-- [ ] **TODO:** `private/brochures/data-logger-brochure.pdf` — Replace placeholder PDF with final Data Logger datasheet
-- [ ] **TODO:** `private/brochures/dashboards-brochure.pdf` — Replace placeholder PDF with final Dashboards datasheet
+### Private Brochure PDFs (`private/brochures/`) — Optional Per Product
+Brochure PDFs are stored outside `/public` in `private/brochures/` and served exclusively through `/api/brochures` after a Turnstile-verified form submission using a short-lived HMAC-signed token. When a product's `brochureFile` is `""`, the brochure download button is hidden automatically on `/products/<slug>`:
+- [ ] **TODO:** Add final PDF datasheets to `private/brochures/` and set `brochureFile` in `content/products/<slug>.mdx` (`heatwatch`, `crate-pouch-counting`, `bottle-counting`, `data-logger`, `dashboards`, `twinforge-studio`) when ready.
 
 ---
 
