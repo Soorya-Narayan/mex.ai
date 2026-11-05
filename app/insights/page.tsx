@@ -40,9 +40,9 @@ export default function InsightsPage() {
               <span className="text-brand-gradient">Industrial AI</span>
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Deep dives into physics-informed machine learning, edge hardware
-              architecture, computer vision, and practical energy management for
-              Indian manufacturing.
+              Deep dives into vision counting, round-the-clock temperature
+              monitoring, PLC data logging, and virtual commissioning for
+              Indian dairy and food processing plants.
             </p>
           </div>
         </div>
@@ -122,9 +122,10 @@ export default function InsightsPage() {
                 Engineering Articles Coming Soon
               </h2>
               <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                Our R&amp;D and field engineering teams are preparing deep-dive
-                technical notes on physics-informed neural networks, edge
-                thermal surveillance, and ISO 50001 energy management.
+                Our engineering team is preparing practical field notes and technical
+                deep dives on conveyor vision counting, continuous temperature
+                monitoring, PLC data logging, and virtual commissioning for dairy and
+                food processing operations.
               </p>
               <Link
                 href="/contact"

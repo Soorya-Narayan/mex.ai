@@ -117,11 +117,11 @@ test.describe("MEX Automation Marketing Website — Smoke, Content & A11y Audit"
     await expect(page.getByText(/Please enter your full name/i)).toBeVisible();
 
     await page.fill("#contact-name", "Ananya Deshmukh");
-    await page.fill("#contact-company", "Bharat Cement Works");
-    await page.fill("#contact-email", "ananya@bharatcement.in");
+    await page.fill("#contact-company", "Malabar Dairy Processing");
+    await page.fill("#contact-email", "ananya@malabardairy.in");
     await page.fill(
       "#contact-message",
-      "We would like to evaluate HeatWatch for our rotary kiln shell monitoring."
+      "We would like to evaluate HeatWatch for continuous pasteurizer temperature monitoring."
     );
     await page.locator('input[name="consent"]').check();
     await page.getByRole("button", { name: /Send Message/i }).click();

@@ -76,50 +76,50 @@ export function Hero() {
               <div className="p-4 rounded-xl bg-card/40 border border-border/40 backdrop-blur-sm">
                 <div className="flex items-center gap-2 text-xs font-semibold text-brand-cyan mb-1 uppercase tracking-wider">
                   <Cpu className="w-3.5 h-3.5" />
-                  Edge Latency
+                  Vision Accuracy
                 </div>
                 <div className="text-2xl font-bold text-foreground">
-                  &lt; 12ms
+                  98%+
                 </div>
                 <div className="text-xs text-muted-foreground mt-1">
-                  Local deterministic closed-loop inference
+                  Detection accuracy on held-out test data
                 </div>
               </div>
 
               <div className="p-4 rounded-xl bg-card/40 border border-border/40 backdrop-blur-sm">
                 <div className="flex items-center gap-2 text-xs font-semibold text-brand-magenta mb-1 uppercase tracking-wider">
                   <Activity className="w-3.5 h-3.5" />
-                  Thermal Sensitivity
+                  Process Telemetry
                 </div>
-                <div className="text-2xl font-bold text-foreground">0.05°C</div>
+                <div className="text-2xl font-bold text-foreground">1-Second</div>
                 <div className="text-xs text-muted-foreground mt-1">
-                  Micro-bolometer continuous monitoring
+                  High-frequency PLC &amp; transmitter logging
                 </div>
               </div>
 
               <div className="p-4 rounded-xl bg-card/40 border border-border/40 backdrop-blur-sm">
                 <div className="flex items-center gap-2 text-xs font-semibold text-emerald-400 mb-1 uppercase tracking-wider">
                   <Zap className="w-3.5 h-3.5" />
-                  Energy Reduction
+                  Temperature Alarms
                 </div>
                 <div className="text-2xl font-bold text-foreground">
-                  Up to 28%
+                  24/7
                 </div>
                 <div className="text-xs text-muted-foreground mt-1">
-                  Specific energy consumption optimization
+                  Continuous multi-channel kiosk alerts
                 </div>
               </div>
 
               <div className="p-4 rounded-xl bg-card/40 border border-border/40 backdrop-blur-sm">
                 <div className="flex items-center gap-2 text-xs font-semibold text-brand-blue mb-1 uppercase tracking-wider">
                   <ShieldCheck className="w-3.5 h-3.5" />
-                  Rugged Architecture
+                  Crate Audit Speed
                 </div>
                 <div className="text-2xl font-bold text-foreground">
-                  IP67 Edge
+                  &lt; 31ms
                 </div>
                 <div className="text-xs text-muted-foreground mt-1">
-                  Built for high ambient heat &amp; dust
+                  Instant underfill &amp; pack variant check
                 </div>
               </div>
             </div>

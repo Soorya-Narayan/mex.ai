@@ -105,19 +105,20 @@ export default function CaseStudiesPage() {
           ) : (
             <div className="rounded-2xl border border-border/60 bg-card/40 p-10 text-center max-w-2xl mx-auto">
               <h2 className="text-2xl font-bold text-foreground mb-3">
-                Customer Case Studies Coming Soon
+                Deployment Case Studies Coming Soon
               </h2>
               <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                We are currently finalizing client-approved deployment metrics
-                across cement, steel, and automotive manufacturing plants.
-                Contact our application engineering team to request a private
-                reference briefing or live demo.
+                We are currently compiling verified production data and client-approved
+                metrics across our dairy and food processing deployments — covering
+                high-speed vision counting, round-the-clock temperature monitoring,
+                PLC data logging, and virtual commissioning. Contact our engineering team
+                to request a private technical briefing or live demonstration.
               </p>
               <Link
                 href="/contact?interest=request-demo"
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-gradient px-6 py-3 text-sm font-bold text-white shadow hover:opacity-90 transition-opacity"
               >
-                Request a Reference Briefing <ArrowRight className="w-4 h-4" />
+                Request a Technical Briefing <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           )}

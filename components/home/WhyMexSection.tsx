@@ -50,11 +50,12 @@ export function WhyMexSection() {
             {SITE_CONFIG.showVerifiedCustomerData && (
               <div className="p-6 rounded-2xl border border-border/80 bg-card/60 backdrop-blur-md space-y-4">
                 <div className="text-3xl font-extrabold text-brand-gradient">
-                  99.99% Field Uptime
+                  1-Second Live Telemetry
                 </div>
                 <p className="text-xs text-muted-foreground leading-normal">
-                  Validated across continuous operating hours on automotive
-                  stamping, steel casting, and thermal packaging lines.
+                  Round-the-clock continuous multi-channel temperature monitoring,
+                  PLC logging, and high-speed conveyor vision inspection across dairy
+                  and food processing lines.
                 </p>
               </div>
             )}

@@ -225,7 +225,7 @@ export function ContactForm({
           <input
             id="contact-company"
             type="text"
-            placeholder="Apex Steels Pvt. Ltd."
+            placeholder="Your company name"
             aria-invalid={!!errors.company}
             {...register("company")}
             className="w-full rounded-xl border border-border/80 bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-cyan"
@@ -249,7 +249,7 @@ export function ContactForm({
           <input
             id="contact-email"
             type="email"
-            placeholder="rajesh@apexsteels.in"
+            placeholder="you@company.com"
             aria-invalid={!!errors.email}
             {...register("email")}
             className="w-full rounded-xl border border-border/80 bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-cyan"
