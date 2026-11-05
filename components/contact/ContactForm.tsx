@@ -36,7 +36,9 @@ export function ContactForm({
     "idle" | "submitting" | "success" | "error"
   >("idle");
   const [serverError, setServerError] = useState("");
-  const [turnstileToken, setTurnstileToken] = useState("dev-pass");
+  const [turnstileToken, setTurnstileToken] = useState(
+    process.env.NODE_ENV === "development" ? "dev-turnstile-token" : ""
+  );
 
   const {
     register,
@@ -54,7 +56,7 @@ export function ContactForm({
       message: "",
       consent: false,
       website: "",
-      turnstileToken: "dev-pass",
+      turnstileToken: "",
     },
   });
 

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { Resend } from "resend";
+import * as Sentry from "@sentry/nextjs";
 import DOMPurify from "isomorphic-dompurify";
 import { ContactFormSchema } from "@/lib/schemas/contact";
 import { env } from "@/lib/env";
@@ -32,8 +33,8 @@ async function checkRateLimit(ip: string): Promise<boolean> {
     try {
       const { success } = await upstashLimiter.limit(ip);
       return success;
-    } catch {
-      // Fallback to in-memory limiter if Upstash is unreachable
+    } catch (err) {
+      Sentry.captureException(err);
     }
   }
 
@@ -55,20 +56,28 @@ async function checkRateLimit(ip: string): Promise<boolean> {
 
 // ─── Turnstile Server Verification ───────────────────────────────────────────
 
+const CF_TEST_SECRET_KEY = "1x0000000000000000000000000000000AA";
+
 async function verifyTurnstileToken(
   token: string | undefined,
   ip: string
 ): Promise<boolean> {
-  // Always-pass test secret key or local dev bypass token
-  if (
-    env.CLOUDFLARE_TURNSTILE_SECRET_KEY ===
-      "1x0000000000000000000000000000000AA" &&
-    (token === "dev-pass" || token === "brochure-gate" || !token)
-  ) {
+  if (!token || !token.trim()) {
+    return false;
+  }
+
+  const isDevTestKey =
+    env.NODE_ENV === "development" &&
+    env.CLOUDFLARE_TURNSTILE_SECRET_KEY === CF_TEST_SECRET_KEY;
+
+  if (isDevTestKey) {
     return true;
   }
 
-  if (!token) return false;
+  // Reject Cloudflare test secret key if accidentally used outside development
+  if (env.CLOUDFLARE_TURNSTILE_SECRET_KEY === CF_TEST_SECRET_KEY) {
+    return false;
+  }
 
   try {
     const formData = new URLSearchParams();
@@ -87,12 +96,9 @@ async function verifyTurnstileToken(
     if (!res.ok) return false;
     const outcome = (await res.json()) as { success?: boolean };
     return Boolean(outcome.success);
-  } catch {
-    // If running in an offline test environment with the test secret key, allow
-    return (
-      env.CLOUDFLARE_TURNSTILE_SECRET_KEY ===
-      "1x0000000000000000000000000000000AA"
-    );
+  } catch (err) {
+    Sentry.captureException(err);
+    return false;
   }
 }
 
@@ -173,44 +179,75 @@ export async function POST(req: NextRequest) {
     };
 
     // 6. Store lead in Neon Postgres via Drizzle parameterized INSERT
-    const isSampleDb = env.DATABASE_URL.includes("ep-sample.aws.neon.tech");
-    if (!isSampleDb) {
+    let dbSuccess = false;
+    try {
       await db.insert(leads).values(sanitizedLead);
+      dbSuccess = true;
+    } catch (dbErr) {
+      Sentry.captureException(dbErr);
     }
 
     // 7. Send notification email to SALES_EMAIL + auto-reply to submitter via Resend
-    const isSampleResend = env.RESEND_API_KEY === "re_sample_key";
-    if (!isSampleResend) {
-      const resend = new Resend(env.RESEND_API_KEY);
-      await Promise.allSettled([
-        resend.emails.send({
-          from: env.EMAIL_FROM,
-          to: [env.SALES_EMAIL],
-          replyTo: sanitizedLead.email,
-          subject: `[MEX Lead] ${sanitizedLead.company} — ${sanitizedLead.productInterest}`,
-          react: LeadNotificationEmail({
-            name: sanitizedLead.name,
-            company: sanitizedLead.company,
-            email: sanitizedLead.email,
-            phone: sanitizedLead.phone ?? undefined,
-            productInterest: sanitizedLead.productInterest,
-            message: sanitizedLead.message,
-          }),
+    let salesEmailSuccess = false;
+    const resend = new Resend(env.RESEND_API_KEY);
+
+    try {
+      const salesResult = await resend.emails.send({
+        from: env.EMAIL_FROM,
+        to: [env.SALES_EMAIL],
+        replyTo: sanitizedLead.email,
+        subject: `[MEX Lead] ${sanitizedLead.company} — ${sanitizedLead.productInterest}`,
+        react: LeadNotificationEmail({
+          name: sanitizedLead.name,
+          company: sanitizedLead.company,
+          email: sanitizedLead.email,
+          phone: sanitizedLead.phone ?? undefined,
+          productInterest: sanitizedLead.productInterest,
+          message: sanitizedLead.message,
         }),
-        resend.emails.send({
-          from: env.EMAIL_FROM,
-          to: [sanitizedLead.email],
-          subject: "We received your inquiry — MEX Automation",
-          react: LeadAutoReplyEmail({
-            name: sanitizedLead.name,
-            productInterest: sanitizedLead.productInterest,
-          }),
+      });
+
+      if (salesResult.error) {
+        Sentry.captureException(new Error(salesResult.error.message));
+      } else {
+        salesEmailSuccess = true;
+      }
+    } catch (emailErr) {
+      Sentry.captureException(emailErr);
+    }
+
+    try {
+      const autoReplyResult = await resend.emails.send({
+        from: env.EMAIL_FROM,
+        to: [sanitizedLead.email],
+        subject: "We received your inquiry — MEX Automation",
+        react: LeadAutoReplyEmail({
+          name: sanitizedLead.name,
+          productInterest: sanitizedLead.productInterest,
         }),
-      ]);
+      });
+
+      if (autoReplyResult.error) {
+        Sentry.captureException(new Error(autoReplyResult.error.message));
+      }
+    } catch (autoReplyErr) {
+      Sentry.captureException(autoReplyErr);
+    }
+
+    // If both the database insert and the sales notification email fail, return an error
+    if (!dbSuccess && !salesEmailSuccess) {
+      return NextResponse.json(
+        {
+          error:
+            "We could not process your request right now. Please try again later.",
+        },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({ success: true }, { status: 200 });
-  } catch {
+  } catch (err) {
+    Sentry.captureException(err);
     // Generic error message — never leak internal stack traces or DB details
     return NextResponse.json(
       {
@@ -221,4 +258,3 @@ export async function POST(req: NextRequest) {
     );
   }
 }
-
