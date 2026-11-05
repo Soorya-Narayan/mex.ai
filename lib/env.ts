@@ -43,6 +43,9 @@ const serverSchema = z.object({
   SALES_EMAIL: isProd
     ? z.string().email()
     : z.string().email().default("sales@mexautomation.in"),
+  CAREERS_EMAIL: isProd
+    ? z.string().email().default("careers@mexautomation.in")
+    : z.string().email().default("careers@mexautomation.in"),
   EMAIL_FROM: isProd
     ? z.string().min(3)
     : z.string().default("MEX Automation <contact@mexautomation.in>"),
@@ -83,6 +86,7 @@ function validateEnv(): Env {
     DATABASE_URL: process.env.DATABASE_URL,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     SALES_EMAIL: process.env.SALES_EMAIL,
+    CAREERS_EMAIL: process.env.CAREERS_EMAIL || "careers@mexautomation.in",
     EMAIL_FROM: process.env.EMAIL_FROM,
     CLOUDFLARE_TURNSTILE_SECRET_KEY:
       process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY,

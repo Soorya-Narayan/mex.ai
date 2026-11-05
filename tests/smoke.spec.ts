@@ -129,6 +129,43 @@ test.describe("MEX Automation Marketing Website — Smoke, Content & A11y Audit"
     await expect(page.getByText(/Inquiry Received/i)).toBeVisible();
   });
 
+  test("Careers form validates required fields and submits via POST /api/careers without exposing data in URL", async ({
+    page,
+  }) => {
+    let capturedMethod = "";
+    let capturedPostData: unknown = null;
+
+    await page.route("/api/careers", async (route) => {
+      capturedMethod = route.request().method();
+      capturedPostData = route.request().postDataJSON();
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ success: true }),
+      });
+    });
+
+    await page.goto("/careers");
+    await page.getByRole("button", { name: /Submit Application/i }).click();
+    await expect(page.getByText(/Please enter your full name/i)).toBeVisible();
+
+    await page.fill("#career-name", "Priya Nair");
+    await page.fill("#career-email", "priya@example.com");
+    await page.fill("#career-resume", "https://linkedin.com/in/priyanair");
+    await page.fill(
+      "#career-note",
+      "Experienced with PLC programming and edge computer vision inference pipelines."
+    );
+    await page.locator('input[name="consent"]').check();
+    await page.getByRole("button", { name: /Submit Application/i }).click();
+
+    await expect(page.getByText(/Application Submitted/i)).toBeVisible();
+    expect(capturedMethod).toBe("POST");
+    expect((capturedPostData as Record<string, unknown>)?.name).toBe("Priya Nair");
+    expect(page.url()).not.toContain("Priya");
+    expect(page.url()).not.toContain("priya@example.com");
+  });
+
   test("GA4 script does not load before cookie consent is granted", async ({
     page,
   }) => {

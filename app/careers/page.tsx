@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllCareers } from "@/lib/content";
+import { CareersForm } from "@/components/careers/CareersForm";
 import {
   ChevronRight,
   MapPin,
@@ -177,109 +178,9 @@ export default function CareersPage() {
               .
             </p>
 
-            <form action="/contact" method="get" className="space-y-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                  <label
-                    htmlFor="career-name"
-                    className="block text-xs font-semibold text-foreground mb-1.5"
-                  >
-                    Full Name *
-                  </label>
-                  <input
-                    id="career-name"
-                    name="name"
-                    type="text"
-                    required
-                    placeholder="Priya Nair"
-                    className="w-full rounded-xl border border-border/80 bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-cyan"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="career-email"
-                    className="block text-xs font-semibold text-foreground mb-1.5"
-                  >
-                    Email Address *
-                  </label>
-                  <input
-                    id="career-email"
-                    name="email"
-                    type="email"
-                    required
-                    placeholder="priya@example.com"
-                    className="w-full rounded-xl border border-border/80 bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-cyan"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                  <label
-                    htmlFor="career-role"
-                    className="block text-xs font-semibold text-foreground mb-1.5"
-                  >
-                    Role Applying For *
-                  </label>
-                  <select
-                    id="career-role"
-                    name="role"
-                    className="w-full rounded-xl border border-border/80 bg-background px-4 py-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-brand-cyan"
-                  >
-                    {roles.map((r) => (
-                      <option key={r.slug} value={r.frontmatter.title}>
-                        {r.frontmatter.title}
-                      </option>
-                    ))}
-                    <option value="General Application">
-                      General Application
-                    </option>
-                  </select>
-                </div>
-                <div>
-                  <label
-                    htmlFor="career-resume"
-                    className="block text-xs font-semibold text-foreground mb-1.5"
-                  >
-                    Resume / LinkedIn / GitHub URL *
-                  </label>
-                  <input
-                    id="career-resume"
-                    name="resumeUrl"
-                    type="url"
-                    required
-                    placeholder="https://linkedin.com/in/..."
-                    className="w-full rounded-xl border border-border/80 bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-cyan"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label
-                  htmlFor="career-note"
-                  className="block text-xs font-semibold text-foreground mb-1.5"
-                >
-                  Brief Note on Your Experience
-                </label>
-                <textarea
-                  id="career-note"
-                  name="note"
-                  rows={4}
-                  placeholder="Tell us about a challenging industrial or AI system you've built or commissioned..."
-                  className="w-full rounded-xl border border-border/80 bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand-cyan"
-                />
-              </div>
-
-              <input type="hidden" name="interest" value="general-inquiry" />
-
-              <button
-                type="submit"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-gradient px-8 py-4 text-sm font-bold text-white shadow-lg hover:opacity-90 transition-opacity"
-              >
-                Continue to Application Submission{" "}
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </form>
+            <CareersForm
+              roles={roles.map((r) => r.frontmatter.title)}
+            />
           </div>
         </div>
       </section>
