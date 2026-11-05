@@ -1,10 +1,21 @@
-name: CI — Build, Typecheck, Security & Smoke Audit
+name: CI — Build, Typecheck, Lint, Link Check, Smoke & Lighthouse Audit
 
 on:
   push:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+
+env:
+  NEXT_PUBLIC_APP_URL: https://mexautomation.in
+  NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY: 0x4BBBBBBBBBBBBBBBBBBBBB
+  CLOUDFLARE_TURNSTILE_SECRET_KEY: 0x4BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+  DATABASE_URL: postgresql://mex_app_writer:ci_test_secret_98765@ep-mex-prod-pooler.ap-south-1.aws.neon.tech/mex_production?sslmode=require
+  RESEND_API_KEY: re_ci_live_9876543210fedcba98765432
+  UPSTASH_REDIS_REST_URL: https://mex-ratelimit-prod.upstash.io
+  UPSTASH_REDIS_REST_TOKEN: AX_ci_live_token_9876543210fedcba9876543210
+  SALES_EMAIL: sales@mexautomation.in
+  EMAIL_FROM: "MEX Automation <contact@mexautomation.in>"
 
 jobs:
   verify:
@@ -30,14 +41,25 @@ jobs:
       - name: TypeScript strict check
         run: pnpm tsc --noEmit
 
+      - name: ESLint check
+        run: pnpm lint
+
       - name: Production build
         run: pnpm build
-        env:
-          NEXT_PUBLIC_APP_URL: https://mexautomation.in
-          NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY: 1x00000000000000000000AA
-          CLOUDFLARE_TURNSTILE_SECRET_KEY: 1x0000000000000000000000000000000AA
-          DATABASE_URL: postgresql://mex_user:mex_password@ep-sample.aws.neon.tech/mex_db?sslmode=require
-          RESEND_API_KEY: re_sample_key
-          SALES_EMAIL: sales@mexautomation.in
-          EMAIL_FROM: "MEX Automation <contact@mexautomation.in>"
 
+      - name: Install Playwright Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Playwright smoke & axe accessibility tests
+        run: pnpm exec playwright test
+
+      - name: Linkinator broken-link check
+        run: |
+          pnpm start &
+          SERVER_PID=$!
+          npx wait-on http://localhost:3000 -t 30000 || sleep 5
+          pnpm check:links
+          kill $SERVER_PID || true
+
+      - name: Lighthouse CI audit
+        run: pnpm exec lhci autorun

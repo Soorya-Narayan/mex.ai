@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
@@ -19,12 +18,6 @@ export function Logo({
   height = 40,
   priority = false,
 }: LogoProps) {
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // Compute aspect ratio and dimensions:
   // Mark: 1000x550 (aspect ratio ~ 1.818)

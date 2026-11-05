@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllProducts, getProduct } from "@/lib/content";
+import { getProduct } from "@/lib/content";
 import { MdxContent } from "@/components/mdx/MdxContent";
 import { BrochureGateModal } from "@/components/products/BrochureGateModal";
 import {

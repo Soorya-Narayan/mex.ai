@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getInsight, getAllInsights, readingTime } from "@/lib/content";
+import { getInsight, readingTime } from "@/lib/content";
 import { MdxContent } from "@/components/mdx/MdxContent";
 import {
   JsonLd,

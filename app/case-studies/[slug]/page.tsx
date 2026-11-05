@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCaseStudy, getAllCaseStudies } from "@/lib/content";
+import { getCaseStudy } from "@/lib/content";
 import { MdxContent } from "@/components/mdx/MdxContent";
 import { JsonLd, getBreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { ChevronRight, ArrowRight, CheckCircle2 } from "lucide-react";
