@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { Download, X, CheckCircle2, Loader2 } from "lucide-react";
+import { useNonce } from "@/components/theme/ThemeProvider";
 
 interface BrochureGateModalProps {
   productTitle: string;
@@ -30,6 +31,7 @@ export function BrochureGateModal({
   const [errorMsg, setErrorMsg] = useState("");
   const turnstileRef = useRef<HTMLDivElement | null>(null);
 
+  const nonce = useNonce();
   const siteKey =
     process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY ||
     "1x00000000000000000000AA";
@@ -54,10 +56,13 @@ export function BrochureGateModal({
     if (!existingScript) {
       const script = document.createElement("script");
       script.id = "cf-turnstile-script";
-      const nonce = document
-        .querySelector('meta[name="csp-nonce"]')
-        ?.getAttribute("content");
-      if (nonce) script.nonce = nonce;
+      const resolvedNonce =
+        nonce ||
+        document
+          .querySelector('meta[name="csp-nonce"]')
+          ?.getAttribute("content") ||
+        undefined;
+      if (resolvedNonce) script.nonce = resolvedNonce;
       script.src =
         "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
       script.async = true;
@@ -67,7 +72,7 @@ export function BrochureGateModal({
     } else {
       renderWidget();
     }
-  }, [open, status, siteKey]);
+  }, [open, status, siteKey, nonce]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

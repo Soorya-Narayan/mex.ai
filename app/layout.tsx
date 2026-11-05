@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import localFont from "next/font/local";
 import "@/lib/env";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
@@ -81,17 +82,24 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
-export default function RootLayout({
+export const dynamic = "force-dynamic";
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
+
   return (
     <html
       lang="en"
       suppressHydrationWarning
       className={`dark ${spaceGrotesk.variable} ${inter.variable}`}
     >
+      <head>
+        {nonce && <meta name="csp-nonce" content={nonce} />}
+      </head>
       <body className="min-h-screen flex flex-col font-sans bg-background text-foreground antialiased selection:bg-brand-blue selection:text-white">
         <a
           href="#main-content"
@@ -104,6 +112,7 @@ export default function RootLayout({
           defaultTheme="dark"
           enableSystem={false}
           disableTransitionOnChange
+          nonce={nonce}
         >
           <Header />
           <main id="main-content" className="flex-1">
@@ -111,9 +120,9 @@ export default function RootLayout({
           </main>
           <Footer />
           <WhatsAppButton />
-          <CookieConsentBanner />
-          <JsonLd data={getOrganizationJsonLd()} />
-          <JsonLd data={getWebSiteJsonLd()} />
+          <CookieConsentBanner nonce={nonce} />
+          <JsonLd data={getOrganizationJsonLd()} nonce={nonce} />
+          <JsonLd data={getWebSiteJsonLd()} nonce={nonce} />
         </ThemeProvider>
       </body>
     </html>

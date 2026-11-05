@@ -12,7 +12,7 @@ declare global {
   }
 }
 
-function enableGoogleAnalytics(measurementId: string) {
+function enableGoogleAnalytics(measurementId: string, nonce?: string) {
   if (!measurementId || typeof window === "undefined") return;
 
   window[`ga-disable-${measurementId}`] = false;
@@ -21,6 +21,15 @@ function enableGoogleAnalytics(measurementId: string) {
     const script = document.createElement("script");
     script.id = "ga4-gtag-script";
     script.async = true;
+    const resolvedNonce =
+      nonce ||
+      document
+        .querySelector('meta[name="csp-nonce"]')
+        ?.getAttribute("content") ||
+      undefined;
+    if (resolvedNonce) {
+      script.nonce = resolvedNonce;
+    }
     script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(
       measurementId
     )}`;
@@ -52,14 +61,14 @@ function disableGoogleAnalytics(measurementId: string) {
   }
 }
 
-export function CookieConsentBanner() {
+export function CookieConsentBanner({ nonce }: { nonce?: string }) {
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "";
 
   useEffect(() => {
     const syncConsentState = () => {
       if (!gaId) return;
       if (CookieConsent.acceptedCategory("analytics")) {
-        enableGoogleAnalytics(gaId);
+        enableGoogleAnalytics(gaId, nonce);
       } else {
         disableGoogleAnalytics(gaId);
       }
@@ -148,7 +157,7 @@ export function CookieConsentBanner() {
       onConsent: syncConsentState,
       onChange: syncConsentState,
     });
-  }, [gaId]);
+  }, [gaId, nonce]);
 
   return null;
 }

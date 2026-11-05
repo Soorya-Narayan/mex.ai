@@ -9,6 +9,7 @@ import {
   type ContactFormValues,
   PRODUCT_INTEREST_OPTIONS,
 } from "@/lib/schemas/contact";
+import { useNonce } from "@/components/theme/ThemeProvider";
 import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 
 declare global {
@@ -60,6 +61,7 @@ export function ContactForm({
     },
   });
 
+  const nonce = useNonce();
   const siteKey =
     process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY ||
     "1x00000000000000000000AA";
@@ -70,6 +72,15 @@ export function ContactForm({
     if (!existingScript) {
       const script = document.createElement("script");
       script.id = "cf-turnstile-script";
+      const resolvedNonce =
+        nonce ||
+        document
+          .querySelector('meta[name="csp-nonce"]')
+          ?.getAttribute("content") ||
+        undefined;
+      if (resolvedNonce) {
+        script.nonce = resolvedNonce;
+      }
       script.src =
         "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
       script.async = true;
@@ -93,7 +104,7 @@ export function ContactForm({
         });
       }
     }
-  }, [siteKey]);
+  }, [siteKey, nonce]);
 
   async function onSubmit(values: ContactFormValues) {
     setStatus("submitting");

@@ -27,14 +27,16 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // 2. Security headers & Content-Security-Policy
+  // 2. Security headers & nonce-based Content-Security-Policy
+  const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
+
   const cspDirectives = [
     "default-src 'self'",
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com https://www.googletagmanager.com https://browser.sentry-cdn.com",
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://challenges.cloudflare.com https://www.googletagmanager.com https://browser.sentry-cdn.com`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://challenges.cloudflare.com",
     "font-src 'self' data:",
-    "connect-src 'self' https://challenges.cloudflare.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.ingest.sentry.io https://*.upstash.io",
+    "connect-src 'self' https://challenges.cloudflare.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.ingest.sentry.io",
     "frame-src 'self' https://challenges.cloudflare.com https://www.google.com https://maps.google.com",
     "object-src 'none'",
     "base-uri 'self'",
@@ -49,6 +51,7 @@ export function middleware(request: NextRequest) {
   const cspHeader = cspDirectives.join("; ");
 
   const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-nonce", nonce);
   requestHeaders.set("Content-Security-Policy", cspHeader);
 
   const response = NextResponse.next({

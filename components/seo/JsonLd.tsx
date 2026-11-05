@@ -1,12 +1,24 @@
 import React from "react";
+import { headers } from "next/headers";
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_APP_URL || "https://mexautomation.in";
 
-export function JsonLd({ data }: { data: Record<string, unknown> }) {
+export async function JsonLd({
+  data,
+  nonce,
+}: {
+  data: Record<string, unknown>;
+  nonce?: string;
+}) {
+  const resolvedNonce =
+    nonce ?? (await headers()).get("x-nonce") ?? undefined;
+
   return (
     <script
       type="application/ld+json"
+      nonce={resolvedNonce}
+      suppressHydrationWarning
       // Trusted server-constructed JSON-LD only
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(data).replace(/</g, "\\u003c"),
