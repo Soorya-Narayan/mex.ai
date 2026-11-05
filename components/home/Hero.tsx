@@ -37,12 +37,6 @@ export function Hero() {
 
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Eyebrow Badge */}
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-border/80 bg-card/60 backdrop-blur-md text-xs font-semibold uppercase tracking-wider text-foreground mb-8 shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-brand-cyan animate-pulse" />
-            <span>Industrial AI & Automation Engineered for Scale</span>
-          </div>
-
           {/* Headline */}
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-foreground leading-[1.1] mb-6">
             Autonomous Precision.{" "}

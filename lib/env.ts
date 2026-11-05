@@ -43,7 +43,7 @@ function validateEnv(): Env {
   const parsed = isServer ? merged.safeParse(envSource) : clientSchema.safeParse(envSource);
 
   if (!parsed.success) {
-    console.error("❌ Invalid environment variables:", parsed.error.flatten().fieldErrors);
+    console.error("Invalid environment variables:", parsed.error.flatten().fieldErrors);
     throw new Error("Invalid environment variables. Check terminal logs.");
   }
 

@@ -1,6 +1,16 @@
 import type { Metadata } from "next";
+import React from "react";
 import Link from "next/link";
-import { ChevronRight, ArrowRight } from "lucide-react";
+import {
+  ChevronRight,
+  ArrowRight,
+  Building2,
+  Factory,
+  Car,
+  Utensils,
+  Pill,
+  Droplets,
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Industries We Serve",
@@ -13,7 +23,7 @@ export const metadata: Metadata = {
 
 interface Industry {
   id: string;
-  emoji: string;
+  icon: React.ComponentType<{ className?: string }>;
   title: string;
   description: string;
   products: { name: string; href: string }[];
@@ -23,7 +33,7 @@ interface Industry {
 const industries: Industry[] = [
   {
     id: "cement",
-    emoji: "🏗️",
+    icon: Building2,
     title: "Cement & Building Materials",
     description:
       "Cement plants operate under extreme heat, dust, and continuous-process constraints that demand real-time visibility across kilns, mills, and conveyors. MEX solutions monitor thermal profiles, detect equipment anomalies early, and unify plant-wide energy data to reduce per-tonne clinker costs.",
@@ -41,7 +51,7 @@ const industries: Industry[] = [
   },
   {
     id: "steel",
-    emoji: "⚙️",
+    icon: Factory,
     title: "Steel & Metals",
     description:
       "Steel and metals manufacturing involves high-temperature furnaces, rolling mills, and complex metallurgical processes where quality deviations are costly and safety-critical. MEX thermal imaging and digital twin platforms provide continuous furnace monitoring, slab-temperature tracking, and surface defect inspection.",
@@ -59,7 +69,7 @@ const industries: Industry[] = [
   },
   {
     id: "automotive",
-    emoji: "🚗",
+    icon: Car,
     title: "Automotive & Auto Components",
     description:
       "Automotive assembly and Tier-1 component manufacturing demand zero-defect quality at high throughput. MEX Vision Systems perform automated surface inspection, weld verification, and dimensional checking on lines where manual inspection cannot keep pace.",
@@ -74,7 +84,7 @@ const industries: Industry[] = [
   },
   {
     id: "food-beverage",
-    emoji: "🥤",
+    icon: Utensils,
     title: "Food & Beverage",
     description:
       "Food and beverage plants must balance regulatory compliance, shelf-life consistency, and high-speed packaging with minimal wastage. MEX temperature monitoring and vision systems ensure cold-chain integrity, verify labels and seals, and log process parameters for audit trails.",
@@ -92,7 +102,7 @@ const industries: Industry[] = [
   },
   {
     id: "pharma",
-    emoji: "💊",
+    icon: Pill,
     title: "Pharmaceuticals & Life Sciences",
     description:
       "Pharmaceutical manufacturing operates under stringent GMP and regulatory requirements where every process parameter must be recorded and traceable. MEX Data Loggers and Dashboards provide high-integrity data capture for temperature, humidity, and critical process variables across formulation and packaging lines.",
@@ -110,7 +120,7 @@ const industries: Industry[] = [
   },
   {
     id: "oil-gas",
-    emoji: "🛢️",
+    icon: Droplets,
     title: "Oil, Gas & Petrochemicals",
     description:
       "Refineries and chemical complexes involve continuous operations where equipment failure carries both safety and financial consequences. MEX thermal surveillance detects hot-spots on switchgear, pipe joints, and rotating equipment, while physics-informed digital twins model compressor and pump health.",
@@ -168,54 +178,53 @@ export default function IndustriesPage() {
       {/* Industry sections */}
       <section className="py-20">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10">
-          {industries.map((industry) => (
-            <article
-              key={industry.id}
-              id={industry.id}
-              className="glow-card rounded-2xl border border-border/60 bg-card/40 p-6 sm:p-8 scroll-mt-24"
-            >
-              <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
-                <div className="max-w-3xl">
-                  <div className="flex items-center gap-3.5 mb-3">
-                    <span
-                      className="text-3xl"
-                      role="img"
-                      aria-label={industry.title}
-                    >
-                      {industry.emoji}
-                    </span>
-                    <h2 className="text-2xl font-bold text-foreground">
-                      {industry.title}
-                    </h2>
+          {industries.map((industry) => {
+            const Icon = industry.icon;
+            return (
+              <article
+                key={industry.id}
+                id={industry.id}
+                className="glow-card rounded-2xl border border-border/60 bg-card/40 p-6 sm:p-8 scroll-mt-24"
+              >
+                <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
+                  <div className="max-w-3xl">
+                    <div className="flex items-center gap-3.5 mb-3">
+                      <div className="w-11 h-11 rounded-xl border border-brand-cyan/30 bg-brand-cyan/10 flex items-center justify-center text-brand-cyan flex-shrink-0">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <h2 className="text-2xl font-bold text-foreground">
+                        {industry.title}
+                      </h2>
+                    </div>
+                    <p className="text-sm font-semibold text-brand-cyan mb-4">
+                      {industry.keyBenefit}
+                    </p>
+                    <p className="text-base text-muted-foreground leading-relaxed">
+                      {industry.description}
+                    </p>
                   </div>
-                  <p className="text-sm font-semibold text-brand-cyan mb-4">
-                    {industry.keyBenefit}
-                  </p>
-                  <p className="text-base text-muted-foreground leading-relaxed">
-                    {industry.description}
-                  </p>
-                </div>
 
-                <div className="md:w-72 flex-shrink-0 pt-2 md:pt-0 md:border-l md:border-border/40 md:pl-6">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                    Applicable MEX Products
-                  </p>
-                  <ul className="flex flex-wrap gap-2">
-                    {industry.products.map((product) => (
-                      <li key={product.href}>
-                        <Link
-                          href={product.href}
-                          className="inline-block rounded-lg border border-border/80 bg-background/80 px-3 py-1.5 text-xs font-semibold text-foreground hover:border-brand-cyan hover:text-brand-cyan transition-colors"
-                        >
-                          {product.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="md:w-72 flex-shrink-0 pt-2 md:pt-0 md:border-l md:border-border/40 md:pl-6">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+                      Applicable MEX Products
+                    </p>
+                    <ul className="flex flex-wrap gap-2">
+                      {industry.products.map((product) => (
+                        <li key={product.href}>
+                          <Link
+                            href={product.href}
+                            className="inline-block rounded-lg border border-border/80 bg-background/80 px-3 py-1.5 text-xs font-semibold text-foreground hover:border-brand-cyan hover:text-brand-cyan transition-colors"
+                          >
+                            {product.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       </section>
 

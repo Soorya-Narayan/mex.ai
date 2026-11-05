@@ -19,7 +19,7 @@ export default async function ProductOgImage({
   const title = product?.frontmatter.title || "MEX Product";
   const tagline =
     product?.frontmatter.tagline ||
-    "Industrial AI & Automation Engineered for Scale";
+    "Autonomous Precision. Zero Downtime.";
 
   return new ImageResponse(
     (
