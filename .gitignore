@@ -31,6 +31,8 @@ pnpm-debug.log*
 MEX_banner-removebg-preview.png
 WhatsApp_Image_*.png
 generate_assets.py
+content/products/**/*.tiff
+content/products/**/*.png
 
 # typescript
 *.tsbuildinfo

@@ -153,8 +153,13 @@ export default function TermsPage() {
             <p>
               For any legal inquiries regarding these Terms &amp; Conditions,
               please contact us at{" "}
-              <span className="font-mono text-foreground">[EMAIL]</span> or by
-              mail at{" "}
+              <a
+                href="mailto:sales@mexautomation.in"
+                className="font-mono text-brand-cyan hover:underline"
+              >
+                sales@mexautomation.in
+              </a>{" "}
+              or by mail at{" "}
               <span className="font-mono text-foreground">[ADDRESS]</span>.
             </p>
           </section>

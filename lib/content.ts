@@ -15,6 +15,15 @@ export const FaqSchema = z.object({
   answer: z.string(),
 });
 
+export const GalleryItemSchema = z.union([
+  z.string(),
+  z.object({
+    src: z.string(),
+    alt: z.string(),
+    caption: z.string().optional(),
+  }),
+]);
+
 export const ProductFrontmatterSchema = z.object({
   title: z.string(),
   slug: z.string(),
@@ -30,7 +39,7 @@ export const ProductFrontmatterSchema = z.object({
   brochureFile: z.string().optional(),
   heroImage: z.string().optional(),
   gallery: z
-    .array(z.string())
+    .array(GalleryItemSchema)
     .optional()
     .transform((v) => v ?? []),
   faq: z
@@ -113,23 +122,38 @@ export type ContentItem<T> = {
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
+function collectMDXFiles(dirPath: string): string[] {
+  if (!fs.existsSync(dirPath)) return [];
+  const results: string[] = [];
+  for (const entry of fs.readdirSync(dirPath, { withFileTypes: true })) {
+    const fullPath = path.join(dirPath, entry.name);
+    if (entry.isDirectory()) {
+      results.push(...collectMDXFiles(fullPath));
+    } else if (entry.name.endsWith(".mdx") || entry.name.endsWith(".md")) {
+      results.push(fullPath);
+    }
+  }
+  return results;
+}
+
 function readMDXDir<S extends z.ZodTypeAny>(
   dir: string,
   schema: S
 ): ContentItem<z.output<S>>[] {
   const contentDir = path.join(process.cwd(), dir);
-  if (!fs.existsSync(contentDir)) return [];
+  const files = collectMDXFiles(contentDir);
 
-  return fs
-    .readdirSync(contentDir)
-    .filter((f) => f.endsWith(".mdx") || f.endsWith(".md"))
-    .map((file) => {
-      const raw = fs.readFileSync(path.join(contentDir, file), "utf-8");
-      const { data, content } = matter(raw);
-      const frontmatter = schema.parse(data) as z.output<S>;
-      const slug = file.replace(/\.(mdx|md)$/, "");
-      return { frontmatter, content, slug };
-    });
+  return files.map((filePath) => {
+    const raw = fs.readFileSync(filePath, "utf-8");
+    const { data, content } = matter(raw);
+    const frontmatter = schema.parse(data) as z.output<S>;
+    const fileSlug = path.basename(filePath).replace(/\.(mdx|md)$/, "");
+    const slug =
+      typeof (frontmatter as { slug?: unknown }).slug === "string"
+        ? (frontmatter as { slug: string }).slug
+        : fileSlug;
+    return { frontmatter, content, slug };
+  });
 }
 
 function readMDXFile<S extends z.ZodTypeAny>(
@@ -137,20 +161,8 @@ function readMDXFile<S extends z.ZodTypeAny>(
   slug: string,
   schema: S
 ): ContentItem<z.output<S>> | null {
-  const contentDir = path.join(process.cwd(), dir);
-  const mdxPath = path.join(contentDir, `${slug}.mdx`);
-  const mdPath = path.join(contentDir, `${slug}.md`);
-  const filePath = fs.existsSync(mdxPath)
-    ? mdxPath
-    : fs.existsSync(mdPath)
-      ? mdPath
-      : null;
-  if (!filePath) return null;
-
-  const raw = fs.readFileSync(filePath, "utf-8");
-  const { data, content } = matter(raw);
-  const frontmatter = schema.parse(data) as z.output<S>;
-  return { frontmatter, content, slug };
+  const all = readMDXDir(dir, schema);
+  return all.find((item) => item.slug === slug) ?? null;
 }
 
 // ─── Public API ──────────────────────────────────────────────────────────────

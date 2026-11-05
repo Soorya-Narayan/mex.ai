@@ -9,6 +9,8 @@ import {
   Mail,
   MessageCircle,
   Clock,
+  Linkedin,
+  Github,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -125,10 +127,12 @@ export default async function ContactPage({
                     <Mail className="w-5 h-5 text-brand-cyan flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="font-semibold text-foreground">Email</p>
-                      <p className="text-muted-foreground mt-0.5">
-                        {/* TODO: Replace [EMAIL] with official MEX sales email */}
-                        [EMAIL]
-                      </p>
+                      <a
+                        href="mailto:sales@mexautomation.in"
+                        className="text-muted-foreground hover:text-brand-cyan transition-colors mt-0.5 inline-block"
+                      >
+                        sales@mexautomation.in
+                      </a>
                     </div>
                   </div>
 
@@ -142,6 +146,33 @@ export default async function ContactPage({
                         Monday – Saturday, 09:30 AM – 06:30 PM IST
                       </p>
                     </div>
+                  </div>
+                </div>
+
+                {/* Social Links */}
+                <div className="pt-4 border-t border-border/40">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+                    Connect With Us
+                  </p>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <a
+                      href="https://www.linkedin.com/company/mexai"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-xl border border-border bg-background/80 hover:border-brand-cyan hover:text-brand-cyan px-4 py-2.5 text-xs font-semibold text-foreground transition-colors"
+                    >
+                      <Linkedin className="w-4 h-4 text-brand-cyan" />
+                      LinkedIn
+                    </a>
+                    <a
+                      href="https://github.com/MEX-AI-Kochi"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-xl border border-border bg-background/80 hover:border-brand-cyan hover:text-brand-cyan px-4 py-2.5 text-xs font-semibold text-foreground transition-colors"
+                    >
+                      <Github className="w-4 h-4 text-brand-cyan" />
+                      GitHub
+                    </a>
                   </div>
                 </div>
 

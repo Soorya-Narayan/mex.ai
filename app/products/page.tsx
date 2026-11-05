@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { getProductGroups, type ProductCategory } from "@/lib/content";
+import { ProductCardPreview } from "@/components/products/ProductCardPreview";
 import { JsonLd, getBreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import {
   ArrowRight,
@@ -93,31 +94,40 @@ export default function ProductsPage() {
                     <Link
                       key={product.slug}
                       href={`/products/${product.slug}`}
-                      className="group glow-card rounded-2xl border border-border/60 bg-card/40 p-6 flex flex-col gap-4 transition-all hover:border-border/80 hover:-translate-y-1 duration-300 focus-visible:ring-2 focus-visible:ring-brand-cyan outline-none"
+                      className="group glow-card rounded-2xl border border-border/60 bg-card/40 overflow-hidden flex flex-col transition-all hover:border-border/80 hover:-translate-y-1 duration-300 focus-visible:ring-2 focus-visible:ring-brand-cyan outline-none"
                     >
-                      <div>
-                        <h3 className="text-xl font-bold text-foreground group-hover:text-brand-cyan transition-colors mb-1.5">
-                          {product.frontmatter.title}
-                        </h3>
-                        <p className="text-sm text-muted-foreground leading-snug">
-                          {product.frontmatter.tagline}
-                        </p>
-                      </div>
+                      <ProductCardPreview
+                        slug={product.slug}
+                        title={product.frontmatter.title}
+                        heroImage={product.frontmatter.heroImage}
+                        category={group.category}
+                        variant="card"
+                      />
+                      <div className="p-6 flex flex-col gap-4 flex-1">
+                        <div>
+                          <h3 className="text-xl font-bold text-foreground group-hover:text-brand-cyan transition-colors mb-1.5">
+                            {product.frontmatter.title}
+                          </h3>
+                          <p className="text-sm text-muted-foreground leading-snug">
+                            {product.frontmatter.tagline}
+                          </p>
+                        </div>
 
-                      <ul className="space-y-1.5 flex-1">
-                        {product.frontmatter.features.slice(0, 3).map((f, i) => (
-                          <li
-                            key={i}
-                            className="flex items-start gap-2 text-xs text-muted-foreground"
-                          >
-                            <span className="w-1 h-1 rounded-full bg-brand-cyan mt-1.5 flex-shrink-0" />
-                            {f}
-                          </li>
-                        ))}
-                      </ul>
+                        <ul className="space-y-1.5 flex-1">
+                          {product.frontmatter.features.slice(0, 3).map((f, i) => (
+                            <li
+                              key={i}
+                              className="flex items-start gap-2 text-xs text-muted-foreground"
+                            >
+                              <span className="w-1 h-1 rounded-full bg-brand-cyan mt-1.5 flex-shrink-0" />
+                              {f}
+                            </li>
+                          ))}
+                        </ul>
 
-                      <div className="flex items-center gap-1.5 text-sm font-semibold text-brand-cyan group-hover:gap-2.5 transition-all">
-                        Learn more <ArrowRight className="w-4 h-4" />
+                        <div className="flex items-center gap-1.5 text-sm font-semibold text-brand-cyan group-hover:gap-2.5 transition-all">
+                          Learn more <ArrowRight className="w-4 h-4" />
+                        </div>
                       </div>
                     </Link>
                   ))}

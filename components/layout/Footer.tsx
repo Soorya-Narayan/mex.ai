@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Linkedin, Mail, Phone, MapPin } from "lucide-react";
+import { Github, Linkedin, Mail, Phone, MapPin } from "lucide-react";
 import * as CookieConsent from "vanilla-cookieconsent";
 import { Logo } from "@/components/brand/Logo";
 
@@ -48,7 +48,16 @@ export function Footer({ products }: FooterProps) {
                 <Linkedin className="w-5 h-5" />
               </a>
               <a
-                href="mailto:contact@mexautomation.in"
+                href="https://github.com/MEX-AI-Kochi"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-lg border border-border bg-background flex items-center justify-center text-muted-foreground hover:text-brand-cyan hover:border-brand-cyan transition-colors focus-visible:ring-2 focus-visible:ring-brand-cyan"
+                aria-label="MEX Automation on GitHub"
+              >
+                <Github className="w-5 h-5" />
+              </a>
+              <a
+                href="mailto:sales@mexautomation.in"
                 className="w-10 h-10 rounded-lg border border-border bg-background flex items-center justify-center text-muted-foreground hover:text-brand-cyan hover:border-brand-cyan transition-colors focus-visible:ring-2 focus-visible:ring-brand-cyan"
                 aria-label="Email MEX Automation"
               >
@@ -155,10 +164,10 @@ export function Footer({ products }: FooterProps) {
               <li className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-brand-cyan shrink-0" />
                 <a
-                  href="mailto:contact@mexautomation.in"
+                  href="mailto:sales@mexautomation.in"
                   className="hover:text-brand-cyan transition-colors"
                 >
-                  contact@mexautomation.in
+                  sales@mexautomation.in
                 </a>
               </li>
             </ul>

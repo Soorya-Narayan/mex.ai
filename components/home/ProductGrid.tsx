@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Cpu } from "lucide-react";
 import { getAllProducts, resolveProductCategory } from "@/lib/content";
+import { ProductCardPreview } from "@/components/products/ProductCardPreview";
 
 export function ProductGrid() {
   const products = getAllProducts();
@@ -31,45 +32,64 @@ export function ProductGrid() {
             return (
               <div
                 key={product.slug}
-                className="group relative rounded-2xl border border-border/80 bg-card/60 backdrop-blur-sm p-8 transition-all duration-300 hover:-translate-y-1 hover:border-brand-cyan/50 hover:shadow-2xl hover:shadow-black/20 flex flex-col justify-between"
+                className="group relative rounded-2xl border border-border/80 bg-card/60 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-brand-cyan/50 hover:shadow-2xl hover:shadow-black/20 flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="w-11 h-11 rounded-xl bg-brand-cyan/10 border border-brand-cyan/30 flex items-center justify-center">
-                      <Cpu className="w-5 h-5 text-brand-cyan" />
+                  <Link
+                    href={`/products/${product.slug}`}
+                    tabIndex={-1}
+                    aria-hidden="true"
+                    className="block"
+                  >
+                    <ProductCardPreview
+                      slug={product.slug}
+                      title={p.title}
+                      heroImage={p.heroImage}
+                      category={category}
+                      variant="card"
+                    />
+                  </Link>
+
+                  <div className="p-7 pb-0">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-10 h-10 rounded-xl bg-brand-cyan/10 border border-brand-cyan/30 flex items-center justify-center">
+                        <Cpu className="w-4 h-4 text-brand-cyan" />
+                      </div>
+                      <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground bg-muted/60 px-2.5 py-1 rounded-md">
+                        {category}
+                      </span>
                     </div>
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground bg-muted/60 px-2.5 py-1 rounded-md">
-                      {category}
-                    </span>
+
+                    <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-brand-cyan transition-colors">
+                      {p.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+                      {p.tagline}
+                    </p>
+
+                    <ul className="space-y-2 mb-7 pt-4 border-t border-border/40">
+                      {p.features.slice(0, 3).map((feature, i) => (
+                        <li
+                          key={i}
+                          className="text-xs text-foreground/80 flex items-start gap-2"
+                        >
+                          <CheckCircle2 className="w-3.5 h-3.5 text-brand-cyan shrink-0 mt-0.5" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-
-                  <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-brand-cyan transition-colors">
-                    {p.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                    {p.tagline}
-                  </p>
-
-                  <ul className="space-y-2 mb-8 pt-4 border-t border-border/40">
-                    {p.features.slice(0, 3).map((feature, i) => (
-                      <li
-                        key={i}
-                        className="text-xs text-foreground/80 flex items-start gap-2"
-                      >
-                        <CheckCircle2 className="w-3.5 h-3.5 text-brand-cyan shrink-0 mt-0.5" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
                 </div>
 
-                <Link
-                  href={`/products/${product.slug}`}
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-brand-cyan hover:text-brand-cyan/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan rounded-md"
-                >
-                  Explore {p.title}
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </Link>
+                <div className="px-7 pb-7">
+                  <Link
+                    href={`/products/${product.slug}`}
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-brand-cyan hover:text-brand-cyan/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan rounded-md"
+                  >
+                    Explore {p.title}
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </div>
               </div>
             );
           })}

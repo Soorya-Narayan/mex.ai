@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
+import { IntroSplash } from "@/components/layout/IntroSplash";
 import { CookieConsentBanner } from "@/components/analytics/CookieConsentBanner";
 import { getAllProducts, getProductNavGroups } from "@/lib/content";
 import {
@@ -118,6 +119,7 @@ export default async function RootLayout({
           disableTransitionOnChange
           nonce={nonce}
         >
+          <IntroSplash />
           <Header productGroups={productGroups} />
           <main id="main-content" className="flex-1">
             {children}

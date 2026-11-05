@@ -168,7 +168,13 @@ export default function CareersPage() {
             <p className="text-sm text-muted-foreground mb-8">
               Don&apos;t see an exact fit? Send your profile below or email your
               CV directly to{" "}
-              <span className="font-mono text-foreground">[EMAIL]</span>.
+              <a
+                href="mailto:sales@mexautomation.in"
+                className="font-mono text-brand-cyan hover:underline"
+              >
+                sales@mexautomation.in
+              </a>
+              .
             </p>
 
             <form action="/contact" method="get" className="space-y-5">

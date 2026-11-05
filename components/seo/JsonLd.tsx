@@ -38,10 +38,14 @@ export function getOrganizationJsonLd() {
     url: BASE_URL,
     logo: `${BASE_URL}/brand/mex-logo-dark-512.png`,
     description: `Indian industrial automation and AI company delivering ${productListText}.`,
-    sameAs: ["https://www.linkedin.com/company/mexai"],
+    sameAs: [
+      "https://www.linkedin.com/company/mexai",
+      "https://github.com/MEX-AI-Kochi",
+    ],
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "sales",
+      email: "sales@mexautomation.in",
       url: `${BASE_URL}/contact`,
       areaServed: "IN",
       availableLanguage: ["English", "Hindi"],
