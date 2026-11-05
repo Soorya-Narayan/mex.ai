@@ -5,6 +5,7 @@ const SAMPLE_PATTERNS = [
   /placeholder/i,
   /example/i,
   /mock/i,
+  /ci-not-a-real/i,
   /re_1234567890abcdef/i,
   /0x4AAAAAAA(?:BBBBBBBB|CCCCCCCC)/i,
   /^1x00000000000000000000/,
@@ -17,9 +18,11 @@ function isSampleOrTestValue(value: string): boolean {
 }
 
 const isProd = process.env.NODE_ENV === "production";
+// Allow fake CI env values only in CI (CI_BUILD=true), never on Netlify
+const isCI = process.env.CI_BUILD === "true" && process.env.NETLIFY !== "true";
 
 const prodRequiredSecret = (name: string, base: z.ZodString = z.string().min(1)) =>
-  isProd
+  isProd && !isCI
     ? base.refine((val) => !isSampleOrTestValue(val), {
         message: `${name} must be a real production value (sample/test values are rejected in production).`,
       })
@@ -29,6 +32,7 @@ const serverSchema = z.object({
   NODE_ENV: z
     .enum(["development", "test", "production"])
     .default("development"),
+  CI_BUILD: z.string().optional(),
   DATABASE_URL: isProd
     ? prodRequiredSecret("DATABASE_URL", z.string().url())
     : z
@@ -83,6 +87,7 @@ export type Env = z.infer<typeof merged>;
 function validateEnv(): Env {
   const envSource = {
     NODE_ENV: process.env.NODE_ENV,
+    CI_BUILD: process.env.CI_BUILD,
     DATABASE_URL: process.env.DATABASE_URL,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     SALES_EMAIL: process.env.SALES_EMAIL,

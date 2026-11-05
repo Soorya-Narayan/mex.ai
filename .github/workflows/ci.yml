@@ -7,14 +7,16 @@ on:
     branches: [main, master]
 
 env:
+  CI_BUILD: "true"
   NEXT_PUBLIC_APP_URL: https://mexautomation.in
-  NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY: 0x4BBBBBBBBBBBBBBBBBBBBB
-  CLOUDFLARE_TURNSTILE_SECRET_KEY: 0x4BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
-  DATABASE_URL: postgresql://mex_app_writer:ci_test_secret_98765@ep-mex-prod-pooler.ap-south-1.aws.neon.tech/mex_production?sslmode=require
-  RESEND_API_KEY: re_ci_live_9876543210fedcba98765432
-  UPSTASH_REDIS_REST_URL: https://mex-ratelimit-prod.upstash.io
-  UPSTASH_REDIS_REST_TOKEN: AX_ci_live_token_9876543210fedcba9876543210
+  NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY: ci-not-a-real-turnstile-site-key
+  CLOUDFLARE_TURNSTILE_SECRET_KEY: ci-not-a-real-turnstile-secret-key
+  DATABASE_URL: postgresql://ci-user:ci-not-a-real-password@localhost:5432/ci_db
+  RESEND_API_KEY: ci-not-a-real-resend-key
+  UPSTASH_REDIS_REST_URL: https://ci-not-a-real-redis.upstash.io
+  UPSTASH_REDIS_REST_TOKEN: ci-not-a-real-redis-token
   SALES_EMAIL: sales@mexautomation.in
+  CAREERS_EMAIL: careers@mexautomation.in
   EMAIL_FROM: "MEX Automation <contact@mexautomation.in>"
 
 jobs:
