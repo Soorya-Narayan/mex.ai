@@ -35,13 +35,13 @@ const WINDOW_META: Record<
     accent: "from-fuchsia-500/20 via-blue-500/15 to-cyan-500/20",
   },
   "crate-pouch-counting": {
-    host: "vision-dispatch-01.edge",
-    badge: "AI VISION · LIVE",
+    host: "vision-crate.local",
+    badge: "YOLOv8s · LIVE",
     accent: "from-cyan-500/20 via-blue-500/15 to-emerald-500/15",
   },
   "bottle-counting": {
-    host: "vision-bottling-02.edge",
-    badge: "300+ BPM · LIVE",
+    host: "vision-bottle.local",
+    badge: "YOLOv8n · ONNX",
     accent: "from-cyan-500/20 via-indigo-500/15 to-blue-500/15",
   },
 };
@@ -134,17 +134,17 @@ export function ProductCardPreview({
 function CratePouchVisionHud() {
   return (
     <div className="relative aspect-[16/9.25] w-full bg-[#070C17] p-3 sm:p-4 flex flex-col justify-between overflow-hidden select-none">
-      {/* Top HUD Telemetry Row */}
+      {/* Top HUD Telemetry Row — uses only verified MDX spec figures */}
       <div className="flex items-center justify-between text-[10px] font-mono">
         <div className="flex items-center gap-2">
           <span className="px-1.5 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-semibold">
-            CAM-01 · DISPATCH CONVEYOR
+            CRATE &amp; POUCH AUDIT
           </span>
-          <span className="text-slate-400 hidden sm:inline">ROI LOCKED</span>
         </div>
         <div className="text-right">
-          <span className="text-slate-400 mr-1.5">SHIFT COUNT:</span>
-          <span className="text-emerald-400 font-bold text-xs">1,428</span>
+          <span className="text-emerald-400 font-bold text-[10px]">
+            98.25% mAP@50
+          </span>
         </div>
       </div>
 
@@ -158,8 +158,8 @@ function CratePouchVisionHud() {
 
         {/* Crate 1 */}
         <div className="relative w-20 sm:w-24 h-16 sm:h-20 rounded border-2 border-emerald-400/90 bg-emerald-500/10 p-1.5 flex flex-col justify-between">
-          <span className=" -mt-3.5 self-start px-1 py-0.2 rounded bg-emerald-500 text-[8px] font-mono font-bold text-slate-950">
-            CRATE · 99.8%
+          <span className="-mt-3.5 self-start px-1 py-0.2 rounded bg-emerald-500 text-[8px] font-mono font-bold text-slate-950">
+            CRATE VERIFIED
           </span>
           <div className="grid grid-cols-3 gap-1 my-auto">
             {Array.from({ length: 6 }).map((_, i) => (
@@ -170,14 +170,14 @@ function CratePouchVisionHud() {
             ))}
           </div>
           <span className="text-[8px] font-mono text-emerald-300 text-center">
-            24 POUCHES OK
+            20 POUCHES
           </span>
         </div>
 
         {/* Crate 2 crossing line */}
         <div className="relative w-20 sm:w-24 h-16 sm:h-20 rounded border-2 border-cyan-400 bg-cyan-500/10 p-1.5 flex flex-col justify-between shadow-[0_0_15px_rgba(34,211,238,0.2)]">
           <span className="-mt-3.5 self-start px-1 py-0.2 rounded bg-cyan-400 text-[8px] font-mono font-bold text-slate-950">
-            COUNTED #1428
+            PACK VARIANT
           </span>
           <div className="grid grid-cols-3 gap-1 my-auto">
             {Array.from({ length: 6 }).map((_, i) => (
@@ -188,15 +188,15 @@ function CratePouchVisionHud() {
             ))}
           </div>
           <span className="text-[8px] font-mono text-cyan-200 text-center">
-            SKU: MILK-500ML
+            COLOUR MATCH
           </span>
         </div>
       </div>
 
-      {/* Bottom Status Strip */}
+      {/* Bottom Status Strip — from MDX specs */}
       <div className="flex items-center justify-between text-[9px] font-mono text-slate-400">
-        <span>CRATES: 1,428 · POUCHES: 34,272</span>
-        <span className="text-cyan-300">SHORTAGE ALERTS: 0</span>
+        <span>DECISION: &lt;31 ms / CRATE</span>
+        <span className="text-cyan-300">24 CRATES/MIN</span>
       </div>
     </div>
   );
@@ -205,64 +205,58 @@ function CratePouchVisionHud() {
 function BottleCountingVisionHud() {
   return (
     <div className="relative aspect-[16/9.25] w-full bg-[#070C17] p-3 sm:p-4 flex flex-col justify-between overflow-hidden select-none">
-      {/* Top HUD Telemetry Row */}
+      {/* Top HUD Telemetry Row — uses only verified MDX spec figures */}
       <div className="flex items-center justify-between text-[10px] font-mono">
         <div className="flex items-center gap-2">
           <span className="px-1.5 py-0.5 rounded bg-blue-500/15 text-blue-300 border border-blue-500/30 font-semibold">
-            CAM-02 · HIGH-SPEED BOTTLING
+            BOTTLE CONVEYOR FEED
           </span>
         </div>
         <div className="text-right">
-          <span className="text-slate-400 mr-1.5">RATE:</span>
-          <span className="text-cyan-400 font-bold text-xs">312 BPM</span>
+          <span className="text-cyan-400 font-bold text-[10px]">
+            98.4% mAP@50
+          </span>
         </div>
       </div>
 
-      {/* Simulated Single-File High-Speed Bottle Track */}
+      {/* Simulated Single-File Bottle Track */}
       <div className="relative my-2 flex-1 rounded-lg border border-slate-800 bg-gradient-to-r from-slate-950 via-slate-900/90 to-slate-950 flex items-center justify-evenly px-2 overflow-hidden">
         <div className="absolute inset-x-0 bottom-3 h-1 bg-slate-800" />
         <div className="absolute inset-y-0 left-1/2 w-[1.5px] bg-gradient-to-b from-cyan-400/20 via-cyan-400 to-cyan-400/20 shadow-[0_0_8px_#22d3ee]" />
 
-        {[
-          { id: "B-881", conf: "99.9%", active: false },
-          { id: "B-882", conf: "99.8%", active: false },
-          { id: "B-883", conf: "99.9%", active: true },
-          { id: "B-884", conf: "99.7%", active: false },
-          { id: "B-885", conf: "99.9%", active: false },
-        ].map((b) => (
+        {[false, false, true, false, false].map((active, idx) => (
           <div
-            key={b.id}
+            key={idx}
             className={`relative w-10 sm:w-12 h-16 sm:h-20 rounded border ${
-              b.active
+              active
                 ? "border-cyan-400 bg-cyan-500/15 shadow-[0_0_12px_rgba(34,211,238,0.25)]"
                 : "border-emerald-400/75 bg-emerald-500/10"
             } flex flex-col items-center justify-between p-1`}
           >
             <span
               className={`text-[7px] font-mono font-bold px-1 rounded ${
-                b.active
+                active
                   ? "bg-cyan-400 text-slate-950"
                   : "bg-emerald-500/80 text-slate-950"
               }`}
             >
-              {b.conf}
+              {active ? "COUNTED" : "BOTTLE"}
             </span>
             {/* Bottle silhouette */}
             <div className="flex flex-col items-center">
               <div className="w-2 h-2.5 rounded-t-sm bg-slate-300/70" />
               <div className="w-4 h-7 rounded-t-md rounded-b-sm bg-slate-200/40 border border-white/30" />
             </div>
-            <span className="text-[7px] font-mono text-slate-300">{b.id}</span>
+            <span className="text-[7px] font-mono text-slate-300">TRACKED</span>
           </div>
         ))}
       </div>
 
-      {/* Bottom Status Strip */}
+      {/* Bottom Status Strip — from MDX specs */}
       <div className="flex items-center justify-between text-[9px] font-mono text-slate-400">
-        <span>SHIFT TOTAL: 48,910 BOTTLES</span>
-        <span className="text-emerald-400">JAM STATUS: CLEAR</span>
+        <span>PRECISION: 93.9% · RECALL: 97.0%</span>
+        <span className="text-emerald-400">ONNX EDGE</span>
       </div>
     </div>
   );
 }
-
